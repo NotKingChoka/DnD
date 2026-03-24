@@ -1,29 +1,29 @@
 export const PLACEHOLDER_PHB_CONTENT = 'PLACEHOLDER_PHB_CONTENT'
 
-// Здесь будет контент из книги игрока (можно вставить вручную позже)
+//       (   )
 export const PHB_PLACEHOLDER_NOTE =
-  'Здесь будет контент из книги игрока (можно вставить вручную позже)'
+  '      (   )'
 
 export const WIKI_MODE_CONFIG = [
   {
-    description: 'Структура книги игрока с главами, разделами и местом под ручную вставку текста.',
+    description: '    ,       .',
     id: 'phb',
-    label: 'Полная книга',
+    label: ' ',
   },
   {
-    description: 'Простые объяснения, короткие примеры и визуальные шпаргалки.',
+    description: ' ,     .',
     id: 'simple',
-    label: 'Простая версия',
+    label: ' ',
   },
   {
-    description: 'Карточки существ, фильтры по типу и среде, быстрые боевые ориентиры.',
+    description: ' ,     ,   .',
     id: 'bestiary',
-    label: 'Бестиарий',
+    label: '',
   },
   {
-    description: 'Классы, расы, ключевые способности и связи с другими режимами.',
+    description: ', ,       .',
     id: 'classes-races',
-    label: 'Классы и расы',
+    label: '  ',
   },
 ]
 
@@ -117,7 +117,7 @@ export function createWikiSearchIndex(database) {
 
   database.simpleWiki?.entries?.forEach((entry) => {
     index.push({
-      category: 'Простая версия',
+      category: ' ',
       description: entry.summary,
       label: entry.title,
       mode: 'simple',
@@ -132,8 +132,8 @@ export function createWikiSearchIndex(database) {
 
   database.bestiary?.entries?.forEach((entry) => {
     index.push({
-      category: 'Бестиарий',
-      description: `${entry.type} • ${entry.cr} • ${entry.terrain.join(', ')}`,
+      category: '',
+      description: `${entry.type}  ${entry.cr}  ${entry.terrain.join(', ')}`,
       label: entry.name,
       mode: 'bestiary',
       searchText: [
@@ -154,8 +154,8 @@ export function createWikiSearchIndex(database) {
 
   database.classes?.entries?.forEach((entry) => {
     index.push({
-      category: 'Классы',
-      description: `${entry.role} • d${entry.hitDie} • ключевая характеристика: ${entry.keyAbility}`,
+      category: '',
+      description: `${entry.role}  d${entry.hitDie}   : ${entry.keyAbility}`,
       label: entry.name,
       mode: 'classes-races',
       searchText: [
@@ -177,8 +177,8 @@ export function createWikiSearchIndex(database) {
 
   database.races?.entries?.forEach((entry) => {
     index.push({
-      category: 'Расы',
-      description: `${entry.size} • скорость ${entry.speed} футов • ${entry.identity}`,
+      category: '',
+      description: `${entry.size}   ${entry.speed}   ${entry.identity}`,
       label: entry.name,
       mode: 'classes-races',
       searchText: [
@@ -199,7 +199,7 @@ export function createWikiSearchIndex(database) {
 
   database.glossary?.terms?.forEach((term) => {
     index.push({
-      category: 'Глоссарий',
+      category: '',
       description: term.definition,
       label: term.term,
       mode: term.mode ?? 'simple',

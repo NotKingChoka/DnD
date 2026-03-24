@@ -3,98 +3,98 @@ import { CLASS_OPTIONS, SPELL_OPTIONS } from './courseData'
 import { playArcaneCue, rollDie } from './utils'
 
 const DND_SEQUENCE_OPTIONS = [
-  { id: 'dm', label: 'Мастер описывает мир', note: 'Он задаёт сцену и атмосферу.' },
-  { id: 'player', label: 'Игрок выбирает действие', note: 'Герой делает осознанный ход.' },
-  { id: 'dice', label: 'Кубик решает риск', note: 'Бросок нужен, когда исход неочевиден.' },
-  { id: 'result', label: 'История движется дальше', note: 'Мир отвечает последствиями.' },
+  { id: 'dm', label: '  ', note: '    .' },
+  { id: 'player', label: '  ', note: '   .' },
+  { id: 'dice', label: '  ', note: ' ,   .' },
+  { id: 'result', label: '  ', note: '  .' },
 ]
 
 const ROLE_ASSIGNMENT_CARDS = [
-  { id: 'describe', text: '«Перед вами запертая дверь в древних руинах.»', answer: 'dm' },
-  { id: 'choice', text: '«Я осматриваю замок и петли.»', answer: 'player' },
-  { id: 'check', text: '«Брось d20 и прибавь ловкость.»', answer: 'roll' },
-  { id: 'result', text: '«С результатом 16 ловушка замечена.»', answer: 'roll' },
+  { id: 'describe', text: '      .', answer: 'dm' },
+  { id: 'choice', text: '    .', answer: 'player' },
+  { id: 'check', text: ' d20   .', answer: 'roll' },
+  { id: 'result', text: '  16  .', answer: 'roll' },
 ]
 
 const ROLE_OPTIONS = [
-  { id: 'dm', label: 'Мастер' },
-  { id: 'player', label: 'Игрок' },
-  { id: 'roll', label: 'Проверка' },
+  { id: 'dm', label: '' },
+  { id: 'player', label: '' },
+  { id: 'roll', label: '' },
 ]
 
 const DICE_ALTAR_ROUNDS = [
   {
     id: 'trap',
-    prompt: 'Проверка: заметил ли ты ловушку у двери?',
+    prompt: ':      ?',
     answer: 'd20',
     options: ['d4', 'd6', 'd20'],
-    success: 'Проверки успеха чаще всего крутятся вокруг d20.',
+    success: '      d20.',
   },
   {
     id: 'sword',
-    prompt: 'Урон от короткого меча по гоблину.',
+    prompt: '     .',
     answer: 'd6',
     options: ['d6', 'd12', 'd20'],
-    success: 'Небольшое оружие часто использует d6 для урона.',
+    success: '    d6  .',
   },
   {
     id: 'iconic',
-    prompt: 'Самый узнаваемый кубик D&D на гербе академии.',
+    prompt: '   D&D   .',
     answer: 'd20',
     options: ['d8', 'd20', 'd10'],
-    success: 'Именно d20 чаще всего ассоциируется с D&D.',
+    success: ' d20     D&D.',
   },
 ]
 
 const SKILL_PATH_CHECKS = [
-  { id: 'jump', prompt: 'Перепрыгнуть трещину в полу храма', bonus: 2, dc: 13, stat: 'Ловкость' },
-  { id: 'hide', prompt: 'Спрятаться за колонной до патруля', bonus: 3, dc: 14, stat: 'Ловкость' },
-  { id: 'tracks', prompt: 'Заметить свежие следы на пыли', bonus: 1, dc: 12, stat: 'Мудрость' },
-  { id: 'lock', prompt: 'Открыть древний замок без шума', bonus: 4, dc: 15, stat: 'Ловкость' },
+  { id: 'jump', prompt: '    ', bonus: 2, dc: 13, stat: '' },
+  { id: 'hide', prompt: '    ', bonus: 3, dc: 14, stat: '' },
+  { id: 'tracks', prompt: '    ', bonus: 1, dc: 12, stat: '' },
+  { id: 'lock', prompt: '    ', bonus: 4, dc: 15, stat: '' },
 ]
 
 const ABILITY_SCENES = [
   {
     id: 'stone',
-    prompt: 'Поднять тяжёлый камень у входа',
-    answer: 'Сила',
-    options: ['Сила', 'Ловкость', 'Харизма', 'Интеллект', 'Мудрость', 'Телосложение'],
-    success: 'Сила отвечает за грубую мощь и давление.',
+    prompt: '    ',
+    answer: '',
+    options: ['', '', '', '', '', ''],
+    success: '      .',
   },
   {
     id: 'guard',
-    prompt: 'Убедить стражника дать вам минуту',
-    answer: 'Харизма',
-    options: ['Сила', 'Ловкость', 'Харизма', 'Интеллект', 'Мудрость', 'Телосложение'],
-    success: 'Харизма помогает влиять, убеждать и вести диалог.',
+    prompt: '    ',
+    answer: '',
+    options: ['', '', '', '', '', ''],
+    success: '  ,    .',
   },
   {
     id: 'forest',
-    prompt: 'Заметить шорох в тёмном лесу',
-    answer: 'Мудрость',
-    options: ['Сила', 'Ловкость', 'Харизма', 'Интеллект', 'Мудрость', 'Телосложение'],
-    success: 'Мудрость чувствует детали, интуицию и внимание.',
+    prompt: '    ',
+    answer: '',
+    options: ['', '', '', '', '', ''],
+    success: '  ,   .',
   },
   {
     id: 'symbol',
-    prompt: 'Вспомнить древний символ на арке',
-    answer: 'Интеллект',
-    options: ['Сила', 'Ловкость', 'Харизма', 'Интеллект', 'Мудрость', 'Телосложение'],
-    success: 'Интеллект связан со знаниями и памятью.',
+    prompt: '    ',
+    answer: '',
+    options: ['', '', '', '', '', ''],
+    success: '     .',
   },
   {
     id: 'jump-2',
-    prompt: 'Перепрыгнуть рухнувшую балку',
-    answer: 'Ловкость',
-    options: ['Сила', 'Ловкость', 'Харизма', 'Интеллект', 'Мудрость', 'Телосложение'],
-    success: 'Ловкость ведёт координацию, баланс и быстрые движения.',
+    prompt: '  ',
+    answer: '',
+    options: ['', '', '', '', '', ''],
+    success: '  ,    .',
   },
 ]
 
 const MODIFIER_FORGE_ROUNDS = [
-  { id: 'door', roll: 12, bonus: 3, answer: 15, options: [14, 15, 16], prompt: 'Дверь откроется при 15 или выше.' },
-  { id: 'trap', roll: 9, bonus: 4, answer: 13, options: [12, 13, 14], prompt: 'Нужно успеть заметить ловушку.' },
-  { id: 'jump', roll: 16, bonus: 2, answer: 18, options: [18, 19, 20], prompt: 'Герой прыгает через пролом.' },
+  { id: 'door', roll: 12, bonus: 3, answer: 15, options: [14, 15, 16], prompt: '   15  .' },
+  { id: 'trap', roll: 9, bonus: 4, answer: 13, options: [12, 13, 14], prompt: '   .' },
+  { id: 'jump', roll: 16, bonus: 2, answer: 18, options: [18, 19, 20], prompt: '   .' },
 ]
 
 function useResolveOnce(completed, onResolve) {
@@ -121,14 +121,14 @@ function MiniGameScaffold({ children, completed, miniGame, onReplay }) {
     <section className={`lesson-section mini-game-shell type-${miniGame.type}`}>
       <div className="lesson-section-head mini-game-head">
         <div>
-          <span className="section-kicker">Испытание приключенца</span>
+          <span className="section-kicker"> </span>
           <h3 className="section-title">{miniGame.title}</h3>
           <p className="section-subtitle">{miniGame.intro}</p>
         </div>
         <div className="mini-game-status">
           <span className="result-pill">+{miniGame.xp} XP</span>
           <button className="ghost-button" onClick={onReplay} type="button">
-            Переиграть
+            
           </button>
         </div>
       </div>
@@ -160,8 +160,8 @@ function SequenceMiniGame({ completed, onResolve, soundEnabled, targetOrder }) {
     const success = nextSequence.every((id, index) => id === targetOrder[index])
     setFeedback(
       success
-        ? 'Цепочка сложилась правильно. Именно так сцена оживает в D&D.'
-        : 'Порядок сбился. Сначала мир описывают, потом герой действует, и только затем кубик решает риск.',
+        ? '  .      D&D.'
+        : ' .   ,   ,      .',
     )
     playArcaneCue(soundEnabled, success ? 'success' : 'fail')
 
@@ -181,7 +181,7 @@ function SequenceMiniGame({ completed, onResolve, soundEnabled, targetOrder }) {
           return (
             <div className="mini-game-slot" key={index}>
               <strong>{index + 1}</strong>
-              <span>{selected?.label ?? 'Пустой шаг'}</span>
+              <span>{selected?.label ?? ' '}</span>
             </div>
           )
         })}
@@ -203,7 +203,7 @@ function SequenceMiniGame({ completed, onResolve, soundEnabled, targetOrder }) {
       </div>
 
       {feedback && (
-        <div className={`mini-game-feedback ${feedback.startsWith('Цепочка') ? 'success' : 'fail'}`}>
+        <div className={`mini-game-feedback ${feedback.startsWith('') ? 'success' : 'fail'}`}>
           {feedback}
         </div>
       )}
@@ -220,7 +220,7 @@ function RoleAssignmentMiniGame({ completed, onResolve, soundEnabled }) {
 
   const checkAssignments = () => {
     if (!allAssigned) {
-      setFeedback('Сначала распредели все карточки по ролям.')
+      setFeedback('     .')
       playArcaneCue(soundEnabled, 'fail')
       return
     }
@@ -228,8 +228,8 @@ function RoleAssignmentMiniGame({ completed, onResolve, soundEnabled }) {
     const success = ROLE_ASSIGNMENT_CARDS.every((card) => answers[card.id] === card.answer)
     setFeedback(
       success
-        ? 'Верно. Мастер описывает, игрок решает, а проверка показывает риск и итог.'
-        : 'Почти. Посмотри, кто говорит о мире, кто говорит за героя и где включается проверка.',
+        ? '.  ,  ,      .'
+        : '. ,    ,        .',
     )
     playArcaneCue(soundEnabled, success ? 'success' : 'fail')
 
@@ -261,11 +261,11 @@ function RoleAssignmentMiniGame({ completed, onResolve, soundEnabled }) {
       </div>
 
       <button className="btn-secondary" onClick={checkAssignments} type="button">
-        Проверить роли
+         
       </button>
 
       {feedback && (
-        <div className={`mini-game-feedback ${feedback.startsWith('Верно') ? 'success' : 'fail'}`}>
+        <div className={`mini-game-feedback ${feedback.startsWith('') ? 'success' : 'fail'}`}>
           {feedback}
         </div>
       )}
@@ -281,7 +281,7 @@ function DiceAltarMiniGame({ completed, onResolve, soundEnabled }) {
 
   const choose = (die) => {
     const success = die === round.answer
-    setFeedback(success ? round.success : 'Этот кубик здесь не лучший выбор. Подумай о роли сцены.')
+    setFeedback(success ? round.success : '     .    .')
     playArcaneCue(soundEnabled, success ? 'success' : 'fail')
 
     if (!success) {
@@ -301,7 +301,7 @@ function DiceAltarMiniGame({ completed, onResolve, soundEnabled }) {
       <div className="mini-game-board">
         <strong>{round.prompt}</strong>
         <small>
-          Сцена {roundIndex + 1} / {DICE_ALTAR_ROUNDS.length}
+           {roundIndex + 1} / {DICE_ALTAR_ROUNDS.length}
         </small>
       </div>
 
@@ -339,7 +339,7 @@ function SkillPathMiniGame({ completed, onResolve, soundEnabled }) {
     if (roundIndex === SKILL_PATH_CHECKS.length - 1) {
       finishOnce({
         rewardText:
-          'Ты прошёл несколько проверок подряд и увидел, как даже неудача двигает сцену дальше.',
+          '      ,      .',
       })
       return
     }
@@ -354,20 +354,20 @@ function SkillPathMiniGame({ completed, onResolve, soundEnabled }) {
       <div className="mini-game-board">
         <strong>{round.prompt}</strong>
         <div className="mini-game-equation">
-          <span>Бонус: +{round.bonus}</span>
+          <span>: +{round.bonus}</span>
           <span>{round.stat}</span>
           <span>DC {round.dc}</span>
         </div>
       </div>
 
       <button className="btn-secondary" onClick={rollCheck} type="button">
-        Бросить d20
+         d20
       </button>
 
       {latest && latest.id === round.id && (
         <div className={`mini-game-feedback ${latest.success ? 'success' : 'fail'}`}>
-          d20 = {latest.roll}, итог = {latest.total}.{' '}
-          {latest.success ? 'Проверка пройдена.' : 'Проверка не удалась, но сцена всё равно движется.'}
+          d20 = {latest.roll},  = {latest.total}.{' '}
+          {latest.success ? ' .' : '  ,     .'}
         </div>
       )}
 
@@ -391,7 +391,7 @@ function AbilityScenesMiniGame({ completed, onResolve, soundEnabled }) {
 
   const choose = (ability) => {
     const success = ability === round.answer
-    setFeedback(success ? round.success : 'Не совсем. Подумай, какой талант здесь помогает в первую очередь.')
+    setFeedback(success ? round.success : ' . ,       .')
     playArcaneCue(soundEnabled, success ? 'success' : 'fail')
 
     if (!success) {
@@ -411,7 +411,7 @@ function AbilityScenesMiniGame({ completed, onResolve, soundEnabled }) {
       <div className="mini-game-board">
         <strong>{round.prompt}</strong>
         <small>
-          Сцена {roundIndex + 1} / {ABILITY_SCENES.length}
+           {roundIndex + 1} / {ABILITY_SCENES.length}
         </small>
       </div>
 
@@ -435,92 +435,92 @@ function AbilityScenesMiniGame({ completed, onResolve, soundEnabled }) {
 const CLASS_SCENARIOS = [
   {
     id: 'frontline',
-    prompt: 'Удержать фронт против напора врага',
+    prompt: '    ',
     answer: 'fighter',
     options: ['fighter', 'rogue', 'wizard', 'bard'],
-    success: 'Воин ставит щит и спокойно держит линию.',
+    success: '      .',
   },
   {
     id: 'shadow',
-    prompt: 'Тихо пробраться мимо дозорного',
+    prompt: '   ',
     answer: 'rogue',
     options: ['paladin', 'rogue', 'cleric', 'barbarian'],
-    success: 'Разбойник исчезает в тени и проходит бесшумно.',
+    success: '      .',
   },
   {
     id: 'heal',
-    prompt: 'Поднять раненого союзника светом',
+    prompt: '   ',
     answer: 'cleric',
     options: ['fighter', 'cleric', 'wizard', 'ranger'],
-    success: 'Клирик накрывает союзника тёплым золотым сиянием.',
+    success: '     .',
   },
   {
     id: 'arcane',
-    prompt: 'Поразить врага магическим зарядом издалека',
+    prompt: '    ',
     answer: 'wizard',
     options: ['wizard', 'bard', 'fighter', 'paladin'],
-    success: 'Маг выпускает чёткий луч силы с безопасной дистанции.',
+    success: '       .',
   },
   {
     id: 'support',
-    prompt: 'Поддержать команду речью и музыкой',
+    prompt: '    ',
     answer: 'bard',
     options: ['bard', 'barbarian', 'paladin', 'ranger'],
-    success: 'Бард поднимает дух отряда и меняет ритм сцены.',
+    success: '       .',
   },
 ]
 
 const AC_ARENA_TARGETS = [
-  { id: 'goblin', name: 'Гоблин', ac: 12, bonus: 4, flavor: 'Небольшой и юркий.' },
-  { id: 'skeleton', name: 'Скелет', ac: 14, bonus: 4, flavor: 'Старый, но крепкий.' },
-  { id: 'knight', name: 'Рыцарь', ac: 18, bonus: 4, flavor: 'Тяжёлая броня и щит.' },
+  { id: 'goblin', name: '', ac: 12, bonus: 4, flavor: '  .' },
+  { id: 'skeleton', name: '', ac: 14, bonus: 4, flavor: ',  .' },
+  { id: 'knight', name: '', ac: 18, bonus: 4, flavor: '   .' },
 ]
 
 const DAMAGE_FORGE_WEAPONS = [
-  { id: 'dagger', name: 'Кинжал', die: 4, hp: 5, attackBonus: 5, attackDc: 11 },
-  { id: 'sword', name: 'Меч', die: 8, hp: 8, attackBonus: 5, attackDc: 12 },
-  { id: 'hammer', name: 'Молот', die: 10, hp: 10, attackBonus: 5, attackDc: 13 },
+  { id: 'dagger', name: '', die: 4, hp: 5, attackBonus: 5, attackDc: 11 },
+  { id: 'sword', name: '', die: 8, hp: 8, attackBonus: 5, attackDc: 12 },
+  { id: 'hammer', name: '', die: 10, hp: 10, attackBonus: 5, attackDc: 13 },
 ]
 
 const LIGHT_SPELL = {
   id: 'light',
   name: 'Light',
-  description: 'Небольшой источник света.',
-  effect: 'Сфера мягкого света раскрывает тёмные углы и символы.',
+  description: '  .',
+  effect: '       .',
 }
 
 const SPELL_SCENES = [
   {
     id: 'ally',
-    prompt: 'Союзник ранен и едва держится на ногах.',
+    prompt: '      .',
     answer: 'heal',
-    success: 'Тёплый свет затягивает раны и возвращает силы.',
+    success: 'Ҹ      .',
   },
   {
     id: 'far',
-    prompt: 'Враг стоит далеко на каменном мосту.',
+    prompt: '     .',
     answer: 'fire-bolt',
-    success: 'Огненный луч летит точно в цель через весь пролёт.',
+    success: '        .',
   },
   {
     id: 'defense',
-    prompt: 'На тебя уже несётся удар копья.',
+    prompt: '     .',
     answer: 'shield',
-    success: 'Прозрачный барьер вспыхивает и гасит импульс удара.',
+    success: '      .',
   },
   {
     id: 'dark',
-    prompt: 'Тёмный коридор скрывает руны и трещины.',
+    prompt: 'Ҹ     .',
     answer: 'light',
-    success: 'Мягкое сияние заливает коридор и открывает детали.',
+    success: '      .',
   },
 ]
 
 const TAVERN_APPROACHES = [
-  { id: 'observe', label: 'Наблюдать издалека', bonus: 2, dc: 12, stat: 'Мудрость' },
-  { id: 'talk', label: 'Подойти и заговорить', bonus: 3, dc: 13, stat: 'Харизма' },
-  { id: 'watch', label: 'Сесть рядом и прислушаться', bonus: 1, dc: 11, stat: 'Мудрость' },
-  { id: 'ignore', label: 'Сделать вид, что не заметил', bonus: 0, dc: 10, stat: 'Хладнокровие' },
+  { id: 'observe', label: ' ', bonus: 2, dc: 12, stat: '' },
+  { id: 'talk', label: '  ', bonus: 3, dc: 13, stat: '' },
+  { id: 'watch', label: '   ', bonus: 1, dc: 11, stat: '' },
+  { id: 'ignore', label: ' ,   ', bonus: 0, dc: 10, stat: '' },
 ]
 
 function ModifierForgeMiniGame({ completed, onResolve, soundEnabled }) {
@@ -533,8 +533,8 @@ function ModifierForgeMiniGame({ completed, onResolve, soundEnabled }) {
     const success = answer === round.answer
     setFeedback(
       success
-        ? `Верно. ${round.roll} + ${round.bonus} = ${round.answer}.`
-        : 'Почти. Сложи d20 и бонус ещё раз.',
+        ? `. ${round.roll} + ${round.bonus} = ${round.answer}.`
+        : '.  d20    .',
     )
     playArcaneCue(soundEnabled, success ? 'success' : 'fail')
 
@@ -556,8 +556,8 @@ function ModifierForgeMiniGame({ completed, onResolve, soundEnabled }) {
         <strong>{round.prompt}</strong>
         <div className="mini-game-equation">
           <span>d20 = {round.roll}</span>
-          <span>Бонус = +{round.bonus}</span>
-          <span>Итог = ?</span>
+          <span> = +{round.bonus}</span>
+          <span> = ?</span>
         </div>
       </div>
 
@@ -570,7 +570,7 @@ function ModifierForgeMiniGame({ completed, onResolve, soundEnabled }) {
       </div>
 
       {feedback && (
-        <div className={`mini-game-feedback ${feedback.startsWith('Верно') ? 'success' : 'fail'}`}>
+        <div className={`mini-game-feedback ${feedback.startsWith('') ? 'success' : 'fail'}`}>
           {feedback}
         </div>
       )}
@@ -592,7 +592,7 @@ function ClassScenarioMiniGame({ completed, onResolve, soundEnabled }) {
   const choose = (classId) => {
     const success = classId === round.answer
     setSelectedClassId(classId)
-    setFeedback(success ? round.success : 'Этот класс тоже интересен, но сцене нужен другой набор сильных сторон.')
+    setFeedback(success ? round.success : '   ,       .')
     playArcaneCue(soundEnabled, success ? 'success' : 'fail')
 
     if (!success) {
@@ -615,7 +615,7 @@ function ClassScenarioMiniGame({ completed, onResolve, soundEnabled }) {
     <div className="mini-game-stage">
       <div className="mini-game-board">
         <strong>{round.prompt}</strong>
-        <small>Выбери класс, который лучше всего подходит к ситуации.</small>
+        <small> ,      .</small>
       </div>
 
       <div className="mini-game-option-grid">
@@ -657,7 +657,7 @@ function CombatTutorialMiniGame({ completed, onResolve, soundEnabled }) {
     initiative: null,
     attack: null,
     damage: null,
-    log: ['Гоблин выскакивает из-за ящика. Сначала решите инициативу.'],
+    log: ['  - .   .'],
   })
 
   const updateLog = (message, partial) =>
@@ -673,8 +673,8 @@ function CombatTutorialMiniGame({ completed, onResolve, soundEnabled }) {
     playArcaneCue(soundEnabled, 'roll')
     updateLog(
       hero >= goblin
-        ? `Инициатива ${hero} против ${goblin}. Ты ходишь первым.`
-        : `Инициатива ${hero} против ${goblin}. Гоблин всё равно не успел навязать темп.`,
+        ? ` ${hero}  ${goblin}.   .`
+        : ` ${hero}  ${goblin}.       .`,
       { initiative: hero, phase: 'action' },
     )
   }
@@ -682,7 +682,7 @@ function CombatTutorialMiniGame({ completed, onResolve, soundEnabled }) {
   const chooseAction = (action) => {
     if (action === 'guard') {
       playArcaneCue(soundEnabled, 'success')
-      updateLog('Ты встаёшь в защиту и читаешь позицию. Теперь можно атаковать безопаснее.', {
+      updateLog('      .    .', {
         phase: 'action',
       })
       return
@@ -690,7 +690,7 @@ function CombatTutorialMiniGame({ completed, onResolve, soundEnabled }) {
 
     if (action === 'retreat') {
       playArcaneCue(soundEnabled, 'roll')
-      updateLog('Ты отходишь на шаг и всё равно ищешь момент для удара.', { phase: 'action' })
+      updateLog('          .', { phase: 'action' })
       return
     }
 
@@ -699,7 +699,7 @@ function CombatTutorialMiniGame({ completed, onResolve, soundEnabled }) {
     playArcaneCue(soundEnabled, hit ? 'success' : 'fail')
 
     if (!hit) {
-      updateLog(`Атака = ${attack}. Клинок проходит рядом, и ты готовишь новый заход.`, {
+      updateLog(` = ${attack}.   ,     .`, {
         attack,
         damage: null,
         phase: 'action',
@@ -707,7 +707,7 @@ function CombatTutorialMiniGame({ completed, onResolve, soundEnabled }) {
       return
     }
 
-    updateLog(`Атака = ${attack}. Попадание. Теперь отдельно бросай урон.`, {
+    updateLog(` = ${attack}. .    .`, {
       attack,
       damage: null,
       phase: 'damage',
@@ -721,8 +721,8 @@ function CombatTutorialMiniGame({ completed, onResolve, soundEnabled }) {
     playArcaneCue(soundEnabled, victory ? 'achievement' : 'roll')
     updateLog(
       victory
-        ? `Урон = ${damage}. Гоблин падает. Ты прошёл весь цикл боя.`
-        : `Урон = ${damage}. Гоблин ещё держится, но цикл боя уже понятен.`,
+        ? ` = ${damage}.  .     .`
+        : ` = ${damage}.   ,     .`,
       {
         damage,
         goblinHp: nextHp,
@@ -739,34 +739,34 @@ function CombatTutorialMiniGame({ completed, onResolve, soundEnabled }) {
     <div className="mini-game-stage">
       <div className="mini-game-combat">
         <div className="mini-game-combat-bar">
-          <span>Ты: {state.heroHp} HP</span>
-          <span>Гоблин: {state.goblinHp} HP</span>
+          <span>: {state.heroHp} HP</span>
+          <span>: {state.goblinHp} HP</span>
         </div>
 
         <div className="combat-actions">
           {state.phase === 'initiative' && (
             <button className="btn-secondary" onClick={rollInitiative} type="button">
-              Бросить инициативу
+               
             </button>
           )}
 
           {state.phase === 'action' && (
             <>
               <button className="tiny-button" onClick={() => chooseAction('attack')} type="button">
-                Атаковать
+                
               </button>
               <button className="tiny-button" onClick={() => chooseAction('guard')} type="button">
-                Защититься
+                
               </button>
               <button className="tiny-button" onClick={() => chooseAction('retreat')} type="button">
-                Отойти
+                
               </button>
             </>
           )}
 
           {state.phase === 'damage' && (
             <button className="btn-secondary" onClick={rollDamage} type="button">
-              Бросить урон
+               
             </button>
           )}
         </div>
@@ -793,15 +793,15 @@ function ACArenaMiniGame({ completed, onResolve, soundEnabled }) {
     const success = total >= target.ac
     setFeedback(
       success
-        ? `${target.name}: ${roll} + ${target.bonus} = ${total}. Попадание по AC ${target.ac}.`
-        : `${target.name}: ${roll} + ${target.bonus} = ${total}. Этого мало против AC ${target.ac}.`,
+        ? `${target.name}: ${roll} + ${target.bonus} = ${total}.   AC ${target.ac}.`
+        : `${target.name}: ${roll} + ${target.bonus} = ${total}.    AC ${target.ac}.`,
     )
     playArcaneCue(soundEnabled, success ? 'success' : 'fail')
 
     if (currentIndex === AC_ARENA_TARGETS.length - 1) {
       finishOnce({
         rewardText:
-          'Ты сравнил атаки с разным AC и теперь лучше чувствуешь, почему одних врагов задеть легче, а других сложнее.',
+          '     AC    ,     ,   .',
       })
       return
     }
@@ -829,11 +829,11 @@ function ACArenaMiniGame({ completed, onResolve, soundEnabled }) {
       </div>
 
       <button className="btn-secondary" onClick={rollAttack} type="button">
-        Бросить атаку
+         
       </button>
 
       {feedback && (
-        <div className={`mini-game-feedback ${feedback.includes('Попадание') ? 'success' : 'fail'}`}>
+        <div className={`mini-game-feedback ${feedback.includes('') ? 'success' : 'fail'}`}>
           {feedback}
         </div>
       )}
@@ -855,21 +855,21 @@ function DamageForgeMiniGame({ completed, onResolve, soundEnabled }) {
     setAttackState({ roll, total, hit })
     setFeedback(
       hit
-        ? `Попадание подтверждено: ${total} против AC ${weapon.attackDc}. Теперь нужен правильный кубик урона.`
-        : `Атака дала ${total}, и пока этого мало. Попробуй ещё раз, чтобы дойти до урона.`,
+        ? ` : ${total}  AC ${weapon.attackDc}.     .`
+        : `  ${total},    .   ,    .`,
     )
     playArcaneCue(soundEnabled, hit ? 'success' : 'fail')
   }
 
   const chooseDie = (die) => {
     if (!attackState?.hit) {
-      setFeedback('Сначала нужно попасть по цели, а уже потом выбирать кубик урона.')
+      setFeedback('    ,      .')
       playArcaneCue(soundEnabled, 'fail')
       return
     }
 
     if (die !== weapon.die) {
-      setFeedback(`Для оружия ${weapon.name.toLowerCase()} здесь нужен d${weapon.die}.`)
+      setFeedback(`  ${weapon.name.toLowerCase()}   d${weapon.die}.`)
       playArcaneCue(soundEnabled, 'fail')
       return
     }
@@ -877,7 +877,7 @@ function DamageForgeMiniGame({ completed, onResolve, soundEnabled }) {
     const damage = rollDie(die)
     const remainingHp = Math.max(0, weapon.hp - damage)
     setFeedback(
-      `Верно: d${die} даёт ${damage} урона. HP падает с ${weapon.hp} до ${remainingHp}.`,
+      `: d${die}  ${damage} . HP   ${weapon.hp}  ${remainingHp}.`,
     )
     playArcaneCue(soundEnabled, 'success')
 
@@ -898,14 +898,14 @@ function DamageForgeMiniGame({ completed, onResolve, soundEnabled }) {
       <div className="mini-game-board">
         <strong>{weapon.name}</strong>
         <div className="mini-game-equation">
-          <span>Цель HP: {weapon.hp}</span>
-          <span>Попасть: AC {weapon.attackDc}</span>
-          <span>Нужный кубик: d{weapon.die}</span>
+          <span> HP: {weapon.hp}</span>
+          <span>: AC {weapon.attackDc}</span>
+          <span> : d{weapon.die}</span>
         </div>
       </div>
 
       <button className="btn-secondary" onClick={rollAttack} type="button">
-        Шаг 1: попасть
+         1: 
       </button>
 
       <div className="mini-game-dice-grid">
@@ -917,7 +917,7 @@ function DamageForgeMiniGame({ completed, onResolve, soundEnabled }) {
       </div>
 
       {feedback && (
-        <div className={`mini-game-feedback ${feedback.startsWith('Верно') ? 'success' : 'fail'}`}>
+        <div className={`mini-game-feedback ${feedback.startsWith('') ? 'success' : 'fail'}`}>
           {feedback}
         </div>
       )}
@@ -935,7 +935,7 @@ function SpellChoiceMiniGame({ completed, onResolve, soundEnabled }) {
   const choose = (spellId) => {
     const spell = options.find((item) => item.id === spellId) ?? options[0]
     const success = spellId === round.answer
-    setFeedback(success ? round.success : `${spell.name} здесь звучит красиво, но сцене нужен другой эффект.`)
+    setFeedback(success ? round.success : `${spell.name}   ,     .`)
     playArcaneCue(soundEnabled, success ? 'success' : 'fail')
 
     if (!success) {
@@ -990,22 +990,22 @@ function StoryFlowMiniGame({ completed, onResolve, soundEnabled }) {
     const total = roll + selectedApproach.bonus
     const success = total >= selectedApproach.dc
     const message = success
-      ? `С результатом ${total} ты замечаешь условный знак и история идёт дальше уже по твоей инициативе.`
-      : `С результатом ${total} незнакомец замечает тебя первым, но сцена всё равно развивается и даёт новый крючок.`
+      ? `  ${total}            .`
+      : `  ${total}    ,         .`
 
     setOutcome({ message, success, total })
     playArcaneCue(soundEnabled, success ? 'success' : 'roll')
     finishOnce({
       rewardText:
-        'Ты прошёл полный цикл сцены: описание, выбор, бросок и последствия действительно связались в один ритм.',
+        '    : , ,        .',
     })
   }
 
   return (
     <div className="mini-game-stage">
       <div className="mini-game-board">
-        <strong>Ты входишь в таверну и замечаешь подозрительного человека в углу.</strong>
-        <span>Выбери, как герой начнёт сцену.</span>
+        <strong>         .</strong>
+        <span>,    .</span>
       </div>
 
       <div className="mini-game-option-grid">
@@ -1030,7 +1030,7 @@ function StoryFlowMiniGame({ completed, onResolve, soundEnabled }) {
 
       {selectedApproach && (
         <button className="btn-secondary" onClick={rollScene} type="button">
-          Бросить проверку сцены
+            
         </button>
       )}
 
@@ -1047,7 +1047,7 @@ function MiniAdventureGame({ completed, onResolve, soundEnabled }) {
   const finishOnce = useResolveOnce(completed, onResolve)
   const [stage, setStage] = useState('entrance')
   const [log, setLog] = useState([
-    'Перед тобой развалины. Сначала реши, как пройти к внутреннему залу.',
+    '  .  ,     .',
   ])
   const [combatState, setCombatState] = useState({ hp: 8, attack: null })
 
@@ -1063,8 +1063,8 @@ function MiniAdventureGame({ completed, onResolve, soundEnabled }) {
     playArcaneCue(soundEnabled, success ? 'success' : 'roll')
     pushLog(
       success
-        ? `Вход пройден: ${total}. Ты находишь тихий проход к сундуку зала.`
-        : `Вход дал ${total}. Шум поднялся, но путь внутрь всё равно найден.`,
+        ? ` : ${total}.       .`
+        : `  ${total}.  ,      .`,
     )
     setStage('chest')
   }
@@ -1077,8 +1077,8 @@ function MiniAdventureGame({ completed, onResolve, soundEnabled }) {
     playArcaneCue(soundEnabled, success ? 'success' : 'fail')
     pushLog(
       success
-        ? `Сундук поддался на ${total}. Внутри карта и звук шагов гоблина.`
-        : `Сундук пока не поддался на ${total}, но шум всё равно привлёк гоблина.`,
+        ? `   ${total}.      .`
+        : `     ${total},      .`,
     )
     setStage('combat')
   }
@@ -1092,14 +1092,14 @@ function MiniAdventureGame({ completed, onResolve, soundEnabled }) {
     playArcaneCue(soundEnabled, hit ? 'success' : 'fail')
     pushLog(
       hit
-        ? `Атака ${attack}, урон ${damage}. Гоблин остаётся с ${hp} HP.`
-        : `Атака ${attack}. Гоблин уклоняется, но ты понимаешь ритм боя.`,
+        ? ` ${attack},  ${damage}.    ${hp} HP.`
+        : ` ${attack}.  ,     .`,
     )
 
     if (hp === 0 || !hit) {
       finishOnce({
         rewardText:
-          'Ты связал выбор, проверку, броски и последствия в одно короткое приключение.',
+          '  , ,       .',
       })
       setStage('done')
     }
@@ -1110,10 +1110,10 @@ function MiniAdventureGame({ completed, onResolve, soundEnabled }) {
       {stage === 'entrance' && (
         <div className="mini-game-option-grid">
           <button className="choice-button" onClick={() => resolveEntrance('inspect')} type="button">
-            Осмотреть проход
+             
           </button>
           <button className="choice-button" onClick={() => resolveEntrance('force')} type="button">
-            Протиснуться силой
+             
           </button>
         </div>
       )}
@@ -1121,19 +1121,19 @@ function MiniAdventureGame({ completed, onResolve, soundEnabled }) {
       {stage === 'chest' && (
         <div className="mini-game-option-grid">
           <button className="choice-button" onClick={() => resolveChest('tools')} type="button">
-            Вскрыть инструментами
+             
           </button>
           <button className="choice-button" onClick={() => resolveChest('bash')} type="button">
-            Разбить крышку
+             
           </button>
         </div>
       )}
 
       {stage === 'combat' && (
         <div className="mini-game-board">
-          <strong>Финал сцены: гоблин с {combatState.hp} HP</strong>
+          <strong> :   {combatState.hp} HP</strong>
           <button className="btn-secondary" onClick={resolveCombat} type="button">
-            Провести боевой ход
+              
           </button>
         </div>
       )}
@@ -1158,7 +1158,7 @@ function FinalGauntletGame({ completed, onResolve, soundEnabled }) {
   const finish = () => {
     finishOnce({
       rewardText:
-        'Ты прошёл серию игровых комнат и уверенно пользуешься базовыми механиками новичка.',
+        '          .',
     })
   }
 
@@ -1167,16 +1167,16 @@ function FinalGauntletGame({ completed, onResolve, soundEnabled }) {
       return (
         <>
           <div className="mini-game-board">
-            <strong>Комната I: Какая характеристика нужна, чтобы убедить стражника?</strong>
+            <strong> I:   ,   ?</strong>
           </div>
           <div className="mini-game-option-grid">
-            {['Сила', 'Ловкость', 'Харизма'].map((option) => (
+            {['', '', ''].map((option) => (
               <button
                 className="choice-button"
                 key={option}
                 onClick={() => {
-                  const success = option === 'Харизма'
-                  setFeedback(success ? 'Верно. Именно Харизма ведёт эту сцену.' : 'Попробуй ещё раз: здесь решает влияние.')
+                  const success = option === ''
+                  setFeedback(success ? '.     .' : '  :   .')
                   playArcaneCue(soundEnabled, success ? 'success' : 'fail')
                   if (success) {
                     nextRoom()
@@ -1196,20 +1196,20 @@ function FinalGauntletGame({ completed, onResolve, soundEnabled }) {
       return (
         <>
           <div className="mini-game-board">
-            <strong>Комната II: Брось d20 для проверки скрытности.</strong>
+            <strong> II:  d20   .</strong>
           </div>
           <button
             className="btn-secondary"
             onClick={() => {
               const roll = rollDie(20)
               const total = roll + 3
-              setFeedback(`d20 = ${roll}, итог = ${total}. Проверка прожита.`)
+              setFeedback(`d20 = ${roll},  = ${total}.  .`)
               playArcaneCue(soundEnabled, 'roll')
               nextRoom()
             }}
             type="button"
           >
-            Бросить d20
+             d20
           </button>
         </>
       )
@@ -1219,7 +1219,7 @@ function FinalGauntletGame({ completed, onResolve, soundEnabled }) {
       return (
         <>
           <div className="mini-game-board">
-            <strong>Комната III: Попади по цели с AC 13.</strong>
+            <strong> III:     AC 13.</strong>
           </div>
           <button
             className="btn-secondary"
@@ -1227,13 +1227,13 @@ function FinalGauntletGame({ completed, onResolve, soundEnabled }) {
               const roll = rollDie(20) + 4
               setAttackRoll(roll)
               const success = roll >= 13
-              setFeedback(success ? `Атака ${roll}. Попадание.` : `Атака ${roll}. Пока промах, но сравнение с AC понятно.`)
+              setFeedback(success ? ` ${roll}. .` : ` ${roll}.  ,    AC .`)
               playArcaneCue(soundEnabled, success ? 'success' : 'roll')
               nextRoom()
             }}
             type="button"
           >
-            Бросить атаку
+             
           </button>
         </>
       )
@@ -1243,7 +1243,7 @@ function FinalGauntletGame({ completed, onResolve, soundEnabled }) {
       return (
         <>
           <div className="mini-game-board">
-            <strong>Комната IV: Какой кубик взять для урона мечом?</strong>
+            <strong> IV:      ?</strong>
           </div>
           <div className="mini-game-dice-grid">
             {[4, 6, 8].map((die) => (
@@ -1252,7 +1252,7 @@ function FinalGauntletGame({ completed, onResolve, soundEnabled }) {
                 key={die}
                 onClick={() => {
                   const success = die === 8
-                  setFeedback(success ? 'Верно: для меча здесь подходит d8.' : 'Подумай ещё: меч бьёт тяжелее, чем кинжал.')
+                  setFeedback(success ? ':     d8.' : ' :   ,  .')
                   playArcaneCue(soundEnabled, success ? 'success' : 'fail')
                   if (success) {
                     nextRoom()
@@ -1271,8 +1271,8 @@ function FinalGauntletGame({ completed, onResolve, soundEnabled }) {
     return (
       <>
         <div className="mini-game-board">
-          <strong>Комната V: Какое решение лучше поможет раненому союзнику?</strong>
-          {attackRoll && <small>Ты уже добрался сюда после атаки {attackRoll}.</small>}
+          <strong> V:      ?</strong>
+          {attackRoll && <small>      {attackRoll}.</small>}
         </div>
         <div className="mini-game-option-grid">
           {['Heal', 'Fire Bolt', 'Shield'].map((option) => (
@@ -1281,7 +1281,7 @@ function FinalGauntletGame({ completed, onResolve, soundEnabled }) {
               key={option}
               onClick={() => {
                 const success = option === 'Heal'
-                setFeedback(success ? 'Да. Финальное решение выбрано верно.' : 'Эта опция полезна, но не лечит союзника.')
+                setFeedback(success ? '.    .' : '  ,    .')
                 playArcaneCue(soundEnabled, success ? 'achievement' : 'fail')
                 if (success) {
                   finish()
@@ -1299,7 +1299,7 @@ function FinalGauntletGame({ completed, onResolve, soundEnabled }) {
 
   return (
     <div className="mini-game-stage">
-      <div className="mini-game-room-counter">Комната {Math.min(room + 1, 5)} / 5</div>
+      <div className="mini-game-room-counter"> {Math.min(room + 1, 5)} / 5</div>
       {renderRoom()}
       {feedback && <div className="mini-game-feedback success">{feedback}</div>}
     </div>
@@ -1354,7 +1354,7 @@ export default function LessonMiniGame({ completed, lesson, onComplete, soundEna
       case 'final-gauntlet':
         return <FinalGauntletGame {...sharedProps} />
       default:
-        return <div className="mini-game-feedback fail">Для этого урока мини-игра ещё не описана.</div>
+        return <div className="mini-game-feedback fail">   -   .</div>
     }
   }, [completed, finishMiniGame, miniGame.type, soundEnabled])
 

@@ -4,638 +4,638 @@
       "title": "Player's Handbook 5e",
       "edition": "D&D 5e",
       "placeholderToken": "PLACEHOLDER_PHB_CONTENT",
-      "placeholderNote": "Здесь будет контент из книги игрока (можно вставить вручную позже)"
+      "placeholderNote": "      (   )"
     },
     "chapters": [
       {
         "id": "chapter_1",
-        "title": "Введение",
-        "summary": "Стартовый раздел о сути D&D, роли мастера, кубиках и базовом ритме игры.",
+        "title": "",
+        "summary": "    D&D,  ,     .",
         "sections": [
           {
             "id": "what-is-dd",
-            "title": "Что такое D&D",
+            "title": "  D&D",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "D&D — настольная ролевая игра, где игроки описывают действия героев, а мастер показывает мир, конфликты и последствия.",
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "D&D    ,     ,    ,   .",
             "related": [
-              { "mode": "simple", "targetId": "dnd-basics", "label": "Простое объяснение" }
+              { "mode": "simple", "targetId": "dnd-basics", "label": " " }
             ]
           },
           {
             "id": "worlds-of-adventure",
-            "title": "Миры приключений",
+            "title": " ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "5e использует мультивселенную с разными мирами, планами и жанровыми акцентами, но общие правила позволяют играть почти где угодно."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "5e     ,    ,        ."
           },
           {
             "id": "how-to-use-book",
-            "title": "Как использовать книгу",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Книга строится вокруг создания персонажа, правил игры и магии. Структура помогает сначала сделать героя, а потом понять, как им играть."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    ,    .     ,   ,   ."
           },
           {
             "id": "how-to-play",
-            "title": "Как проходит игра",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Мастер описывает сцену, игроки заявляют действия, затем мир отвечает последствиями. Этот цикл повторяется от переговоров до сражений."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "  ,   ,    .       ."
           },
           {
             "id": "game-dice",
-            "title": "Игровые кости и d20",
+            "title": "   d20",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Центр системы — d20: бросок, модификатор, сравнение со сложностью. Остальные кости чаще отвечают за урон, лечение и случайные величины."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   d20: , ,   .      ,    ."
           },
           {
             "id": "advantage-disadvantage",
-            "title": "Преимущество и помеха",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Вместо множества мелких бонусов 5e часто даёт два d20 и требует взять лучший или худший результат."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    5e    d20       ."
           },
           {
             "id": "three-pillars",
-            "title": "Три столпа приключения",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Исследование, социальное взаимодействие и бой образуют основу почти любой сцены в D&D.",
+            "manualInsertHint": "      (   )",
+            "generatedSummary": ",           D&D.",
             "related": [
-              { "mode": "simple", "targetId": "three-pillars", "label": "Пояснение простыми словами" }
+              { "mode": "simple", "targetId": "three-pillars", "label": "  " }
             ]
           }
         ]
       },
       {
         "id": "chapter_2",
-        "title": "Создание персонажа",
-        "summary": "Пошаговая сборка героя: раса, класс, характеристики, история и снаряжение.",
+        "title": " ",
+        "summary": "  : , , ,   .",
         "sections": [
           {
             "id": "choose-race",
-            "title": "Шаг 1. Выберите расу",
+            "title": " 1.  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Раса задаёт базовые особенности героя: скорость, тёмное зрение, бонусы характеристик, языки и культурные акценты.",
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    : ,  ,  ,    .",
             "related": [
-              { "mode": "classes-races", "targetId": "human", "label": "Смотреть расы" }
+              { "mode": "classes-races", "targetId": "human", "label": " " }
             ]
           },
           {
             "id": "choose-class",
-            "title": "Шаг 2. Выберите класс",
+            "title": " 2.  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Класс определяет главную роль героя: бойца, заклинателя, разведчика, защитника, лекаря или универсала.",
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    : , , , ,   .",
             "related": [
-              { "mode": "classes-races", "targetId": "fighter", "label": "Смотреть классы" }
+              { "mode": "classes-races", "targetId": "fighter", "label": " " }
             ]
           },
           {
             "id": "ability-scores",
-            "title": "Шаг 3. Значения характеристик",
+            "title": " 3.  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Шесть характеристик — сила, ловкость, телосложение, интеллект, мудрость и харизма — влияют почти на всё, что делает персонаж."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   , , , ,        ,   ."
           },
           {
             "id": "describe-character",
-            "title": "Шаг 4. Опишите персонажа",
+            "title": " 4.  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Имя, внешность, мировоззрение, идеалы, слабости и привязанности помогают превращать набор цифр в реального героя."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": ", , , ,          ."
           },
           {
             "id": "choose-equipment",
-            "title": "Шаг 5. Снаряжение",
+            "title": " 5. ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Начальное снаряжение даёт защиту, оружие и инструменты для первых приключений, а также определяет КД и базовый боевой стиль."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   ,      ,        ."
           },
           {
             "id": "party-formation",
-            "title": "Шаг 6. Соберитесь вместе",
+            "title": " 6.  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Персонажи обычно работают как отряд: важно заранее понять общую мотивацию, роли и связи между героями."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    :     ,     ."
           },
           {
             "id": "after-first-level",
-            "title": "После 1 уровня",
+            "title": " 1 ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "С ростом уровня герой получает новые умения, больше хитов, лучший бонус мастерства и более сильные классовые возможности."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "      ,  ,        ."
           }
         ]
       },
       {
         "id": "chapter_3",
-        "title": "Расы",
-        "summary": "Игровые народы, их особенности, подрасы и стартовые различия.",
+        "title": "",
+        "summary": " ,  ,    .",
         "sections": [
           {
             "id": "race-overview",
-            "title": "Выбор расы и расовые особенности",
+            "title": "    ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Каждая раса даёт уникальные биологические и культурные черты, но персонажи всё равно могут сильно отличаться от стереотипов."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "       ,         ."
           },
-          { "id": "dwarf", "title": "Дварф", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Стойкий народ кланов, гор, металла и чести. Часто силён в защите, выносливости и сопротивлении яду.", "related": [ { "mode": "classes-races", "targetId": "dwarf", "label": "Карточка расы" } ] },
-          { "id": "elf", "title": "Эльф", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Долгоживущие магические народы лесов и древних городов, известные ловкостью, чувством прекрасного и наследием фей." },
-          { "id": "halfling", "title": "Полурослик", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Маленький народ уюта, удачи и удивительной живучести. Часто хорош для скрытности и ловких ролей." },
-          { "id": "human", "title": "Человек", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Самая гибкая и разнообразная раса 5e. Люди легко адаптируются и вписываются почти в любую концепцию." },
-          { "id": "dragonborn", "title": "Драконорождённый", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Гордый народ с драконьим наследием, оружием дыхания и природной устойчивостью к выбранному виду урона." },
-          { "id": "gnome", "title": "Гном", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Любознательные мастера, иллюзионисты и изобретатели. Часто сочетают сообразительность, магию и юмор." },
-          { "id": "half-elf", "title": "Полуэльф", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Гибкие дипломаты между культурами, ценимые за харизму, универсальность и социальную силу." },
-          { "id": "half-orc", "title": "Полуорк", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Мощные бойцы с яркой физической силой, стойкостью и способностью держаться в бою дольше других." },
-          { "id": "tiefling", "title": "Тифлинг", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Народ с инфернальным следом в крови: магические трюки, сопротивление огню и яркая внешняя идентичность." }
+          { "id": "dwarf", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "  , ,   .    ,    .", "related": [ { "mode": "classes-races", "targetId": "dwarf", "label": " " } ] },
+          { "id": "elf", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "      ,  ,     ." },
+          { "id": "halfling", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "  ,    .       ." },
+          { "id": "human", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "     5e.         ." },
+          { "id": "dragonborn", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "    ,         ." },
+          { "id": "gnome", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": " ,   .   ,   ." },
+          { "id": "half-elf", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "   ,   ,    ." },
+          { "id": "half-orc", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "     ,        ." },
+          { "id": "tiefling", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "     :  ,      ." }
         ]
       },
       {
         "id": "chapter_4",
-        "title": "Классы",
-        "summary": "Все базовые классы 5e и их ключевые роли в группе.",
+        "title": "",
+        "summary": "   5e      .",
         "sections": [
           {
             "id": "class-overview",
-            "title": "Обзор классов",
+            "title": " ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Класс определяет ядро персонажа: как он сражается, что умеет вне боя и каким образом растёт с уровнями."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   :   ,          ."
           },
-          { "id": "barbarian", "title": "Варвар", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Ярость, сопротивление урону и доминирование в ближнем бою.", "related": [ { "mode": "classes-races", "targetId": "barbarian", "label": "Карточка класса" } ] },
-          { "id": "bard", "title": "Бард", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Поддержка, вдохновение, социальная сила и универсальная магия." },
-          { "id": "cleric", "title": "Жрец", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Божественная магия, лечение, защита и мощные доменные способности." },
-          { "id": "druid", "title": "Друид", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Природа, превращения, контроль местности и стихийные заклинания." },
-          { "id": "fighter", "title": "Воин", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Надёжный мастер оружия с гибким стилем боя и большим числом атак." },
-          { "id": "monk", "title": "Монах", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Скорость, ки, удары без оружия и высокая мобильность." },
-          { "id": "paladin", "title": "Паладин", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Тяжёлая броня, ауры, обеты и взрывной священный урон." },
-          { "id": "ranger", "title": "Следопыт", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Охотник и разведчик на границе мира: следы, дистанция и природные навыки." },
-          { "id": "rogue", "title": "Плут", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Скрытность, экспертиза и точечный высокий урон через скрытую атаку." },
-          { "id": "sorcerer", "title": "Чародей", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Врождённая магия, метамагия и сильные взрывные заклинания." },
-          { "id": "warlock", "title": "Колдун", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Пакт с потусторонней силой, инвокации и восстановление ячеек на коротком отдыхе." },
-          { "id": "wizard", "title": "Волшебник", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)", "generatedSummary": "Самый широкий выбор заклинаний, книга заклинаний и школа магии как стиль игры." }
+          { "id": "barbarian", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": ",       .", "related": [ { "mode": "classes-races", "targetId": "barbarian", "label": " " } ] },
+          { "id": "bard", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": ", ,     ." },
+          { "id": "cleric", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": " , ,     ." },
+          { "id": "druid", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": ", ,     ." },
+          { "id": "fighter", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "          ." },
+          { "id": "monk", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": ", ,      ." },
+          { "id": "paladin", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": " , ,     ." },
+          { "id": "ranger", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "     : ,    ." },
+          { "id": "rogue", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": ",        ." },
+          { "id": "sorcerer", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": " ,     ." },
+          { "id": "warlock", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "   ,       ." },
+          { "id": "wizard", "title": "", "content": "PLACEHOLDER_PHB_CONTENT", "source": "manual | generated", "manualInsertHint": "      (   )", "generatedSummary": "   ,        ." }
         ]
       },
       {
         "id": "chapter_5",
-        "title": "Личность и предыстория",
-        "summary": "Социальное лицо персонажа, мировоззрение, вдохновение и история до начала кампании.",
+        "title": "  ",
+        "summary": "  , ,      .",
         "sections": [
           {
             "id": "character-details",
-            "title": "Детали персонажа",
+            "title": " ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Внешность, возраст, манеры и привычки помогают мгновенно сделать героя узнаваемым за столом."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": ", ,          ."
           },
           {
             "id": "alignment",
-            "title": "Мировоззрение",
+            "title": "",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Мировоззрение — это не клетка, а компас. Оно показывает общий моральный тон, но не заменяет личный выбор."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    ,  .     ,     ."
           },
           {
             "id": "inspiration",
-            "title": "Вдохновение",
+            "title": "",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Вдохновение награждает яркую игру характера и даёт механическое преимущество в ключевой момент."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "           ."
           },
           {
             "id": "backgrounds",
-            "title": "Предыстории",
+            "title": "",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Предыстория отвечает за то, кем герой был до начала приключений, и даёт навыки, языки, инструменты и сюжетные крючки."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   ,      ,   , ,    ."
           },
           {
             "id": "traits-ideals-bonds-flaws",
-            "title": "Черты, идеалы, привязанности и слабости",
+            "title": ", ,   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Эти опоры задают поведение персонажа и помогают мастеру подбрасывать персональные сцены."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "          ."
           }
         ]
       },
       {
         "id": "chapter_6",
-        "title": "Снаряжение",
-        "summary": "Оружие, доспехи, предметы приключенца и экономика экспедиции.",
+        "title": "",
+        "summary": ", ,     .",
         "sections": [
           {
             "id": "starting-wealth",
-            "title": "Начальное богатство и покупки",
+            "title": "   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Герои могут взять готовый комплект от класса или покупать стартовое снаряжение за золото."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "            ."
           },
           {
             "id": "armor-and-shields",
-            "title": "Доспехи и щиты",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Тип брони определяет КД, ограничения на скрытность и необходимость владения."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   ,      ."
           },
           {
             "id": "weapons",
-            "title": "Оружие",
+            "title": "",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Каждое оружие задаёт кость урона, свойства и оптимальную роль: ближний бой, метание, фехтование или дальняя атака."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    ,    :  , ,    ."
           },
           {
             "id": "adventuring-gear",
-            "title": "Снаряжение приключенца",
+            "title": " ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Верёвки, факелы, наборы инструментов, фляги и спальники часто решают задачи не хуже заклинаний."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": ", ,  ,         ."
           },
           {
             "id": "tools-and-proficiencies",
-            "title": "Инструменты и владение",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Инструменты усиливают социальные и исследовательские сцены: от воровских инструментов до музыкальных инструментов барда."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "     :       ."
           },
           {
             "id": "lifestyle-expenses",
-            "title": "Образ жизни, перевозка и услуги",
+            "title": " ,   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Финансы в 5e важны не только для покупок: они помогают ощущать уровень жизни, путешествия и цену мира."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "  5e     :     ,    ."
           }
         ]
       },
       {
         "id": "chapter_7",
-        "title": "Опции настройки",
-        "summary": "Черты и мультиклассирование для более глубоких сборок.",
+        "title": " ",
+        "summary": "      .",
         "sections": [
           {
             "id": "multiclassing",
-            "title": "Мультиклассирование",
+            "title": "",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Мультиклассинг позволяет смешивать наборы умений, но требует аккуратного планирования характеристик и темпа роста."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    ,        ."
           },
           {
             "id": "feats",
-            "title": "Черты",
+            "title": "",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Черты дают точечную специализацию: усиливают стиль боя, магию, выживание или ролевую идентичность."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   :   , ,    ."
           }
         ]
       },
       {
         "id": "chapter_8",
-        "title": "Использование характеристик",
-        "summary": "Проверки, навыки, спасброски, время, окружение и социальная сложность действий.",
+        "title": " ",
+        "summary": ", , , ,     .",
         "sections": [
           {
             "id": "ability-checks",
-            "title": "Проверки характеристик",
+            "title": " ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Проверка — это способ выяснить, удалось ли сложное действие. Обычно бросается d20, добавляется модификатор и мастерство."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    ,    .   d20,    ."
           },
           {
             "id": "skills",
-            "title": "Навыки",
+            "title": "",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Навык — это привычное применение характеристики к знакомой области вроде скрытности, убеждения или внимания."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "          ,   ."
           },
           {
             "id": "passive-checks",
-            "title": "Пассивные проверки",
+            "title": " ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Когда бросок не нужен, мастер может использовать пассивные значения, особенно для внимательности и знания окружения."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   ,     ,      ."
           },
           {
             "id": "saves-and-contests",
-            "title": "Спасброски и состязания",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Спасбросок отвечает на вопрос, выдержал ли герой опасность, а состязание — кто из двух сторон продавил сцену."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   ,    ,         ."
           },
           {
             "id": "using-each-ability",
-            "title": "Как работают каждая из шести характеристик",
+            "title": "     ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Сила толкает и ломает, ловкость уворачивается и стреляет, мудрость замечает и чувствует, а харизма ведёт и давит."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   ,    ,    ,     ."
           }
         ]
       },
       {
         "id": "chapter_9",
-        "title": "Приключения",
-        "summary": "Путешествия, свет, отдых, окружение и движение вне боя.",
+        "title": "",
+        "summary": ", , ,     .",
         "sections": [
           {
             "id": "travel",
-            "title": "Путешествие и темп",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Темп пути влияет на дистанцию, заметность, усталость и шанс обнаружить угрозы раньше."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    , ,      ."
           },
           {
             "id": "vision-and-light",
-            "title": "Зрение и освещение",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Яркий свет, тусклый свет и тьма сильно влияют на восприятие, скрытность и эффективность отряда."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": " ,        ,    ."
           },
           {
             "id": "resting",
-            "title": "Короткий и продолжительный отдых",
+            "title": "   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Ресурсная модель 5e держится на отдыхах: где-то восстанавливаются хиты, где-то — ключевые классовые умения."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "  5e   : -  , -    ."
           },
           {
             "id": "environment",
-            "title": "Окружение и опасности",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Жара, холод, высота, голод, плавание и другие природные условия делают путешествие настоящим испытанием."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": ", , , ,         ."
           }
         ]
       },
       {
         "id": "chapter_10",
-        "title": "Сражение",
-        "summary": "Раунды, инициатива, действия, состояние, укрытия и боевой ритм 5e.",
+        "title": "",
+        "summary": ", , , ,     5e.",
         "sections": [
           {
             "id": "battle-order",
-            "title": "Порядок боя и инициатива",
+            "title": "   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Бой делится на раунды, а инициатива определяет, кто первым реагирует на угрозу."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   ,   ,     ."
           },
           {
             "id": "actions-in-combat",
-            "title": "Действия в бою",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "В свой ход герой выбирает действие, перемещение и иногда бонусное действие — это и есть основной тактический конструкт."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "     ,            ."
           },
           {
             "id": "making-attack",
-            "title": "Совершение атаки",
+            "title": " ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Атака сравнивает бросок с КД цели, затем отдельно определяется урон и дополнительные эффекты."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "     ,       ."
           },
           {
             "id": "damage-healing",
-            "title": "Урон, лечение и смерть",
+            "title": ",   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Хиты показывают ресурс выживания, а при падении до нуля начинается борьба между спасбросками от смерти и срочной помощью."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   ,              ."
           },
           {
             "id": "movement-and-position",
-            "title": "Перемещение, дистанция и укрытие",
+            "title": ",   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Правильная позиция нередко решает бой лучше чистого урона: укрытие, досягаемость и атаки по возможности важны очень сильно."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "       : ,        ."
           },
           {
             "id": "mounted-and-underwater",
-            "title": "Особые случаи: верховой и подводный бой",
+            "title": " :    ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Некоторые сцены требуют специальных правил, когда меняется среда, транспорт или привычная геометрия боя."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    ,   ,     ."
           }
         ]
       },
       {
         "id": "chapter_11",
-        "title": "Использование магии",
-        "summary": "Как работают ячейки, концентрация, подготовка и броски заклинаний.",
+        "title": " ",
+        "summary": "  , ,    .",
         "sections": [
           {
             "id": "what-is-spellcasting",
-            "title": "Основы сотворения заклинаний",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Магия 5e строится вокруг ячеек, компонентов, дальности, времени накладывания и целевых ограничений."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": " 5e   , , ,     ."
           },
           {
             "id": "known-and-prepared",
-            "title": "Известные и подготовленные заклинания",
+            "title": "   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Одни классы знают фиксированный набор заклинаний, другие каждый день заново готовят нужные инструменты."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "     ,       ."
           },
           {
             "id": "spell-slots",
-            "title": "Ячейки заклинаний и повышение уровня заклинания",
+            "title": "     ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Ячейка — это топливо. Заклинание можно наложить базово или усилить, если правило самого заклинания это позволяет."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   .      ,      ."
           },
           {
             "id": "spell-attacks-and-dc",
-            "title": "Бросок атаки заклинанием и Сл спасброска",
+            "title": "     ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Одни заклинания требуют попасть атакой, другие заставляют цель пройти спасбросок против вашей Сл."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    ,        ."
           },
           {
             "id": "components-duration-concentration",
-            "title": "Компоненты, длительность и концентрация",
+            "title": ",   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Концентрация ограничивает число мощных эффектов одновременно и делает получение урона реальной угрозой для магов."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "             ."
           },
           {
             "id": "schools-of-magic",
-            "title": "Школы магии",
+            "title": " ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Восемь школ не запрещают кастовать что-то ещё, но хорошо описывают характер и назначение заклинания."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "     - ,       ."
           }
         ]
       },
       {
         "id": "chapter_12",
-        "title": "Заклинания",
-        "summary": "Каталог магии по уровням и практическим категориям применения.",
+        "title": "",
+        "summary": "       .",
         "sections": [
           {
             "id": "spell-lists-overview",
-            "title": "Как читать список заклинаний",
+            "title": "   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "У каждого заклинания есть школа, уровень, компоненты, длительность и точный текст эффекта."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    , , ,     ."
           },
           {
             "id": "cantrips",
-            "title": "Заговоры",
+            "title": "",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Заговоры можно использовать без ячеек, и они растут вместе с уровнем персонажа."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "    ,       ."
           },
           {
             "id": "spells-1-3",
-            "title": "Заклинания 1-3 уровней",
+            "title": " 1-3 ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Нижние уровни магии формируют повседневную боевую и утилитарную базу большинства заклинателей."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "          ."
           },
           {
             "id": "spells-4-6",
-            "title": "Заклинания 4-6 уровней",
+            "title": " 4-6 ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Средние уровни магии начинают менять поле боя, пространство и сценарии приключения целиком."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "      ,     ."
           },
           {
             "id": "spells-7-9",
-            "title": "Заклинания 7-9 уровней",
+            "title": " 7-9 ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Высшая магия двигает планы, судьбы и сами правила мира, поэтому требует осторожного мастерского контроля."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   ,     ,     ."
           }
         ]
       },
       {
         "id": "appendix_a",
-        "title": "Приложение A. Состояния",
-        "summary": "Краткая база игровых состояний и их механических эффектов.",
+        "title": " A. ",
+        "summary": "       .",
         "sections": [
           {
             "id": "conditions",
-            "title": "Список состояний",
+            "title": " ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Ослеплённый, очарованный, испуганный, захваченный и другие эффекты меняют возможности существа до конца эффекта."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": ", , ,          ."
           }
         ]
       },
       {
         "id": "appendix_b",
-        "title": "Приложение B. Боги мультивселенной",
-        "summary": "Пантеоны и божества для жрецов, паладинов и мирового лора.",
+        "title": " B.  ",
+        "summary": "    ,    .",
         "sections": [
           {
             "id": "gods-of-multiverse",
-            "title": "Пантеоны и божественные домены",
+            "title": "   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Боги помогают связать мировоззрение, домен и роль персонажа с культурой выбранного мира."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "   ,        ."
           }
         ]
       },
       {
         "id": "appendix_c",
-        "title": "Приложение C. Планы существования",
-        "summary": "Краткая карта космологии 5e и ключевых внешних планов.",
+        "title": " C.  ",
+        "summary": "   5e    .",
         "sections": [
           {
             "id": "planes-of-existence",
-            "title": "Космология и внешние планы",
+            "title": "   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Материальный план, Феи, Тень, стихийные планы и внешние царства задают географию высокой магии и эпических кампаний."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": " , , ,            ."
           }
         ]
       },
       {
         "id": "appendix_d",
-        "title": "Приложение D. Параметры существ",
-        "summary": "Небольшой справочник с базовыми статблоками для животных и ездовых существ.",
+        "title": " D.  ",
+        "summary": "         .",
         "sections": [
           {
             "id": "creature-stat-blocks",
-            "title": "Чтение статблока существа",
+            "title": "  ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Статблок собирает КД, хиты, скорость, характеристики, навыки, действия и особые черты в одной форме."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "  , , , , ,       ."
           }
         ]
       },
       {
         "id": "appendix_e",
-        "title": "Приложение E. Вдохновляющее чтение",
-        "summary": "Список жанровых ориентиров для настроения кампании и персонажей.",
+        "title": " E.  ",
+        "summary": "       .",
         "sections": [
           {
             "id": "inspirational-reading",
-            "title": "Книги и настроение жанра",
+            "title": "   ",
             "content": "PLACEHOLDER_PHB_CONTENT",
             "source": "manual | generated",
-            "manualInsertHint": "Здесь будет контент из книги игрока (можно вставить вручную позже)",
-            "generatedSummary": "Фэнтези-литература помогает почувствовать тон D&D: героизм, тайны, странствия, магию и опасность."
+            "manualInsertHint": "      (   )",
+            "generatedSummary": "-    D&D: , , ,   ."
           }
         ]
       }

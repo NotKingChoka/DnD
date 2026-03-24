@@ -30,7 +30,7 @@ const modeIconMap = {
 void motion
 
 const crBands = [
-  { id: 'all', label: 'Любой CR' },
+  { id: 'all', label: ' CR' },
   { id: 'starter', label: '0-1' },
   { id: 'mid', label: '2-5' },
   { id: 'high', label: '6-10' },
@@ -129,7 +129,7 @@ function RelatedLinks({ items, onFollow }) {
 function PlaceholderCard() {
   return (
     <div className="wiki-placeholder-card">
-      <strong>Контент можно добавить из книги игрока</strong>
+      <strong>     </strong>
       <p>{PHB_PLACEHOLDER_NOTE}</p>
       <code>PLACEHOLDER_PHB_CONTENT</code>
     </div>
@@ -144,7 +144,7 @@ function SearchResults({ loading, query, results, onSelect }) {
   if (loading) {
     return (
       <div className="wiki-search-panel">
-        <span className="wiki-search-status">Загружаю индексы всех режимов…</span>
+        <span className="wiki-search-status">   </span>
       </div>
     )
   }
@@ -152,7 +152,7 @@ function SearchResults({ loading, query, results, onSelect }) {
   if (!results.length) {
     return (
       <div className="wiki-search-panel">
-        <span className="wiki-search-status">По запросу ничего не нашлось.</span>
+        <span className="wiki-search-status">    .</span>
       </div>
     )
   }
@@ -371,17 +371,17 @@ function WikiModule({ onOpenAcademy }) {
       <div className="wiki-hero">
         <div>
           <span className="section-kicker">D&D Wikipedia</span>
-          <h2 className="section-title">Энциклопедия по 5e с поддержкой PHB-структуры</h2>
+          <h2 className="section-title">  5e   PHB-</h2>
           <p className="section-subtitle">
-            Отдельный модуль с четырьмя режимами знаний: структурой книги игрока, простыми
-            объяснениями, bestiary и блоком классов с расами. PHB-контент готов к ручной
-            вставке и не зависит от PDF.
+                 :   , 
+            , bestiary     . PHB-   
+                 PDF.
           </p>
         </div>
 
         <button className="btn-secondary wiki-return-button" onClick={onOpenAcademy} type="button">
           <ChevronRight size={16} />
-          <span>Вернуться в академию</span>
+          <span>  </span>
         </button>
       </div>
 
@@ -390,7 +390,7 @@ function WikiModule({ onOpenAcademy }) {
           <Search size={18} />
           <input
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Глобальный поиск по PHB, simple wiki, bestiary, классам и расам"
+            placeholder="   PHB, simple wiki, bestiary,   "
             type="search"
             value={query}
           />
@@ -477,7 +477,7 @@ function WikiModule({ onOpenAcademy }) {
 
 function PhbMode({ onFollow, onSelectSection, phb, selection, selectedSectionId }) {
   if (!phb?.chapters?.length || !selection.chapter) {
-    return <div className="wiki-loading">Загружаю структуру PHB…</div>
+    return <div className="wiki-loading">  PHB</div>
   }
 
   return (
@@ -532,7 +532,7 @@ function PhbMode({ onFollow, onSelectSection, phb, selection, selectedSectionId 
                 onClick={() => onSelectSection(section.id)}
                 type="button"
               >
-                Якорь
+                
               </button>
             </div>
 
@@ -543,7 +543,7 @@ function PhbMode({ onFollow, onSelectSection, phb, selection, selectedSectionId 
             )}
 
             <div className="wiki-generated-block">
-              <span className="wiki-generated-label">Сгенерированное объяснение</span>
+              <span className="wiki-generated-label"> </span>
               <p>{section.generatedSummary}</p>
             </div>
 
@@ -559,7 +559,7 @@ function SimpleMode({ entries, onFollow, onSelect, selectedId }) {
   const selected = entries.find((entry) => entry.id === selectedId) ?? entries[0]
 
   if (!entries.length || !selected) {
-    return <div className="wiki-loading">Загружаю простую версию…</div>
+    return <div className="wiki-loading">  </div>
   }
 
   return (
@@ -580,7 +580,7 @@ function SimpleMode({ entries, onFollow, onSelect, selectedId }) {
 
       <article className="wiki-detail-card">
         <div className="wiki-detail-header">
-          <span className="wiki-badge">Простая версия</span>
+          <span className="wiki-badge"> </span>
           <h3>{selected.title}</h3>
           <p>{selected.summary}</p>
         </div>
@@ -622,13 +622,13 @@ function BestiaryMode({
   if (!entries.length) {
     return (
       <div className="wiki-loading">
-        По текущим фильтрам пока нет существ. Попробуй сбросить тип, среду или диапазон CR.
+             .   ,    CR.
       </div>
     )
   }
 
   if (!selected) {
-    return <div className="wiki-loading">Загружаю бестиарий…</div>
+    return <div className="wiki-loading"> </div>
   }
 
   return (
@@ -638,14 +638,14 @@ function BestiaryMode({
           <select onChange={(event) => onTypeChange(event.target.value)} value={typeFilter}>
             {types.map((item) => (
               <option key={item} value={item}>
-                {item === 'all' ? 'Все типы' : item}
+                {item === 'all' ? ' ' : item}
               </option>
             ))}
           </select>
           <select onChange={(event) => onTerrainChange(event.target.value)} value={terrainFilter}>
             {terrains.map((item) => (
               <option key={item} value={item}>
-                {item === 'all' ? 'Любая среда' : item}
+                {item === 'all' ? ' ' : item}
               </option>
             ))}
           </select>
@@ -672,8 +672,8 @@ function BestiaryMode({
               </div>
               <span>{entry.type}</span>
               <div className="wiki-monster-stats">
-                <small>КД {entry.stats.ac}</small>
-                <small>ХП {entry.stats.hp}</small>
+                <small> {entry.stats.ac}</small>
+                <small> {entry.stats.hp}</small>
               </div>
             </button>
           ))}
@@ -682,17 +682,17 @@ function BestiaryMode({
 
       <article className="wiki-detail-card">
         <div className="wiki-detail-header">
-          <span className="wiki-badge">Бестиарий</span>
+          <span className="wiki-badge"></span>
           <h3>{selected.name}</h3>
           <p>
-            {selected.type} • {selected.size} • {selected.alignment}
+            {selected.type}  {selected.size}  {selected.alignment}
           </p>
         </div>
 
         <div className="wiki-stat-bar">
-          <div><strong>КД</strong><span>{selected.stats.ac}</span></div>
-          <div><strong>ХП</strong><span>{selected.stats.hp}</span></div>
-          <div><strong>Скорость</strong><span>{selected.stats.speed}</span></div>
+          <div><strong></strong><span>{selected.stats.ac}</span></div>
+          <div><strong></strong><span>{selected.stats.hp}</span></div>
+          <div><strong></strong><span>{selected.stats.speed}</span></div>
         </div>
 
         <div className="wiki-ability-grid">
@@ -705,7 +705,7 @@ function BestiaryMode({
         </div>
 
         <div className="wiki-detail-section">
-          <strong>Ключевые черты</strong>
+          <strong> </strong>
           {selected.traits.map((trait) => (
             <div className="wiki-trait-item" key={trait.name}>
               <span>{trait.name}</span>
@@ -715,7 +715,7 @@ function BestiaryMode({
         </div>
 
         <div className="wiki-detail-section">
-          <strong>Действия</strong>
+          <strong></strong>
           <div className="wiki-chip-row">
             {selected.actions.map((action) => (
               <span className="wiki-tag" key={action}>
@@ -726,7 +726,7 @@ function BestiaryMode({
         </div>
 
         <div className="wiki-detail-section">
-          <strong>Где встречается</strong>
+          <strong> </strong>
           <div className="wiki-chip-row">
             {selected.terrain.map((item) => (
               <span className="wiki-tag" key={item}>
@@ -744,7 +744,7 @@ function BestiaryMode({
 
 function ClassesRacesMode({ entries, filter, onFilterChange, onSelect, selected, selectedId }) {
   if (!selected) {
-    return <div className="wiki-loading">Загружаю классы и расы…</div>
+    return <div className="wiki-loading">   </div>
   }
 
   return (
@@ -752,9 +752,9 @@ function ClassesRacesMode({ entries, filter, onFilterChange, onSelect, selected,
       <div>
         <div className="wiki-filter-pills">
           {[
-            { id: 'all', label: 'Все' },
-            { id: 'classes', label: 'Классы' },
-            { id: 'races', label: 'Расы' },
+            { id: 'all', label: '' },
+            { id: 'classes', label: '' },
+            { id: 'races', label: '' },
           ].map((item) => (
             <button
               className={`wiki-filter-pill ${filter === item.id ? 'is-active' : ''}`}
@@ -777,7 +777,7 @@ function ClassesRacesMode({ entries, filter, onFilterChange, onSelect, selected,
             >
               <div className="wiki-select-card-top">
                 <strong>{entry.name}</strong>
-                <span>{entry.kind === 'classes' ? 'Класс' : 'Раса'}</span>
+                <span>{entry.kind === 'classes' ? '' : ''}</span>
               </div>
               <span>{entry.kind === 'classes' ? entry.role : entry.identity}</span>
             </button>
@@ -788,7 +788,7 @@ function ClassesRacesMode({ entries, filter, onFilterChange, onSelect, selected,
       <article className="wiki-detail-card">
         <div className="wiki-detail-header">
           <span className="wiki-badge">
-            {selected.kind === 'classes' ? 'Класс' : 'Раса'}
+            {selected.kind === 'classes' ? '' : ''}
           </span>
           <h3>{selected.name}</h3>
           <p>{selected.kind === 'classes' ? selected.description : selected.identity}</p>
@@ -797,12 +797,12 @@ function ClassesRacesMode({ entries, filter, onFilterChange, onSelect, selected,
         {selected.kind === 'classes' ? (
           <>
             <div className="wiki-stat-bar">
-              <div><strong>Кость хитов</strong><span>d{selected.hitDie}</span></div>
-              <div><strong>Главное</strong><span>{selected.keyAbility}</span></div>
-              <div><strong>Магия</strong><span>{selected.spellcasting}</span></div>
+              <div><strong> </strong><span>d{selected.hitDie}</span></div>
+              <div><strong></strong><span>{selected.keyAbility}</span></div>
+              <div><strong></strong><span>{selected.spellcasting}</span></div>
             </div>
             <div className="wiki-detail-section">
-              <strong>Ключевые умения</strong>
+              <strong> </strong>
               <div className="wiki-chip-row">
                 {selected.coreFeatures.map((item) => (
                   <span className="wiki-tag" key={item}>
@@ -812,7 +812,7 @@ function ClassesRacesMode({ entries, filter, onFilterChange, onSelect, selected,
               </div>
             </div>
             <div className="wiki-detail-section">
-              <strong>Примеры архетипов</strong>
+              <strong> </strong>
               <div className="wiki-chip-row">
                 {selected.subclassExamples.map((item) => (
                   <span className="wiki-tag" key={item}>
@@ -833,13 +833,13 @@ function ClassesRacesMode({ entries, filter, onFilterChange, onSelect, selected,
         ) : (
           <>
             <div className="wiki-stat-bar">
-              <div><strong>Размер</strong><span>{selected.size}</span></div>
-              <div><strong>Скорость</strong><span>{selected.speed} футов</span></div>
-              <div><strong>Фокус</strong><span>{selected.abilityFocus}</span></div>
+              <div><strong></strong><span>{selected.size}</span></div>
+              <div><strong></strong><span>{selected.speed} </span></div>
+              <div><strong></strong><span>{selected.abilityFocus}</span></div>
             </div>
             <p className="wiki-detail-copy">{selected.description}</p>
             <div className="wiki-detail-section">
-              <strong>Черты</strong>
+              <strong></strong>
               {selected.traits.map((trait) => (
                 <div className="wiki-trait-item" key={trait.name}>
                   <span>{trait.name}</span>
@@ -848,7 +848,7 @@ function ClassesRacesMode({ entries, filter, onFilterChange, onSelect, selected,
               ))}
             </div>
             <div className="wiki-detail-section">
-              <strong>Подрасы и варианты</strong>
+              <strong>  </strong>
               {selected.subraces.map((subrace) => (
                 <div className="wiki-trait-item" key={subrace.name}>
                   <span>{subrace.name}</span>
