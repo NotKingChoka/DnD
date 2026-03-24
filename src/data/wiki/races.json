@@ -1,164 +1,164 @@
-{
-  "races": {
-    "title": "",
-    "entries": [
-      {
-        "id": "dwarf",
-        "name": "",
-        "identity": "     ",
-        "size": "",
-        "speed": 25,
-        "abilityFocus": "",
-        "description": "  , ,      .",
-        "traits": [
-          { "name": "Ҹ ", "effect": "    60 ." },
-          { "name": " ", "effect": "      ." },
-          { "name": " ", "effect": "     ." }
-        ],
-        "subraces": [
-          { "name": " ", "hook": "   ." },
-          { "name": " ", "hook": "     ." }
-        ]
-      },
-      {
-        "id": "elf",
-        "name": "",
-        "identity": "    ",
-        "size": "",
-        "speed": 30,
-        "abilityFocus": "",
-        "description": " ,       .",
-        "traits": [
-          { "name": "Ҹ ", "effect": "    60 ." },
-          { "name": " ", "effect": "       ." },
-          { "name": "", "effect": "  ,    ." }
-        ],
-        "subraces": [
-          { "name": " ", "hook": ",    ." },
-          { "name": " ", "hook": ",       ." },
-          { "name": "", "hook": ",  ,    ." }
-        ]
-      },
-      {
-        "id": "halfling",
-        "name": "",
-        "identity": "  ,   ",
-        "size": "",
-        "speed": 25,
-        "abilityFocus": "",
-        "description": "   ,       .",
-        "traits": [
-          { "name": "", "effect": "   ." },
-          { "name": "", "effect": "  ." },
-          { "name": " ", "effect": "      ." }
-        ],
-        "subraces": [
-          { "name": "", "hook": "    ." },
-          { "name": "", "hook": "    ." }
-        ]
-      },
-      {
-        "id": "human",
-        "name": "",
-        "identity": "      ",
-        "size": "",
-        "speed": 30,
-        "abilityFocus": "",
-        "description": "      ,        .",
-        "traits": [
-          { "name": "", "effect": "      ." },
-          { "name": " ", "effect": "      ." }
-        ],
-        "subraces": [
-          { "name": " ", "hook": "   ." },
-          { "name": " ", "hook": "     1 ." }
-        ]
-      },
-      {
-        "id": "dragonborn",
-        "name": "",
-        "identity": "      ",
-        "size": "",
-        "speed": 30,
-        "abilityFocus": " / ",
-        "description": "     ,    .",
-        "traits": [
-          { "name": " ", "effect": "     ." },
-          { "name": " ", "effect": "     ." }
-        ],
-        "subraces": [
-          { "name": " ", "hook": "     ." },
-          { "name": " ", "hook": "   ." }
-        ]
-      },
-      {
-        "id": "gnome",
-        "name": "",
-        "identity": "  ,   ",
-        "size": "",
-        "speed": 25,
-        "abilityFocus": "",
-        "description": "    ,      .",
-        "traits": [
-          { "name": " ", "effect": "   ,     ." },
-          { "name": "Ҹ ", "effect": "    60 ." }
-        ],
-        "subraces": [
-          { "name": " ", "hook": "     ." },
-          { "name": " ", "hook": "   ." }
-        ]
-      },
-      {
-        "id": "half-elf",
-        "name": "",
-        "identity": "     ",
-        "size": "",
-        "speed": 30,
-        "abilityFocus": "",
-        "description": "    ,         .",
-        "traits": [
-          { "name": " ", "effect": "       ." },
-          { "name": " ", "effect": "    ." },
-          { "name": " ", "effect": "       ." }
-        ],
-        "subraces": [
-          { "name": " ", "hook": "      ." }
-        ]
-      },
-      {
-        "id": "half-orc",
-        "name": "",
-        "identity": "     ",
-        "size": "",
-        "speed": 30,
-        "abilityFocus": " / ",
-        "description": "    ,        .",
-        "traits": [
-          { "name": " ", "effect": "   1     0." },
-          { "name": " ", "effect": "  ." },
-          { "name": "Ҹ ", "effect": "    60 ." }
-        ],
-        "subraces": [
-          { "name": " ", "hook": "   ." }
-        ]
-      },
-      {
-        "id": "tiefling",
-        "name": "",
-        "identity": "       ",
-        "size": "",
-        "speed": 30,
-        "abilityFocus": " / ",
-        "description": "          .",
-        "traits": [
-          { "name": "Ҹ ", "effect": "    60 ." },
-          { "name": " ", "effect": "  ." },
-          { "name": " ", "effect": "   ." }
-        ],
-        "subraces": [
-          { "name": " PHB-", "hook": ",    ." }
-        ]
-      }
-    ]
-  }
-}
+{
+  "races": {
+    "title": "",
+    "entries": [
+      {
+        "id": "dwarf",
+        "name": "",
+        "identity": "     ",
+        "size": "",
+        "speed": 25,
+        "abilityFocus": "",
+        "description": "  , ,      .",
+        "traits": [
+          { "name": " ", "effect": "    60 ." },
+          { "name": " ", "effect": "      ." },
+          { "name": " ", "effect": "     ." }
+        ],
+        "subraces": [
+          { "name": " ", "hook": "   ." },
+          { "name": " ", "hook": "     ." }
+        ]
+      },
+      {
+        "id": "elf",
+        "name": "",
+        "identity": "    ",
+        "size": "",
+        "speed": 30,
+        "abilityFocus": "",
+        "description": " ,       .",
+        "traits": [
+          { "name": " ", "effect": "    60 ." },
+          { "name": " ", "effect": "       ." },
+          { "name": "", "effect": "  ,    ." }
+        ],
+        "subraces": [
+          { "name": " ", "hook": ",    ." },
+          { "name": " ", "hook": ",       ." },
+          { "name": "", "hook": ",  ,    ." }
+        ]
+      },
+      {
+        "id": "halfling",
+        "name": "",
+        "identity": "  ,   ",
+        "size": "",
+        "speed": 25,
+        "abilityFocus": "",
+        "description": "   ,       .",
+        "traits": [
+          { "name": "", "effect": "   ." },
+          { "name": "", "effect": "  ." },
+          { "name": " ", "effect": "      ." }
+        ],
+        "subraces": [
+          { "name": "", "hook": "    ." },
+          { "name": "", "hook": "    ." }
+        ]
+      },
+      {
+        "id": "human",
+        "name": "",
+        "identity": "      ",
+        "size": "",
+        "speed": 30,
+        "abilityFocus": "",
+        "description": "      ,        .",
+        "traits": [
+          { "name": "", "effect": "      ." },
+          { "name": " ", "effect": "      ." }
+        ],
+        "subraces": [
+          { "name": " ", "hook": "   ." },
+          { "name": " ", "hook": "     1 ." }
+        ]
+      },
+      {
+        "id": "dragonborn",
+        "name": "",
+        "identity": "      ",
+        "size": "",
+        "speed": 30,
+        "abilityFocus": " / ",
+        "description": "     ,    .",
+        "traits": [
+          { "name": " ", "effect": "     ." },
+          { "name": " ", "effect": "     ." }
+        ],
+        "subraces": [
+          { "name": " ", "hook": "     ." },
+          { "name": " ", "hook": "   ." }
+        ]
+      },
+      {
+        "id": "gnome",
+        "name": "",
+        "identity": "  ,   ",
+        "size": "",
+        "speed": 25,
+        "abilityFocus": "",
+        "description": "    ,      .",
+        "traits": [
+          { "name": " ", "effect": "   ,     ." },
+          { "name": " ", "effect": "    60 ." }
+        ],
+        "subraces": [
+          { "name": " ", "hook": "     ." },
+          { "name": " ", "hook": "   ." }
+        ]
+      },
+      {
+        "id": "half-elf",
+        "name": "",
+        "identity": "     ",
+        "size": "",
+        "speed": 30,
+        "abilityFocus": "",
+        "description": "    ,         .",
+        "traits": [
+          { "name": " ", "effect": "       ." },
+          { "name": " ", "effect": "    ." },
+          { "name": " ", "effect": "       ." }
+        ],
+        "subraces": [
+          { "name": " ", "hook": "      ." }
+        ]
+      },
+      {
+        "id": "half-orc",
+        "name": "",
+        "identity": "     ",
+        "size": "",
+        "speed": 30,
+        "abilityFocus": " / ",
+        "description": "    ,        .",
+        "traits": [
+          { "name": " ", "effect": "   1     0." },
+          { "name": " ", "effect": "  ." },
+          { "name": " ", "effect": "    60 ." }
+        ],
+        "subraces": [
+          { "name": " ", "hook": "   ." }
+        ]
+      },
+      {
+        "id": "tiefling",
+        "name": "",
+        "identity": "       ",
+        "size": "",
+        "speed": 30,
+        "abilityFocus": " / ",
+        "description": "          .",
+        "traits": [
+          { "name": " ", "effect": "    60 ." },
+          { "name": " ", "effect": "  ." },
+          { "name": " ", "effect": "   ." }
+        ],
+        "subraces": [
+          { "name": " PHB-", "hook": ",    ." }
+        ]
+      }
+    ]
+  }
+}
