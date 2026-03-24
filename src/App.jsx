@@ -1,9 +1,10 @@
-import { AnimatePresence, motion } from 'framer-motion'
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
+﻿import { AnimatePresence, motion } from 'framer-motion'
+import { Suspense, lazy, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Award,
   BookOpen,
   ChevronRight,
+  LibraryBig,
   ScrollText,
   Volume2,
   VolumeX,
@@ -21,13 +22,15 @@ import {
 } from './courseData'
 import {
   calculateLevel,
-  createDefaultProgress,
+  createLessonStepState,
   loadProgress,
   playArcaneCue,
   rollDie,
   saveProgress,
   shuffle,
 } from './utils'
+import LessonMiniGame from './LessonMiniGame'
+const WikiModule = lazy(() => import('./WikiModule'))
 
 const particles = Array.from({ length: 14 }, (_, index) => ({
   delay: index * 0.4,
@@ -38,101 +41,103 @@ const particles = Array.from({ length: 14 }, (_, index) => ({
   y: 10 + (index % 5) * 14,
 }))
 
+void motion
+
 const sceneTitleMap = {
-  abilities: 'Сигилы характеристик',
-  adventure: 'Карта мини-приключения',
-  armor: 'Попадание по щиту',
-  classes: 'Архетипы героев',
-  combat: 'Удар по гоблину',
-  damage: 'Урон после попадания',
-  dice: 'Полка кубиков',
-  door: 'Свобода выбора',
-  exam: 'Посвящение ученика',
-  flow: 'Ритм сессии',
-  modifiers: 'Панель модификатора',
-  'skill-check': 'Проверка на стене',
-  spells: 'Три базовых заклинания',
-  table: 'Воображение над столом',
+  abilities: 'РЎРёРіРёР»С‹ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє',
+  adventure: 'РљР°СЂС‚Р° РјРёРЅРё-РїСЂРёРєР»СЋС‡РµРЅРёСЏ',
+  armor: 'РџРѕРїР°РґР°РЅРёРµ РїРѕ С‰РёС‚Сѓ',
+  classes: 'РђСЂС…РµС‚РёРїС‹ РіРµСЂРѕРµРІ',
+  combat: 'РЈРґР°СЂ РїРѕ РіРѕР±Р»РёРЅСѓ',
+  damage: 'РЈСЂРѕРЅ РїРѕСЃР»Рµ РїРѕРїР°РґР°РЅРёСЏ',
+  dice: 'РџРѕР»РєР° РєСѓР±РёРєРѕРІ',
+  door: 'РЎРІРѕР±РѕРґР° РІС‹Р±РѕСЂР°',
+  exam: 'РџРѕСЃРІСЏС‰РµРЅРёРµ СѓС‡РµРЅРёРєР°',
+  flow: 'Р РёС‚Рј СЃРµСЃСЃРёРё',
+  modifiers: 'РџР°РЅРµР»СЊ РјРѕРґРёС„РёРєР°С‚РѕСЂР°',
+  'skill-check': 'РџСЂРѕРІРµСЂРєР° РЅР° СЃС‚РµРЅРµ',
+  spells: 'РўСЂРё Р±Р°Р·РѕРІС‹С… Р·Р°РєР»РёРЅР°РЅРёСЏ',
+  table: 'Р’РѕРѕР±СЂР°Р¶РµРЅРёРµ РЅР°Рґ СЃС‚РѕР»РѕРј',
 }
 
 const sceneCaptionMap = {
-  abilities: 'Шесть характеристик оживают как эмблемы и подсказывают стиль героя.',
-  adventure: 'В одном маленьком маршруте уже живут выбор, кубики и последствия.',
-  armor: 'Число атаки сталкивается со щитом AC и сразу показывает, прошёл ли удар.',
-  classes: 'Каждый класс ощущается как отдельный путь героя, а не просто набор цифр.',
-  combat: 'Бой строится из понятных шагов: инициатива, атака, попадание, урон.',
-  damage: 'После точного удара игра отдельно показывает кубик урона и падение HP.',
-  dice: 'd20 сияет как главный кубик проверок, а остальные добавляют вкус урону и эффектам.',
-  door: 'Игроки могут осмотреть дверь, постучать, взломать или придумать свой вариант.',
-  exam: 'Финал курса чувствуется как посвящение, а не как сухой тест.',
-  flow: 'Сессия течёт как цепочка: описание, выбор, бросок, последствия.',
-  modifiers: 'Бонусы рождаются из характеристик и мягко меняют шанс успеха.',
-  'skill-check': 'Итог складывается на глазах: d20, бонус и сложность встречаются в одной точке.',
-  spells: 'Магия может жечь, исцелять или защищать — и это видно без длинных таблиц.',
-  table: 'Мастер говорит, а над столом оживают лес, дракон, сундук и таверна.',
+  abilities: 'РЁРµСЃС‚СЊ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє РѕР¶РёРІР°СЋС‚ РєР°Рє СЌРјР±Р»РµРјС‹ Рё РїРѕРґСЃРєР°Р·С‹РІР°СЋС‚ СЃС‚РёР»СЊ РіРµСЂРѕСЏ.',
+  adventure: 'Р’ РѕРґРЅРѕРј РјР°Р»РµРЅСЊРєРѕРј РјР°СЂС€СЂСѓС‚Рµ СѓР¶Рµ Р¶РёРІСѓС‚ РІС‹Р±РѕСЂ, РєСѓР±РёРєРё Рё РїРѕСЃР»РµРґСЃС‚РІРёСЏ.',
+  armor: 'Р§РёСЃР»Рѕ Р°С‚Р°РєРё СЃС‚Р°Р»РєРёРІР°РµС‚СЃСЏ СЃРѕ С‰РёС‚РѕРј AC Рё СЃСЂР°Р·Сѓ РїРѕРєР°Р·С‹РІР°РµС‚, РїСЂРѕС€С‘Р» Р»Рё СѓРґР°СЂ.',
+  classes: 'РљР°Р¶РґС‹Р№ РєР»Р°СЃСЃ РѕС‰СѓС‰Р°РµС‚СЃСЏ РєР°Рє РѕС‚РґРµР»СЊРЅС‹Р№ РїСѓС‚СЊ РіРµСЂРѕСЏ, Р° РЅРµ РїСЂРѕСЃС‚Рѕ РЅР°Р±РѕСЂ С†РёС„СЂ.',
+  combat: 'Р‘РѕР№ СЃС‚СЂРѕРёС‚СЃСЏ РёР· РїРѕРЅСЏС‚РЅС‹С… С€Р°РіРѕРІ: РёРЅРёС†РёР°С‚РёРІР°, Р°С‚Р°РєР°, РїРѕРїР°РґР°РЅРёРµ, СѓСЂРѕРЅ.',
+  damage: 'РџРѕСЃР»Рµ С‚РѕС‡РЅРѕРіРѕ СѓРґР°СЂР° РёРіСЂР° РѕС‚РґРµР»СЊРЅРѕ РїРѕРєР°Р·С‹РІР°РµС‚ РєСѓР±РёРє СѓСЂРѕРЅР° Рё РїР°РґРµРЅРёРµ HP.',
+  dice: 'd20 СЃРёСЏРµС‚ РєР°Рє РіР»Р°РІРЅС‹Р№ РєСѓР±РёРє РїСЂРѕРІРµСЂРѕРє, Р° РѕСЃС‚Р°Р»СЊРЅС‹Рµ РґРѕР±Р°РІР»СЏСЋС‚ РІРєСѓСЃ СѓСЂРѕРЅСѓ Рё СЌС„С„РµРєС‚Р°Рј.',
+  door: 'РРіСЂРѕРєРё РјРѕРіСѓС‚ РѕСЃРјРѕС‚СЂРµС‚СЊ РґРІРµСЂСЊ, РїРѕСЃС‚СѓС‡Р°С‚СЊ, РІР·Р»РѕРјР°С‚СЊ РёР»Рё РїСЂРёРґСѓРјР°С‚СЊ СЃРІРѕР№ РІР°СЂРёР°РЅС‚.',
+  exam: 'Р¤РёРЅР°Р» РєСѓСЂСЃР° С‡СѓРІСЃС‚РІСѓРµС‚СЃСЏ РєР°Рє РїРѕСЃРІСЏС‰РµРЅРёРµ, Р° РЅРµ РєР°Рє СЃСѓС…РѕР№ С‚РµСЃС‚.',
+  flow: 'РЎРµСЃСЃРёСЏ С‚РµС‡С‘С‚ РєР°Рє С†РµРїРѕС‡РєР°: РѕРїРёСЃР°РЅРёРµ, РІС‹Р±РѕСЂ, Р±СЂРѕСЃРѕРє, РїРѕСЃР»РµРґСЃС‚РІРёСЏ.',
+  modifiers: 'Р‘РѕРЅСѓСЃС‹ СЂРѕР¶РґР°СЋС‚СЃСЏ РёР· С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє Рё РјСЏРіРєРѕ РјРµРЅСЏСЋС‚ С€Р°РЅСЃ СѓСЃРїРµС…Р°.',
+  'skill-check': 'РС‚РѕРі СЃРєР»Р°РґС‹РІР°РµС‚СЃСЏ РЅР° РіР»Р°Р·Р°С…: d20, Р±РѕРЅСѓСЃ Рё СЃР»РѕР¶РЅРѕСЃС‚СЊ РІСЃС‚СЂРµС‡Р°СЋС‚СЃСЏ РІ РѕРґРЅРѕР№ С‚РѕС‡РєРµ.',
+  spells: 'РњР°РіРёСЏ РјРѕР¶РµС‚ Р¶РµС‡СЊ, РёСЃС†РµР»СЏС‚СЊ РёР»Рё Р·Р°С‰РёС‰Р°С‚СЊ вЂ” Рё СЌС‚Рѕ РІРёРґРЅРѕ Р±РµР· РґР»РёРЅРЅС‹С… С‚Р°Р±Р»РёС†.',
+  table: 'РњР°СЃС‚РµСЂ РіРѕРІРѕСЂРёС‚, Р° РЅР°Рґ СЃС‚РѕР»РѕРј РѕР¶РёРІР°СЋС‚ Р»РµСЃ, РґСЂР°РєРѕРЅ, СЃСѓРЅРґСѓРє Рё С‚Р°РІРµСЂРЅР°.',
 }
 
 const doorChoices = [
   {
     id: 'inspect',
-    label: 'Осмотреть дверь',
-    result: 'Ты замечаешь стёртые руны у замка. Похоже, здесь мог быть магический механизм.',
+    label: 'РћСЃРјРѕС‚СЂРµС‚СЊ РґРІРµСЂСЊ',
+    result: 'РўС‹ Р·Р°РјРµС‡Р°РµС€СЊ СЃС‚С‘СЂС‚С‹Рµ СЂСѓРЅС‹ Сѓ Р·Р°РјРєР°. РџРѕС…РѕР¶Рµ, Р·РґРµСЃСЊ РјРѕРі Р±С‹С‚СЊ РјР°РіРёС‡РµСЃРєРёР№ РјРµС…Р°РЅРёР·Рј.',
   },
   {
     id: 'knock',
-    label: 'Постучать',
-    result: 'С той стороны раздаётся глухой отголосок. За дверью точно есть пространство.',
+    label: 'РџРѕСЃС‚СѓС‡Р°С‚СЊ',
+    result: 'РЎ С‚РѕР№ СЃС‚РѕСЂРѕРЅС‹ СЂР°Р·РґР°С‘С‚СЃСЏ РіР»СѓС…РѕР№ РѕС‚РіРѕР»РѕСЃРѕРє. Р—Р° РґРІРµСЂСЊСЋ С‚РѕС‡РЅРѕ РµСЃС‚СЊ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ.',
   },
   {
     id: 'bash',
-    label: 'Выбить',
-    result: 'Дверь дрожит, пыль сыплется вниз, но теперь все вокруг знают, что вы здесь.',
+    label: 'Р’С‹Р±РёС‚СЊ',
+    result: 'Р”РІРµСЂСЊ РґСЂРѕР¶РёС‚, РїС‹Р»СЊ СЃС‹РїР»РµС‚СЃСЏ РІРЅРёР·, РЅРѕ С‚РµРїРµСЂСЊ РІСЃРµ РІРѕРєСЂСѓРі Р·РЅР°СЋС‚, С‡С‚Рѕ РІС‹ Р·РґРµСЃСЊ.',
   },
   {
     id: 'trap',
-    label: 'Поискать ловушку',
-    result: 'У нижней петли ты замечаешь подозрительную леску. Отличный повод быть осторожнее.',
+    label: 'РџРѕРёСЃРєР°С‚СЊ Р»РѕРІСѓС€РєСѓ',
+    result: 'РЈ РЅРёР¶РЅРµР№ РїРµС‚Р»Рё С‚С‹ Р·Р°РјРµС‡Р°РµС€СЊ РїРѕРґРѕР·СЂРёС‚РµР»СЊРЅСѓСЋ Р»РµСЃРєСѓ. РћС‚Р»РёС‡РЅС‹Р№ РїРѕРІРѕРґ Р±С‹С‚СЊ РѕСЃС‚РѕСЂРѕР¶РЅРµРµ.',
   },
 ]
 
 const chestActions = [
   {
     id: 'inspect',
-    label: 'Осмотреть',
+    label: 'РћСЃРјРѕС‚СЂРµС‚СЊ',
     bonus: 2,
     dc: 13,
-    ability: 'Мудрость',
-    success: 'Ты замечаешь скрытую иглу и безопасно открываешь механизм. Внутри золото и старый жетон.',
-    failure: 'Ты не замечаешь подвоха. Игла щёлкает, крышка остаётся закрытой.',
+    ability: 'РњСѓРґСЂРѕСЃС‚СЊ',
+    success: 'РўС‹ Р·Р°РјРµС‡Р°РµС€СЊ СЃРєСЂС‹С‚СѓСЋ РёРіР»Сѓ Рё Р±РµР·РѕРїР°СЃРЅРѕ РѕС‚РєСЂС‹РІР°РµС€СЊ РјРµС…Р°РЅРёР·Рј. Р’РЅСѓС‚СЂРё Р·РѕР»РѕС‚Рѕ Рё СЃС‚Р°СЂС‹Р№ Р¶РµС‚РѕРЅ.',
+    failure: 'РўС‹ РЅРµ Р·Р°РјРµС‡Р°РµС€СЊ РїРѕРґРІРѕС…Р°. РРіР»Р° С‰С‘Р»РєР°РµС‚, РєСЂС‹С€РєР° РѕСЃС‚Р°С‘С‚СЃСЏ Р·Р°РєСЂС‹С‚РѕР№.',
     achievementId: 'chest-opened',
   },
   {
     id: 'pick',
-    label: 'Вскрыть инструментами',
+    label: 'Р’СЃРєСЂС‹С‚СЊ РёРЅСЃС‚СЂСѓРјРµРЅС‚Р°РјРё',
     bonus: 4,
     dc: 14,
-    ability: 'Ловкость',
-    success: 'Отмычка поворачивается, замок сдаётся, а крышка плавно поднимается вверх.',
-    failure: 'Инструмент срывается. Механизм пока не поддался.',
+    ability: 'Р›РѕРІРєРѕСЃС‚СЊ',
+    success: 'РћС‚РјС‹С‡РєР° РїРѕРІРѕСЂР°С‡РёРІР°РµС‚СЃСЏ, Р·Р°РјРѕРє СЃРґР°С‘С‚СЃСЏ, Р° РєСЂС‹С€РєР° РїР»Р°РІРЅРѕ РїРѕРґРЅРёРјР°РµС‚СЃСЏ РІРІРµСЂС….',
+    failure: 'РРЅСЃС‚СЂСѓРјРµРЅС‚ СЃСЂС‹РІР°РµС‚СЃСЏ. РњРµС…Р°РЅРёР·Рј РїРѕРєР° РЅРµ РїРѕРґРґР°Р»СЃСЏ.',
     achievementId: 'chest-opened',
   },
   {
     id: 'smash',
-    label: 'Разбить',
+    label: 'Р Р°Р·Р±РёС‚СЊ',
     bonus: 3,
     dc: 12,
-    ability: 'Сила',
-    success: 'Доски трескаются, сундук раскрывается, а внутри звенят монеты.',
-    failure: 'Сундук дрожит, но устоял. Шум вышел грозным, а результат пока скромный.',
+    ability: 'РЎРёР»Р°',
+    success: 'Р”РѕСЃРєРё С‚СЂРµСЃРєР°СЋС‚СЃСЏ, СЃСѓРЅРґСѓРє СЂР°СЃРєСЂС‹РІР°РµС‚СЃСЏ, Р° РІРЅСѓС‚СЂРё Р·РІРµРЅСЏС‚ РјРѕРЅРµС‚С‹.',
+    failure: 'РЎСѓРЅРґСѓРє РґСЂРѕР¶РёС‚, РЅРѕ СѓСЃС‚РѕСЏР». РЁСѓРј РІС‹С€РµР» РіСЂРѕР·РЅС‹Рј, Р° СЂРµР·СѓР»СЊС‚Р°С‚ РїРѕРєР° СЃРєСЂРѕРјРЅС‹Р№.',
     achievementId: 'chest-opened',
   },
   {
     id: 'leave',
-    label: 'Оставить',
+    label: 'РћСЃС‚Р°РІРёС‚СЊ',
     bonus: 0,
     dc: 0,
-    ability: 'Осторожность',
-    success: 'Иногда лучший ход — пройти мимо и сохранить силы для другой сцены.',
+    ability: 'РћСЃС‚РѕСЂРѕР¶РЅРѕСЃС‚СЊ',
+    success: 'РРЅРѕРіРґР° Р»СѓС‡С€РёР№ С…РѕРґ вЂ” РїСЂРѕР№С‚Рё РјРёРјРѕ Рё СЃРѕС…СЂР°РЅРёС‚СЊ СЃРёР»С‹ РґР»СЏ РґСЂСѓРіРѕР№ СЃС†РµРЅС‹.',
     failure: '',
   },
 ]
@@ -140,41 +145,41 @@ const chestActions = [
 const guardActions = [
   {
     id: 'persuade',
-    label: 'Убедить',
+    label: 'РЈР±РµРґРёС‚СЊ',
     bonus: 3,
     dc: 13,
-    ability: 'Харизма',
-    success: 'Стражник расслабляется и пропускает вас к воротам.',
-    failure: 'Он качает головой и просит говорить по существу.',
+    ability: 'РҐР°СЂРёР·РјР°',
+    success: 'РЎС‚СЂР°Р¶РЅРёРє СЂР°СЃСЃР»Р°Р±Р»СЏРµС‚СЃСЏ Рё РїСЂРѕРїСѓСЃРєР°РµС‚ РІР°СЃ Рє РІРѕСЂРѕС‚Р°Рј.',
+    failure: 'РћРЅ РєР°С‡Р°РµС‚ РіРѕР»РѕРІРѕР№ Рё РїСЂРѕСЃРёС‚ РіРѕРІРѕСЂРёС‚СЊ РїРѕ СЃСѓС‰РµСЃС‚РІСѓ.',
     achievementId: 'silver-tongue',
   },
   {
     id: 'deceive',
-    label: 'Обмануть',
+    label: 'РћР±РјР°РЅСѓС‚СЊ',
     bonus: 4,
     dc: 14,
-    ability: 'Обман',
-    success: 'Ложь звучит достаточно уверенно, и стражник делает шаг в сторону.',
-    failure: 'Стражник прищуривается. История звучит подозрительно.',
+    ability: 'РћР±РјР°РЅ',
+    success: 'Р›РѕР¶СЊ Р·РІСѓС‡РёС‚ РґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СѓРІРµСЂРµРЅРЅРѕ, Рё СЃС‚СЂР°Р¶РЅРёРє РґРµР»Р°РµС‚ С€Р°Рі РІ СЃС‚РѕСЂРѕРЅСѓ.',
+    failure: 'РЎС‚СЂР°Р¶РЅРёРє РїСЂРёС‰СѓСЂРёРІР°РµС‚СЃСЏ. РСЃС‚РѕСЂРёСЏ Р·РІСѓС‡РёС‚ РїРѕРґРѕР·СЂРёС‚РµР»СЊРЅРѕ.',
     achievementId: 'silver-tongue',
   },
   {
     id: 'intimidate',
-    label: 'Запугать',
+    label: 'Р—Р°РїСѓРіР°С‚СЊ',
     bonus: 2,
     dc: 15,
-    ability: 'Запугивание',
-    success: 'Стражник не хочет проблем и уступает проход.',
-    failure: 'Он кладёт руку на копьё и явно ждёт продолжения.',
+    ability: 'Р—Р°РїСѓРіРёРІР°РЅРёРµ',
+    success: 'РЎС‚СЂР°Р¶РЅРёРє РЅРµ С…РѕС‡РµС‚ РїСЂРѕР±Р»РµРј Рё СѓСЃС‚СѓРїР°РµС‚ РїСЂРѕС…РѕРґ.',
+    failure: 'РћРЅ РєР»Р°РґС‘С‚ СЂСѓРєСѓ РЅР° РєРѕРїСЊС‘ Рё СЏРІРЅРѕ Р¶РґС‘С‚ РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ.',
     achievementId: 'silver-tongue',
   },
   {
     id: 'leave',
-    label: 'Уйти',
+    label: 'РЈР№С‚Рё',
     bonus: 0,
     dc: 0,
-    ability: 'Тактика',
-    success: 'Иногда тактическое отступление тоже разумное решение.',
+    ability: 'РўР°РєС‚РёРєР°',
+    success: 'РРЅРѕРіРґР° С‚Р°РєС‚РёС‡РµСЃРєРѕРµ РѕС‚СЃС‚СѓРїР»РµРЅРёРµ С‚РѕР¶Рµ СЂР°Р·СѓРјРЅРѕРµ СЂРµС€РµРЅРёРµ.',
     failure: '',
   },
 ]
@@ -208,6 +213,8 @@ function App() {
     LESSONS.find((lesson) => !completedSet.has(lesson.id)) ?? LESSONS[LESSONS.length - 1]
   const progressPercent = Math.round((progress.completedLessonIds.length / LESSONS.length) * 100)
   const level = calculateLevel(progress.xp)
+  const selectedLessonState =
+    progress.lessonStepStates?.[selectedLesson.id] ?? createLessonStepState(completedSet.has(selectedLesson.id))
   const recentAchievements = ACHIEVEMENTS.filter((item) =>
     progress.achievements.includes(item.id),
   ).slice(-4)
@@ -237,12 +244,93 @@ function App() {
     scrollTo(academyRef)
   }
 
+  const enterWiki = () => {
+    setProgress((previous) => ({ ...previous, view: 'wiki' }))
+  }
+
   const selectLesson = (lessonId) => {
     const index = LESSONS.findIndex((lesson) => lesson.id === lessonId)
     if (index >= unlockedCount && !completedSet.has(lessonId)) {
       return
     }
     setProgress((previous) => ({ ...previous, view: 'academy', selectedLessonId: lessonId }))
+  }
+
+  const markLessonSteps = (lessonId, steps) => {
+    if (!steps.length) {
+      return
+    }
+
+    setProgress((previous) => {
+      const currentState =
+        previous.lessonStepStates?.[lessonId] ??
+        createLessonStepState(previous.completedLessonIds.includes(lessonId))
+      const nextState = { ...currentState }
+      let changed = false
+
+      steps.forEach((step) => {
+        if (!nextState[step]) {
+          nextState[step] = true
+          changed = true
+        }
+      })
+
+      if (!changed) {
+        return previous
+      }
+
+      return {
+        ...previous,
+        lessonStepStates: {
+          ...previous.lessonStepStates,
+          [lessonId]: nextState,
+        },
+      }
+    })
+  }
+
+  const completePracticeStep = (lessonId) => {
+    markLessonSteps(lessonId, ['practice'])
+  }
+
+  const completeMiniGameStep = (lessonId, { achievementId = null, xpReward = 0 } = {}) => {
+    let earned = []
+    let completedNow = false
+
+    setProgress((previous) => {
+      const currentState =
+        previous.lessonStepStates?.[lessonId] ??
+        createLessonStepState(previous.completedLessonIds.includes(lessonId))
+
+      if (currentState.miniGame) {
+        return previous
+      }
+
+      earned =
+        achievementId && !previous.achievements.includes(achievementId) ? [achievementId] : []
+      completedNow = true
+
+      return {
+        ...previous,
+        achievements: [...previous.achievements, ...earned],
+        lessonStepStates: {
+          ...previous.lessonStepStates,
+          [lessonId]: {
+            ...currentState,
+            miniGame: true,
+          },
+        },
+        xp: previous.xp + xpReward,
+      }
+    })
+
+    if (earned.length) {
+      queueAchievements(earned)
+    }
+
+    if (completedNow) {
+      playArcaneCue(progress.soundEnabled, 'achievement')
+    }
   }
 
   const completeLesson = (lessonId) => {
@@ -257,6 +345,17 @@ function App() {
       }
 
       const lesson = LESSONS.find((item) => item.id === lessonId)
+      const lessonState =
+        previous.lessonStepStates?.[lessonId] ??
+        createLessonStepState(previous.completedLessonIds.includes(lessonId))
+      const readyToComplete = ['theory', 'example', 'practice', 'miniGame'].every(
+        (step) => lessonState[step],
+      )
+
+      if (!readyToComplete) {
+        return previous
+      }
+
       const completedLessonIds = [...previous.completedLessonIds, lessonId]
       const candidateAchievements = ['first-lesson']
 
@@ -369,6 +468,7 @@ function App() {
             setCompendiumMode('reference')
             setCompendiumOpen(true)
           }}
+          onOpenWiki={enterWiki}
           onToggleNewbie={() =>
             setProgress((previous) => ({ ...previous, newbieMode: !previous.newbieMode }))
           }
@@ -386,6 +486,7 @@ function App() {
             achievementsCount={progress.achievements.length}
             lessonsCount={LESSONS.length}
             onHowItWorks={() => enterAcademy({ preview: true })}
+            onOpenWiki={enterWiki}
             onStart={() => enterAcademy()}
             progressPercent={progressPercent}
           />
@@ -416,10 +517,15 @@ function App() {
             </section>
 
             <LessonStage
+              key={selectedLesson.id}
               completedSet={completedSet}
               lesson={selectedLesson}
+              lessonState={selectedLessonState}
+              onCompleteMiniGame={completeMiniGameStep}
               newbieMode={progress.newbieMode}
               onCompleteLesson={completeLesson}
+              onMarkLessonSteps={markLessonSteps}
+              onPracticeComplete={completePracticeStep}
               onJumpToTrials={() => scrollTo(trialsRef)}
               soundEnabled={progress.soundEnabled}
             />
@@ -427,10 +533,10 @@ function App() {
             <section className="panel trial-section" ref={trialsRef}>
               <div className="section-heading">
                 <div>
-                  <span className="section-kicker">Полевые тренировки</span>
-                  <h2 className="section-title">Мини-игры и живая практика</h2>
+                  <span className="section-kicker">РџРѕР»РµРІС‹Рµ С‚СЂРµРЅРёСЂРѕРІРєРё</span>
+                  <h2 className="section-title">РњРёРЅРё-РёРіСЂС‹ Рё Р¶РёРІР°СЏ РїСЂР°РєС‚РёРєР°</h2>
                   <p className="section-subtitle">
-                    Здесь теория превращается в опыт: сундук, переговоры и первый бой.
+                    Р—РґРµСЃСЊ С‚РµРѕСЂРёСЏ РїСЂРµРІСЂР°С‰Р°РµС‚СЃСЏ РІ РѕРїС‹С‚: СЃСѓРЅРґСѓРє, РїРµСЂРµРіРѕРІРѕСЂС‹ Рё РїРµСЂРІС‹Р№ Р±РѕР№.
                   </p>
                 </div>
               </div>
@@ -438,17 +544,17 @@ function App() {
               <div className="trial-grid">
                 <MiniGameCard
                   actions={chestActions}
-                  description="Перед тобой древний запертый сундук. Реши, как герой попробует справиться с ним."
+                  description="РџРµСЂРµРґ С‚РѕР±РѕР№ РґСЂРµРІРЅРёР№ Р·Р°РїРµСЂС‚С‹Р№ СЃСѓРЅРґСѓРє. Р РµС€Рё, РєР°Рє РіРµСЂРѕР№ РїРѕРїСЂРѕР±СѓРµС‚ СЃРїСЂР°РІРёС‚СЊСЃСЏ СЃ РЅРёРј."
                   onOutcome={(payload) => registerTrial({ ...payload, trialId: 'chest' })}
                   soundEnabled={progress.soundEnabled}
-                  title="Старый сундук"
+                  title="РЎС‚Р°СЂС‹Р№ СЃСѓРЅРґСѓРє"
                 />
                 <MiniGameCard
                   actions={guardActions}
-                  description="Перед воротами стоит настороженный стражник. Каким тоном герой попробует проложить путь?"
+                  description="РџРµСЂРµРґ РІРѕСЂРѕС‚Р°РјРё СЃС‚РѕРёС‚ РЅР°СЃС‚РѕСЂРѕР¶РµРЅРЅС‹Р№ СЃС‚СЂР°Р¶РЅРёРє. РљР°РєРёРј С‚РѕРЅРѕРј РіРµСЂРѕР№ РїРѕРїСЂРѕР±СѓРµС‚ РїСЂРѕР»РѕР¶РёС‚СЊ РїСѓС‚СЊ?"
                   onOutcome={(payload) => registerTrial({ ...payload, trialId: 'guard' })}
                   soundEnabled={progress.soundEnabled}
-                  title="Стражник у ворот"
+                  title="РЎС‚СЂР°Р¶РЅРёРє Сѓ РІРѕСЂРѕС‚"
                 />
                 <CombatDemo
                   onVictory={() =>
@@ -460,11 +566,19 @@ function App() {
                     })
                   }
                   soundEnabled={progress.soundEnabled}
-                  title="Первый бой"
+                  title="РџРµСЂРІС‹Р№ Р±РѕР№"
                 />
               </div>
             </section>
           </div>
+        )}
+
+        {progress.view === 'wiki' && (
+          <Suspense
+            fallback={<div className="panel wiki-fallback">Загружаю модуль энциклопедии…</div>}
+          >
+            <WikiModule onOpenAcademy={() => enterAcademy({ preview: true })} />
+          </Suspense>
         )}
 
         <GlossaryDrawer
@@ -499,6 +613,7 @@ function Navbar({
   onGoHome,
   onOpenGlossary,
   onOpenReference,
+  onOpenWiki,
   onToggleNewbie,
   onToggleSound,
   progressPercent,
@@ -512,30 +627,41 @@ function Navbar({
         <span className="brand-mark">DnD</span>
         <span className="brand-copy">
           <strong>D&amp;D Academy</strong>
-          <small>Школа приключенца</small>
+          <small>РЁРєРѕР»Р° РїСЂРёРєР»СЋС‡РµРЅС†Р°</small>
         </span>
       </button>
 
       <div className="topbar-status">
         <span className="status-pill">Lv. {level}</span>
-        <span className="status-pill">{progressPercent}% курса</span>
+        <span className="status-pill">{progressPercent}% РєСѓСЂСЃР°</span>
         <span className="status-pill">{streak} day streak</span>
       </div>
 
       <div className="topbar-actions">
         <button className="icon-button" onClick={onContinue} type="button">
           <ChevronRight size={16} />
-          <span>{view === 'hero' ? 'Продолжить курс' : 'К текущему уроку'}</span>
+          <span>
+            {view === 'hero'
+              ? 'РџСЂРѕРґРѕР»Р¶РёС‚СЊ РєСѓСЂСЃ'
+              : view === 'wiki'
+                ? 'Р’ Р°РєР°РґРµРјРёСЋ'
+                : 'Рљ С‚РµРєСѓС‰РµРјСѓ СѓСЂРѕРєСѓ'}
+          </span>
         </button>
 
         <button className="icon-button" onClick={onOpenReference} type="button">
           <ScrollText size={16} />
-          <span>Справочник</span>
+          <span>РЎРїСЂР°РІРѕС‡РЅРёРє</span>
+        </button>
+
+        <button className="icon-button" onClick={onOpenWiki} type="button">
+          <LibraryBig size={16} />
+          <span>D&amp;D Википедия</span>
         </button>
 
         <button className="icon-button" onClick={onOpenGlossary} type="button">
           <BookOpen size={16} />
-          <span>Словарь</span>
+          <span>РЎР»РѕРІР°СЂСЊ</span>
         </button>
 
         <button
@@ -544,12 +670,12 @@ function Navbar({
           type="button"
         >
           <Award size={16} />
-          <span>Я совсем новичок</span>
+          <span>РЇ СЃРѕРІСЃРµРј РЅРѕРІРёС‡РѕРє</span>
         </button>
 
         <button className="toggle-pill" onClick={onToggleSound} type="button">
           {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
-          <span>{soundEnabled ? 'Звук включён' : 'Звук выключен'}</span>
+          <span>{soundEnabled ? 'Р—РІСѓРє РІРєР»СЋС‡С‘РЅ' : 'Р—РІСѓРє РІС‹РєР»СЋС‡РµРЅ'}</span>
         </button>
       </div>
     </header>
@@ -560,6 +686,7 @@ function HeroSection({
   achievementsCount,
   lessonsCount,
   onHowItWorks,
+  onOpenWiki,
   onStart,
   progressPercent,
 }) {
@@ -576,35 +703,38 @@ function HeroSection({
     <section className="hero-grid" onMouseLeave={() => setPointer({ x: 0, y: 0 })} onMouseMove={handleMove}>
       <div className="hero-copy">
         <motion.span animate={{ opacity: 1, y: 0 }} className="eyebrow" initial={{ opacity: 0, y: 16 }}>
-          Академия приключенцев для новичков
+          РђРєР°РґРµРјРёСЏ РїСЂРёРєР»СЋС‡РµРЅС†РµРІ РґР»СЏ РЅРѕРІРёС‡РєРѕРІ
         </motion.span>
         <motion.h1 animate={{ opacity: 1, y: 0 }} className="hero-title" initial={{ opacity: 0, y: 22 }}>
-          Изучи Dungeons &amp; Dragons с нуля
+          РР·СѓС‡Рё Dungeons &amp; Dragons СЃ РЅСѓР»СЏ
         </motion.h1>
         <motion.p animate={{ opacity: 1, y: 0 }} className="hero-subtitle" initial={{ opacity: 0, y: 18 }}>
-          Пойми кубики, проверки, бой, классы и саму суть игры — легко, красиво и шаг за шагом.
+          РџРѕР№РјРё РєСѓР±РёРєРё, РїСЂРѕРІРµСЂРєРё, Р±РѕР№, РєР»Р°СЃСЃС‹ Рё СЃР°РјСѓ СЃСѓС‚СЊ РёРіСЂС‹ вЂ” Р»РµРіРєРѕ, РєСЂР°СЃРёРІРѕ Рё С€Р°Рі Р·Р° С€Р°РіРѕРј.
         </motion.p>
         <motion.div animate={{ opacity: 1, y: 0 }} className="hero-actions" initial={{ opacity: 0, y: 18 }}>
           <button className="btn-primary" onClick={onStart} type="button">
-            Начать приключение
+            РќР°С‡Р°С‚СЊ РїСЂРёРєР»СЋС‡РµРЅРёРµ
           </button>
           <button className="btn-secondary" onClick={onHowItWorks} type="button">
-            Посмотреть как это работает
+            РџРѕСЃРјРѕС‚СЂРµС‚СЊ РєР°Рє СЌС‚Рѕ СЂР°Р±РѕС‚Р°РµС‚
+          </button>
+          <button className="btn-secondary" onClick={onOpenWiki} type="button">
+            D&amp;D Википедия
           </button>
         </motion.div>
 
         <div className="hero-meta-grid">
           <div className="hero-meta-card">
             <strong>{lessonsCount}</strong>
-            <span>уроков в пути новичка</span>
+            <span>СѓСЂРѕРєРѕРІ РІ РїСѓС‚Рё РЅРѕРІРёС‡РєР°</span>
           </div>
           <div className="hero-meta-card">
             <strong>3</strong>
-            <span>мини-игры с живыми бросками</span>
+            <span>РјРёРЅРё-РёРіСЂС‹ СЃ Р¶РёРІС‹РјРё Р±СЂРѕСЃРєР°РјРё</span>
           </div>
           <div className="hero-meta-card">
             <strong>{Math.max(progressPercent, achievementsCount)}</strong>
-            <span>прогресс и награды уже сохраняются</span>
+            <span>РїСЂРѕРіСЂРµСЃСЃ Рё РЅР°РіСЂР°РґС‹ СѓР¶Рµ СЃРѕС…СЂР°РЅСЏСЋС‚СЃСЏ</span>
           </div>
         </div>
       </div>
@@ -631,19 +761,19 @@ function HeroSection({
               <span className="hero-flame" />
             </div>
             <motion.div animate={{ y: [0, -8, 0] }} className="hero-card hero-card-1" transition={{ duration: 4.6, ease: 'easeInOut', repeat: Infinity }}>
-              Бой
+              Р‘РѕР№
             </motion.div>
             <motion.div animate={{ y: [0, -10, 0] }} className="hero-card hero-card-2" transition={{ duration: 5.2, ease: 'easeInOut', repeat: Infinity }}>
               d20
             </motion.div>
             <motion.div animate={{ y: [0, -7, 0] }} className="hero-card hero-card-3" transition={{ duration: 4.2, ease: 'easeInOut', repeat: Infinity }}>
-              Классы
+              РљР»Р°СЃСЃС‹
             </motion.div>
           </div>
 
           <div className="hero-note">
-            <strong>Живая академия</strong>
-            <span>Уроки открываются по пути, дают XP и подкрепляются интерактивными сценами.</span>
+            <strong>Р–РёРІР°СЏ Р°РєР°РґРµРјРёСЏ</strong>
+            <span>РЈСЂРѕРєРё РѕС‚РєСЂС‹РІР°СЋС‚СЃСЏ РїРѕ РїСѓС‚Рё, РґР°СЋС‚ XP Рё РїРѕРґРєСЂРµРїР»СЏСЋС‚СЃСЏ РёРЅС‚РµСЂР°РєС‚РёРІРЅС‹РјРё СЃС†РµРЅР°РјРё.</span>
           </div>
         </div>
       </div>
@@ -668,30 +798,30 @@ function ProgressPanel({
     <section className="panel progress-panel">
       <div className="section-heading">
         <div>
-          <span className="section-kicker">Прогресс ученика</span>
-          <h2 className="section-title">Панель академии</h2>
-          <p className="section-subtitle">Мягкая геймификация в духе Duolingo, но в атмосфере фэнтези-школы.</p>
+          <span className="section-kicker">РџСЂРѕРіСЂРµСЃСЃ СѓС‡РµРЅРёРєР°</span>
+          <h2 className="section-title">РџР°РЅРµР»СЊ Р°РєР°РґРµРјРёРё</h2>
+          <p className="section-subtitle">РњСЏРіРєР°СЏ РіРµР№РјРёС„РёРєР°С†РёСЏ РІ РґСѓС…Рµ Duolingo, РЅРѕ РІ Р°С‚РјРѕСЃС„РµСЂРµ С„СЌРЅС‚РµР·Рё-С€РєРѕР»С‹.</p>
         </div>
       </div>
 
       <div className="xp-shell">
         <div className="xp-labels">
-          <span>XP в уровне: {xpIntoLevel} / 180</span>
+          <span>XP РІ СѓСЂРѕРІРЅРµ: {xpIntoLevel} / 180</span>
           <strong>{progressPercent}%</strong>
         </div>
         <div className="xp-track">
           <div className="xp-fill" style={{ width: `${progressPercent}%` }} />
         </div>
-        <small>До следующего уровня осталось {xpToNext} XP</small>
+        <small>Р”Рѕ СЃР»РµРґСѓСЋС‰РµРіРѕ СѓСЂРѕРІРЅСЏ РѕСЃС‚Р°Р»РѕСЃСЊ {xpToNext} XP</small>
       </div>
 
       <div className="progress-stat-grid">
         <article className="progress-stat">
-          <span>Уровень</span>
+          <span>РЈСЂРѕРІРµРЅСЊ</span>
           <strong className="progress-number">{level}</strong>
         </article>
         <article className="progress-stat">
-          <span>Пройдено</span>
+          <span>РџСЂРѕР№РґРµРЅРѕ</span>
           <strong className="progress-number">
             {lessonsCompleted}/{totalLessons}
           </strong>
@@ -703,7 +833,7 @@ function ProgressPanel({
       </div>
 
       <div className="progress-current">
-        <span>Продолжить с темы</span>
+        <span>РџСЂРѕРґРѕР»Р¶РёС‚СЊ СЃ С‚РµРјС‹</span>
         <strong>{currentLesson.chapter}</strong>
         <p>{currentLesson.title}</p>
       </div>
@@ -723,8 +853,8 @@ function ProgressPanel({
           <div className="achievement-pill">
             <span>XP</span>
             <div>
-              <strong>Первые достижения ждут</strong>
-              <small>Заверши урок или мини-игру, чтобы открыть первый badge.</small>
+              <strong>РџРµСЂРІС‹Рµ РґРѕСЃС‚РёР¶РµРЅРёСЏ Р¶РґСѓС‚</strong>
+              <small>Р—Р°РІРµСЂС€Рё СѓСЂРѕРє РёР»Рё РјРёРЅРё-РёРіСЂСѓ, С‡С‚РѕР±С‹ РѕС‚РєСЂС‹С‚СЊ РїРµСЂРІС‹Р№ badge.</small>
             </div>
           </div>
         )}
@@ -745,9 +875,9 @@ function LearningMap({
     <section className="panel learning-map-panel">
       <div className="section-heading">
         <div>
-          <span className="section-kicker">Путь обучения</span>
-          <h2 className="section-title">Карта академии</h2>
-          <p className="section-subtitle">Уроки открываются последовательно, как на карте приключения.</p>
+          <span className="section-kicker">РџСѓС‚СЊ РѕР±СѓС‡РµРЅРёСЏ</span>
+          <h2 className="section-title">РљР°СЂС‚Р° Р°РєР°РґРµРјРёРё</h2>
+          <p className="section-subtitle">РЈСЂРѕРєРё РѕС‚РєСЂС‹РІР°СЋС‚СЃСЏ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ, РєР°Рє РЅР° РєР°СЂС‚Рµ РїСЂРёРєР»СЋС‡РµРЅРёСЏ.</p>
         </div>
       </div>
 
@@ -785,7 +915,7 @@ function LearningMap({
                   <small>{lesson.duration}</small>
                 </div>
                 <span className="lesson-card-state">
-                  {completed ? 'Освоен' : current ? 'Текущий урок' : locked ? 'Закрыт' : 'Открыт'}
+                  {completed ? 'РћСЃРІРѕРµРЅ' : current ? 'РўРµРєСѓС‰РёР№ СѓСЂРѕРє' : locked ? 'Р—Р°РєСЂС‹С‚' : 'РћС‚РєСЂС‹С‚'}
                 </span>
               </button>
             </motion.div>
@@ -796,16 +926,53 @@ function LearningMap({
   )
 }
 
+function LessonChecklist({ lessonState }) {
+  const items = [
+    { id: 'theory', title: 'РўРµРѕСЂРёСЏ', note: 'РљРѕСЂРѕС‚РєРѕРµ РѕР±СЉСЏСЃРЅРµРЅРёРµ С‚РµРјС‹' },
+    { id: 'example', title: 'РџСЂРёРјРµСЂ', note: 'Р–РёРІР°СЏ Р°РЅРёРјР°С†РёРѕРЅРЅР°СЏ СЃС†РµРЅР°' },
+    { id: 'practice', title: 'РџСЂР°РєС‚РёРєР°', note: 'РРЅС‚РµСЂР°РєС‚РёРІ Рё РјРёРЅРё-РїСЂРѕРІРµСЂРєР°' },
+    { id: 'miniGame', title: 'РњРёРЅРё-РёРіСЂР°', note: 'РћС‚РґРµР»СЊРЅРѕРµ С‚РµРјР°С‚РёС‡РµСЃРєРѕРµ РёСЃРїС‹С‚Р°РЅРёРµ' },
+  ]
+
+  return (
+    <div className="lesson-checklist">
+      {items.map((item) => (
+        <article
+          className={`lesson-checkpoint ${lessonState[item.id] ? 'is-complete' : ''}`}
+          key={item.id}
+        >
+          <span className="lesson-check-icon">{lessonState[item.id] ? 'OK' : '...'}</span>
+          <div>
+            <strong>{item.title}</strong>
+            <small>{item.note}</small>
+          </div>
+        </article>
+      ))}
+    </div>
+  )
+}
+
 function LessonStage({
   completedSet,
   lesson,
+  lessonState,
+  onCompleteMiniGame,
   newbieMode,
   onCompleteLesson,
+  onMarkLessonSteps,
+  onPracticeComplete,
   onJumpToTrials,
   soundEnabled,
 }) {
+  const isCompleted = completedSet.has(lesson.id)
+  const practiceType = lesson.practice?.type ?? 'quiz'
+  const lessonQuiz = lesson.miniQuiz ?? { question: '', options: [] }
+  const requiresInteractivePractice = !['quiz', 'adventure'].includes(practiceType)
   const [selectedOptionId, setSelectedOptionId] = useState(null)
-  const [practiceComplete, setPracticeComplete] = useState(false)
+  const [quizPassed, setQuizPassed] = useState(() => isCompleted || lessonState.practice)
+  const [practiceActionComplete, setPracticeActionComplete] = useState(
+    () => isCompleted || lessonState.practice || !requiresInteractivePractice,
+  )
   const [doorChoice, setDoorChoice] = useState(null)
   const [abilityIndex, setAbilityIndex] = useState(0)
   const [abilityFeedback, setAbilityFeedback] = useState('')
@@ -817,30 +984,34 @@ function LessonStage({
   const [flowBuilt, setFlowBuilt] = useState([])
   const [flowFeedback, setFlowFeedback] = useState('')
 
-  const isCompleted = completedSet.has(lesson.id)
-  const selectedQuizOption = lesson.quiz.options.find((option) => option.id === selectedOptionId)
+  const selectedQuizOption = lessonQuiz.options.find((option) => option.id === selectedOptionId)
   const modifierValue = Math.floor((modifierScore - 10) / 2)
   const selectedSpell = SPELL_OPTIONS.find((spell) => spell.id === selectedSpellId) ?? SPELL_OPTIONS[0]
-  const canFinish = isCompleted || selectedQuizOption?.correct || practiceComplete
+  const practiceReady = lessonState.practice || (practiceActionComplete && quizPassed)
+  const canFinish =
+    isCompleted ||
+    ['theory', 'example', 'practice', 'miniGame'].every((step) => lessonState[step])
 
   useEffect(() => {
-    setSelectedOptionId(null)
-    setPracticeComplete(isCompleted)
-    setDoorChoice(null)
-    setAbilityIndex(0)
-    setAbilityFeedback('')
-    setModifierScore(14)
-    setArmorResult(null)
-    setDamageState({ attack: null, damage: null, hit: false })
-    setSelectedSpellId(SPELL_OPTIONS[0].id)
-    setFlowAvailable(shuffle(FLOW_STEPS))
-    setFlowBuilt([])
-    setFlowFeedback('')
-  }, [isCompleted, lesson.id])
+    onMarkLessonSteps(lesson.id, ['theory', 'example'])
+  }, [lesson.id, onMarkLessonSteps])
+
+  useEffect(() => {
+    if (!lessonState.practice && practiceActionComplete && quizPassed) {
+      onPracticeComplete(lesson.id)
+    }
+  }, [lesson.id, lessonState.practice, onPracticeComplete, practiceActionComplete, quizPassed])
+
+  const markPracticeInteraction = () => {
+    setPracticeActionComplete(true)
+  }
 
   const answerQuiz = (optionId) => {
     setSelectedOptionId(optionId)
-    const option = lesson.quiz.options.find((item) => item.id === optionId)
+    const option = lessonQuiz.options.find((item) => item.id === optionId)
+    if (option?.correct) {
+      setQuizPassed(true)
+    }
     playArcaneCue(soundEnabled, option?.correct ? 'success' : 'fail')
   }
 
@@ -851,9 +1022,12 @@ function LessonStage({
         <span className="result-pill">+{lesson.xp} XP</span>
       </div>
 
+      <LessonChecklist lessonState={lessonState} />
+
       <div className="lesson-grid">
         <div className="lesson-copy">
-          <div className="lesson-heading">
+          <div className="lesson-heading lesson-section">
+            <span className="section-kicker">РўРµРѕСЂРёСЏ</span>
             <h2 className="lesson-title">{lesson.title}</h2>
             <p className="lesson-summary">{lesson.summary}</p>
           </div>
@@ -881,8 +1055,16 @@ function LessonStage({
           </div>
 
           <div className="lesson-actions">
-            <button className="btn-secondary" onClick={() => setPracticeComplete(false)} type="button">
-              Попробовать самому
+            <button
+              className="btn-secondary"
+              onClick={() => {
+                setPracticeActionComplete(!requiresInteractivePractice)
+                setQuizPassed(false)
+                setSelectedOptionId(null)
+              }}
+              type="button"
+            >
+              РџРѕРїСЂРѕР±РѕРІР°С‚СЊ СЃР°РјРѕРјСѓ
             </button>
             <button
               className="btn-primary"
@@ -891,14 +1073,14 @@ function LessonStage({
               type="button"
             >
               {isCompleted
-                ? 'Повторить и перейти дальше'
+                ? 'РџРѕРІС‚РѕСЂРёС‚СЊ Рё РїРµСЂРµР№С‚Рё РґР°Р»СЊС€Рµ'
                 : canFinish
-                  ? 'Урок освоен'
-                  : 'Сначала пройди мини-проверку'}
+                  ? 'РЈСЂРѕРє РѕСЃРІРѕРµРЅ'
+                  : 'Р—Р°РєСЂРѕР№ С‚РµРѕСЂРёСЋ, РїСЂР°РєС‚РёРєСѓ Рё РјРёРЅРё-РёРіСЂСѓ'}
             </button>
-            {lesson.practiceType === 'adventure' && (
+            {practiceType === 'adventure' && (
               <button className="ghost-button" onClick={onJumpToTrials} type="button">
-                Открыть полигон
+                РћС‚РєСЂС‹С‚СЊ РїРѕР»РёРіРѕРЅ
               </button>
             )}
           </div>
@@ -916,12 +1098,22 @@ function LessonStage({
       <div className="practice-shell">
         <div className="practice-header">
           <div>
-            <span className="section-kicker">Практика</span>
-            <h3 className="section-title">Попробовать самому</h3>
+            <span className="section-kicker">РџСЂР°РєС‚РёРєР°</span>
+            <h3 className="section-title">РџРѕРїСЂРѕР±РѕРІР°С‚СЊ СЃР°РјРѕРјСѓ</h3>
           </div>
+          <span className={`result-pill ${practiceReady ? 'is-success' : ''}`}>
+            {practiceReady ? 'РЁР°Рі Р·Р°С‡С‚С‘РЅ' : 'Р–РґС‘С‚ РґРµР№СЃС‚РІРёСЏ'}
+          </span>
         </div>
 
-        {lesson.practiceType === 'door-choice' && (
+        {practiceType === 'quiz' && (
+          <div className="practice-outcome">
+            <strong>Р­С‚РѕС‚ СѓСЂРѕРє Р·Р°РєСЂРµРїР»СЏРµС‚СЃСЏ С‡РµСЂРµР· РєРѕСЂРѕС‚РєСѓСЋ РјРёРЅРё-РїСЂРѕРІРµСЂРєСѓ РЅРёР¶Рµ.</strong>
+            <p>Р’С‹Р±РµСЂРё РІРµСЂРЅС‹Р№ РѕС‚РІРµС‚, С‡С‚РѕР±С‹ Р·Р°РєСЂС‹С‚СЊ РїСЂР°РєС‚РёС‡РµСЃРєРёР№ С€Р°Рі СѓСЂРѕРєР°.</p>
+          </div>
+        )}
+
+        {practiceType === 'door-choice' && (
           <div className="practice-grid">
             <div className="choice-grid">
               {doorChoices.map((choice) => (
@@ -930,7 +1122,7 @@ function LessonStage({
                   key={choice.id}
                   onClick={() => {
                     setDoorChoice(choice.id)
-                    setPracticeComplete(true)
+                    markPracticeInteraction()
                     playArcaneCue(soundEnabled, 'roll')
                   }}
                   type="button"
@@ -940,31 +1132,31 @@ function LessonStage({
               ))}
             </div>
             <div className="practice-outcome">
-              <strong>Свобода выбора за столом</strong>
+              <strong>РЎРІРѕР±РѕРґР° РІС‹Р±РѕСЂР° Р·Р° СЃС‚РѕР»РѕРј</strong>
               <p>
                 {doorChoice
                   ? doorChoices.find((choice) => choice.id === doorChoice)?.result
-                  : 'Выбери любой подход. D&D ценит инициативу, а не один правильный ответ.'}
+                  : 'Р’С‹Р±РµСЂРё Р»СЋР±РѕР№ РїРѕРґС…РѕРґ. D&D С†РµРЅРёС‚ РёРЅРёС†РёР°С‚РёРІСѓ, Р° РЅРµ РѕРґРёРЅ РїСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚.'}
               </p>
             </div>
           </div>
         )}
 
-        {lesson.practiceType === 'dice' && (
+        {practiceType === 'dice' && (
           <DiceRoller
-            onMilestone={() => setPracticeComplete(true)}
+            onMilestone={() => markPracticeInteraction()}
             soundEnabled={soundEnabled}
           />
         )}
 
-        {lesson.practiceType === 'skill-check' && (
+        {practiceType === 'skill-check' && (
           <SkillCheckDemo
-            onResolve={() => setPracticeComplete(true)}
+            onResolve={() => markPracticeInteraction()}
             soundEnabled={soundEnabled}
           />
         )}
 
-        {lesson.practiceType === 'abilities' && (
+        {practiceType === 'abilities' && (
           <div className="practice-grid">
             <div className="practice-outcome">
               <strong>{ABILITY_MATCH_CHALLENGES[abilityIndex].prompt}</strong>
@@ -979,15 +1171,15 @@ function LessonStage({
                     const correct = option === ABILITY_MATCH_CHALLENGES[abilityIndex].answer
                     setAbilityFeedback(
                       correct
-                        ? 'Точно. Эта характеристика ощущается наиболее естественно.'
-                        : 'Почти. Подумай, какой талант здесь нужен в первую очередь.',
+                        ? 'РўРѕС‡РЅРѕ. Р­С‚Р° С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєР° РѕС‰СѓС‰Р°РµС‚СЃСЏ РЅР°РёР±РѕР»РµРµ РµСЃС‚РµСЃС‚РІРµРЅРЅРѕ.'
+                        : 'РџРѕС‡С‚Рё. РџРѕРґСѓРјР°Р№, РєР°РєРѕР№ С‚Р°Р»Р°РЅС‚ Р·РґРµСЃСЊ РЅСѓР¶РµРЅ РІ РїРµСЂРІСѓСЋ РѕС‡РµСЂРµРґСЊ.',
                     )
                     playArcaneCue(soundEnabled, correct ? 'success' : 'fail')
                     if (correct && abilityIndex < ABILITY_MATCH_CHALLENGES.length - 1) {
                       setAbilityIndex((previous) => previous + 1)
                     }
                     if (correct && abilityIndex === ABILITY_MATCH_CHALLENGES.length - 1) {
-                      setPracticeComplete(true)
+                      markPracticeInteraction()
                     }
                   }}
                   type="button"
@@ -1000,16 +1192,16 @@ function LessonStage({
           </div>
         )}
 
-        {lesson.practiceType === 'modifiers' && (
+        {practiceType === 'modifiers' && (
           <div className="modifier-panel">
-            <label htmlFor="modifier-score">Подвигай характеристику героя</label>
+            <label htmlFor="modifier-score">РџРѕРґРІРёРіР°Р№ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРєСѓ РіРµСЂРѕСЏ</label>
             <input
               id="modifier-score"
               max="18"
               min="8"
               onChange={(event) => {
                 setModifierScore(Number(event.target.value))
-                setPracticeComplete(true)
+                markPracticeInteraction()
               }}
               type="range"
               value={modifierScore}
@@ -1028,40 +1220,40 @@ function LessonStage({
           </div>
         )}
 
-        {lesson.practiceType === 'classes' && (
-          <ClassCards onSelect={() => setPracticeComplete(true)} />
+        {practiceType === 'classes' && (
+          <ClassCards onSelect={() => markPracticeInteraction()} />
         )}
 
-        {lesson.practiceType === 'combat' && (
-          <CombatDemo onVictory={() => setPracticeComplete(true)} soundEnabled={soundEnabled} title="Тренировочный бой" />
+        {practiceType === 'combat' && (
+          <CombatDemo onVictory={() => markPracticeInteraction()} soundEnabled={soundEnabled} title="РўСЂРµРЅРёСЂРѕРІРѕС‡РЅС‹Р№ Р±РѕР№" />
         )}
 
-        {lesson.practiceType === 'armor-class' && (
+        {practiceType === 'armor-class' && (
           <div className="armor-demo">
-            <strong>Цель: гоблин с AC {armorDc}</strong>
+            <strong>Р¦РµР»СЊ: РіРѕР±Р»РёРЅ СЃ AC {armorDc}</strong>
             <button
               className="btn-secondary"
               onClick={() => {
                 const attack = rollDie(20) + 4
                 const success = attack >= armorDc
                 setArmorResult({ attack, success })
-                setPracticeComplete(true)
+                markPracticeInteraction()
                 playArcaneCue(soundEnabled, success ? 'success' : 'fail')
               }}
               type="button"
             >
-              Бросить атаку
+              Р‘СЂРѕСЃРёС‚СЊ Р°С‚Р°РєСѓ
             </button>
             {armorResult && (
               <div className={`quiz-feedback ${armorResult.success ? 'success' : 'fail'}`}>
-                Атака = {armorResult.attack}.{' '}
-                {armorResult.success ? 'Попадание прошло через защиту.' : 'Щит выдержал удар.'}
+                РђС‚Р°РєР° = {armorResult.attack}.{' '}
+                {armorResult.success ? 'РџРѕРїР°РґР°РЅРёРµ РїСЂРѕС€Р»Рѕ С‡РµСЂРµР· Р·Р°С‰РёС‚Сѓ.' : 'Р©РёС‚ РІС‹РґРµСЂР¶Р°Р» СѓРґР°СЂ.'}
               </div>
             )}
           </div>
         )}
 
-        {lesson.practiceType === 'damage' && (
+        {practiceType === 'damage' && (
           <div className="damage-demo">
             <button
               className="btn-secondary"
@@ -1069,12 +1261,12 @@ function LessonStage({
                 const attack = rollDie(20) + 5
                 const hit = attack >= armorDc
                 setDamageState({ attack, damage: null, hit })
-                setPracticeComplete(true)
+                markPracticeInteraction()
                 playArcaneCue(soundEnabled, hit ? 'success' : 'fail')
               }}
               type="button"
             >
-              Шаг 1: проверить попадание
+              РЁР°Рі 1: РїСЂРѕРІРµСЂРёС‚СЊ РїРѕРїР°РґР°РЅРёРµ
             </button>
             <button
               className="btn-secondary"
@@ -1086,17 +1278,17 @@ function LessonStage({
               }}
               type="button"
             >
-              Шаг 2: бросить урон
+              РЁР°Рі 2: Р±СЂРѕСЃРёС‚СЊ СѓСЂРѕРЅ
             </button>
             <div className="damage-result">
-              <span>Атака: {damageState.attack ?? '--'}</span>
-              <span>{damageState.hit ? 'Попал' : damageState.attack ? 'Промах' : 'Ждёт броска'}</span>
-              <strong>Урон: {damageState.damage ?? '--'}</strong>
+              <span>РђС‚Р°РєР°: {damageState.attack ?? '--'}</span>
+              <span>{damageState.hit ? 'РџРѕРїР°Р»' : damageState.attack ? 'РџСЂРѕРјР°С…' : 'Р–РґС‘С‚ Р±СЂРѕСЃРєР°'}</span>
+              <strong>РЈСЂРѕРЅ: {damageState.damage ?? '--'}</strong>
             </div>
           </div>
         )}
 
-        {lesson.practiceType === 'spells' && (
+        {practiceType === 'spells' && (
           <div className="practice-grid">
             <div className="spell-button-row">
               {SPELL_OPTIONS.map((spell) => (
@@ -1105,7 +1297,7 @@ function LessonStage({
                   key={spell.id}
                   onClick={() => {
                     setSelectedSpellId(spell.id)
-                    setPracticeComplete(true)
+                    markPracticeInteraction()
                     playArcaneCue(soundEnabled, spell.id === 'fire-bolt' ? 'roll' : 'success')
                   }}
                   type="button"
@@ -1121,7 +1313,7 @@ function LessonStage({
           </div>
         )}
 
-        {lesson.practiceType === 'flow' && (
+        {practiceType === 'flow' && (
           <div className="practice-grid">
             <div className="choice-grid">
               {flowAvailable.map((step) => (
@@ -1134,15 +1326,15 @@ function LessonStage({
                       const nextBuilt = [...flowBuilt, step]
                       setFlowBuilt(nextBuilt)
                       setFlowAvailable((previous) => previous.filter((item) => item !== step))
-                      setFlowFeedback('Отлично. Цепочка движется дальше.')
+                      setFlowFeedback('РћС‚Р»РёС‡РЅРѕ. Р¦РµРїРѕС‡РєР° РґРІРёР¶РµС‚СЃСЏ РґР°Р»СЊС€Рµ.')
                       if (nextBuilt.length === FLOW_STEPS.length) {
-                        setPracticeComplete(true)
+                        markPracticeInteraction()
                         playArcaneCue(soundEnabled, 'success')
                       } else {
                         playArcaneCue(soundEnabled, 'roll')
                       }
                     } else {
-                      setFlowFeedback('Попробуй начать с описания мастера.')
+                      setFlowFeedback('РџРѕРїСЂРѕР±СѓР№ РЅР°С‡Р°С‚СЊ СЃ РѕРїРёСЃР°РЅРёСЏ РјР°СЃС‚РµСЂР°.')
                       setFlowBuilt([])
                       setFlowAvailable(shuffle(FLOW_STEPS))
                       playArcaneCue(soundEnabled, 'fail')
@@ -1157,32 +1349,32 @@ function LessonStage({
             <div className="flow-slot">
               {flowBuilt.length
                 ? flowBuilt.map((step) => <span key={step}>{step}</span>)
-                : 'Собери правильный порядок хода сцены'}
+                : 'РЎРѕР±РµСЂРё РїСЂР°РІРёР»СЊРЅС‹Р№ РїРѕСЂСЏРґРѕРє С…РѕРґР° СЃС†РµРЅС‹'}
             </div>
             {flowFeedback && <div className="practice-feedback success">{flowFeedback}</div>}
           </div>
         )}
 
-        {lesson.practiceType === 'adventure' && (
+        {practiceType === 'adventure' && (
           <div className="adventure-callout">
-            <strong>Открой тренировочный полигон</strong>
-            <p>Ниже тебя ждут три мини-сцены: сундук, стражник и первый бой.</p>
+            <strong>РћС‚РєСЂРѕР№ С‚СЂРµРЅРёСЂРѕРІРѕС‡РЅС‹Р№ РїРѕР»РёРіРѕРЅ</strong>
+            <p>РќРёР¶Рµ С‚РµР±СЏ Р¶РґСѓС‚ С‚СЂРё РјРёРЅРё-СЃС†РµРЅС‹: СЃСѓРЅРґСѓРє, СЃС‚СЂР°Р¶РЅРёРє Рё РїРµСЂРІС‹Р№ Р±РѕР№.</p>
             <button className="btn-secondary" onClick={onJumpToTrials} type="button">
-              Перейти к мини-приключению
+              РџРµСЂРµР№С‚Рё Рє РјРёРЅРё-РїСЂРёРєР»СЋС‡РµРЅРёСЋ
             </button>
           </div>
         )}
 
-        {lesson.practiceType === 'final-exam' && (
-          <FinalExam onComplete={() => setPracticeComplete(true)} soundEnabled={soundEnabled} />
+        {practiceType === 'final-exam' && (
+          <FinalExam onComplete={() => markPracticeInteraction()} soundEnabled={soundEnabled} />
         )}
       </div>
 
       <div className="quiz-shell">
-        <span className="section-kicker">Мини-проверка</span>
-        <h3 className="quiz-question">{lesson.quiz.question}</h3>
+        <span className="section-kicker">РњРёРЅРё-РїСЂРѕРІРµСЂРєР°</span>
+        <h3 className="quiz-question">{lessonQuiz.question}</h3>
         <div className="quiz-grid">
-          {lesson.quiz.options.map((option) => (
+          {lessonQuiz.options.map((option) => (
             <button
               className={[
                 'answer-button',
@@ -1203,6 +1395,13 @@ function LessonStage({
           </div>
         )}
       </div>
+
+      <LessonMiniGame
+        completed={lessonState.miniGame}
+        lesson={lesson}
+        onComplete={(payload) => onCompleteMiniGame(lesson.id, payload)}
+        soundEnabled={soundEnabled}
+      />
     </section>
   )
 }
@@ -1215,14 +1414,14 @@ function AnimatedExamplePanel({ lesson }) {
     return () => window.clearInterval(timer)
   }, [])
 
-  const tags = ['лес', 'сундук', 'таверна', 'дракон']
+  const tags = ['Р»РµСЃ', 'СЃСѓРЅРґСѓРє', 'С‚Р°РІРµСЂРЅР°', 'РґСЂР°РєРѕРЅ']
   const dice = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20']
   const selectedDie = phase % dice.length
   const spellState = SPELL_OPTIONS[phase % SPELL_OPTIONS.length]
 
   return (
     <aside className={`panel example-panel accent-${lesson.accent}`}>
-      <span className="example-badge">Анимационный пример</span>
+      <span className="example-badge">РђРЅРёРјР°С†РёРѕРЅРЅС‹Р№ РїСЂРёРјРµСЂ</span>
       <strong className="scene-title">{sceneTitleMap[lesson.exampleType]}</strong>
       <div className={`scene-frame scene-${lesson.exampleType}`}>
         {lesson.exampleType === 'table' && (
@@ -1233,7 +1432,7 @@ function AnimatedExamplePanel({ lesson }) {
             <div className="scene-chair chair-right" />
             <div className="scene-chair chair-bottom" />
             <motion.div animate={{ opacity: [0.4, 1, 0.4], y: [0, -6, 0] }} className="scene-speech" transition={{ duration: 4.2, repeat: Infinity }}>
-              Мастер: &quot;Вдалеке слышен рык...&quot;
+              РњР°СЃС‚РµСЂ: &quot;Р’РґР°Р»РµРєРµ СЃР»С‹С€РµРЅ СЂС‹Рє...&quot;
             </motion.div>
             {tags.map((tag, index) => (
               <motion.span
@@ -1286,7 +1485,7 @@ function AnimatedExamplePanel({ lesson }) {
             <motion.div animate={{ y: [18, -18, 18] }} className="scene-climber" transition={{ duration: 3.2, repeat: Infinity }} />
             <div className="scene-equation">
               <span>d20 = 13</span>
-              <span>+ Ловкость 2</span>
+              <span>+ Р›РѕРІРєРѕСЃС‚СЊ 2</span>
               <strong>15</strong>
               <small>DC 14</small>
             </div>
@@ -1309,7 +1508,7 @@ function AnimatedExamplePanel({ lesson }) {
               <motion.div animate={{ left: ['14%', '33%', '58%', '82%'][phase % 4] }} className="scene-marker" transition={{ duration: 0.45 }} />
             </div>
             <div className="scene-mod-labels">
-              {['8 → -1', '10 → 0', '14 → +2', '16 → +3'].map((label) => (
+              {['8 в†’ -1', '10 в†’ 0', '14 в†’ +2', '16 в†’ +3'].map((label) => (
                 <span key={label}>{label}</span>
               ))}
             </div>
@@ -1318,10 +1517,10 @@ function AnimatedExamplePanel({ lesson }) {
 
         {lesson.exampleType === 'classes' && (
           <div className="scene-class-stack">
-            {['Воин', 'Маг', 'Разбойник', 'Бард'].map((item, index) => (
+            {['Р’РѕРёРЅ', 'РњР°Рі', 'Р Р°Р·Р±РѕР№РЅРёРє', 'Р‘Р°СЂРґ'].map((item, index) => (
               <motion.div animate={{ opacity: phase % 4 === index ? 1 : 0.46, y: phase % 4 === index ? -4 : 0 }} className={`scene-class-card ${phase % 4 === index ? 'is-featured' : ''}`} key={item}>
                 <span>{item}</span>
-                <small>{phase % 4 === index ? 'Текущий архетип' : 'Класс'}</small>
+                <small>{phase % 4 === index ? 'РўРµРєСѓС‰РёР№ Р°СЂС…РµС‚РёРї' : 'РљР»Р°СЃСЃ'}</small>
               </motion.div>
             ))}
           </div>
@@ -1329,12 +1528,12 @@ function AnimatedExamplePanel({ lesson }) {
 
         {lesson.exampleType === 'combat' && (
           <div className="scene-combat-strip">
-            <div className="scene-avatar hero">Герой</div>
+            <div className="scene-avatar hero">Р“РµСЂРѕР№</div>
             <motion.div animate={{ opacity: [0.2, 1, 0.2], scaleX: [0.5, 1, 0.5] }} className="scene-slash" transition={{ duration: 1.8, repeat: Infinity }} />
-            <div className="scene-avatar goblin">Гоблин</div>
+            <div className="scene-avatar goblin">Р“РѕР±Р»РёРЅ</div>
             <div className="scene-combat-hud">
-              <span>Атака {phase % 2 === 0 ? 16 : 9}</span>
-              <span>{phase % 2 === 0 ? 'Попадание' : 'Промах'}</span>
+              <span>РђС‚Р°РєР° {phase % 2 === 0 ? 16 : 9}</span>
+              <span>{phase % 2 === 0 ? 'РџРѕРїР°РґР°РЅРёРµ' : 'РџСЂРѕРјР°С…'}</span>
             </div>
           </div>
         )}
@@ -1375,7 +1574,7 @@ function AnimatedExamplePanel({ lesson }) {
 
         {lesson.exampleType === 'flow' && (
           <div className="scene-flow-chain">
-            {['Описание', 'Выбор', 'Бросок', 'Последствие'].map((label, index) => (
+            {['РћРїРёСЃР°РЅРёРµ', 'Р’С‹Р±РѕСЂ', 'Р‘СЂРѕСЃРѕРє', 'РџРѕСЃР»РµРґСЃС‚РІРёРµ'].map((label, index) => (
               <motion.div animate={{ opacity: phase % 4 === index ? 1 : 0.45, scale: phase % 4 === index ? 1.05 : 1 }} className="scene-flow-node" key={label}>
                 {label}
               </motion.div>
@@ -1386,7 +1585,7 @@ function AnimatedExamplePanel({ lesson }) {
         {lesson.exampleType === 'adventure' && (
           <div className="scene-map-board">
             <div className="scene-map-path" />
-            {['Сундук', 'Стражник', 'Гоблин'].map((node, index) => (
+            {['РЎСѓРЅРґСѓРє', 'РЎС‚СЂР°Р¶РЅРёРє', 'Р“РѕР±Р»РёРЅ'].map((node, index) => (
               <motion.div animate={{ opacity: phase % 3 === index ? 1 : 0.55, scale: phase % 3 === index ? 1.06 : 1 }} className="scene-map-node" key={node}>
                 {node}
               </motion.div>
@@ -1417,16 +1616,16 @@ function DiceRoller({ onMilestone, soundEnabled }) {
   const [result, setResult] = useState(null)
   const quality =
     result == null
-      ? 'Выбери кубик и брось его в зону.'
+      ? 'Р’С‹Р±РµСЂРё РєСѓР±РёРє Рё Р±СЂРѕСЃСЊ РµРіРѕ РІ Р·РѕРЅСѓ.'
       : selectedDie === 20 && result === 20
-        ? 'Критический успех. Золотая вспышка заслужена.'
+        ? 'РљСЂРёС‚РёС‡РµСЃРєРёР№ СѓСЃРїРµС…. Р—РѕР»РѕС‚Р°СЏ РІСЃРїС‹С€РєР° Р·Р°СЃР»СѓР¶РµРЅР°.'
         : selectedDie === 20 && result === 1
-          ? 'Натуральная единица. Отличный повод для драматичного провала.'
+          ? 'РќР°С‚СѓСЂР°Р»СЊРЅР°СЏ РµРґРёРЅРёС†Р°. РћС‚Р»РёС‡РЅС‹Р№ РїРѕРІРѕРґ РґР»СЏ РґСЂР°РјР°С‚РёС‡РЅРѕРіРѕ РїСЂРѕРІР°Р»Р°.'
           : result >= Math.ceil(selectedDie * 0.75)
-            ? 'Сильный результат. Такой бросок приятно слышать за столом.'
+            ? 'РЎРёР»СЊРЅС‹Р№ СЂРµР·СѓР»СЊС‚Р°С‚. РўР°РєРѕР№ Р±СЂРѕСЃРѕРє РїСЂРёСЏС‚РЅРѕ СЃР»С‹С€Р°С‚СЊ Р·Р° СЃС‚РѕР»РѕРј.'
             : result <= Math.ceil(selectedDie * 0.25)
-              ? 'Низкий результат. Здесь рождаются интересные последствия.'
-              : 'Нормальный бросок. В D&D важен не только результат, но и контекст.'
+              ? 'РќРёР·РєРёР№ СЂРµР·СѓР»СЊС‚Р°С‚. Р—РґРµСЃСЊ СЂРѕР¶РґР°СЋС‚СЃСЏ РёРЅС‚РµСЂРµСЃРЅС‹Рµ РїРѕСЃР»РµРґСЃС‚РІРёСЏ.'
+              : 'РќРѕСЂРјР°Р»СЊРЅС‹Р№ Р±СЂРѕСЃРѕРє. Р’ D&D РІР°Р¶РµРЅ РЅРµ С‚РѕР»СЊРєРѕ СЂРµР·СѓР»СЊС‚Р°С‚, РЅРѕ Рё РєРѕРЅС‚РµРєСЃС‚.'
 
   return (
     <div className="dice-roller">
@@ -1444,12 +1643,12 @@ function DiceRoller({ onMilestone, soundEnabled }) {
       </div>
       <div className="roll-stage">
         <div className="roll-copy">
-          <span className="result-pill">Проверочная цель</span>
-          <strong>Чаще всего для проверок нужен d20</strong>
+          <span className="result-pill">РџСЂРѕРІРµСЂРѕС‡РЅР°СЏ С†РµР»СЊ</span>
+          <strong>Р§Р°С‰Рµ РІСЃРµРіРѕ РґР»СЏ РїСЂРѕРІРµСЂРѕРє РЅСѓР¶РµРЅ d20</strong>
           <p>
             {selectedDie === 20
-              ? 'Этот кубик чаще всего отвечает на вопрос: “Удалось ли?”'
-              : `d${selectedDie} чаще помогает урону, лечению или эффектам.`}
+              ? 'Р­С‚РѕС‚ РєСѓР±РёРє С‡Р°С‰Рµ РІСЃРµРіРѕ РѕС‚РІРµС‡Р°РµС‚ РЅР° РІРѕРїСЂРѕСЃ: вЂњРЈРґР°Р»РѕСЃСЊ Р»Рё?вЂќ'
+              : `d${selectedDie} С‡Р°С‰Рµ РїРѕРјРѕРіР°РµС‚ СѓСЂРѕРЅСѓ, Р»РµС‡РµРЅРёСЋ РёР»Рё СЌС„С„РµРєС‚Р°Рј.`}
           </p>
         </div>
         <button
@@ -1466,7 +1665,7 @@ function DiceRoller({ onMilestone, soundEnabled }) {
           d{selectedDie}
         </button>
         <div className="roll-result">
-          <span>Ты выбросил</span>
+          <span>РўС‹ РІС‹Р±СЂРѕСЃРёР»</span>
           <strong>{result ?? '--'}</strong>
           <small>{quality}</small>
         </div>
@@ -1481,19 +1680,19 @@ function SkillCheckDemo({ onResolve, soundEnabled }) {
   return (
     <div className="skill-check-demo">
       <div className="check-scene">
-        <strong>Перелезть через стену крепости</strong>
-        <p>Нажми на бросок и посмотри, как формула собирается прямо на глазах.</p>
+        <strong>РџРµСЂРµР»РµР·С‚СЊ С‡РµСЂРµР· СЃС‚РµРЅСѓ РєСЂРµРїРѕСЃС‚Рё</strong>
+        <p>РќР°Р¶РјРё РЅР° Р±СЂРѕСЃРѕРє Рё РїРѕСЃРјРѕС‚СЂРё, РєР°Рє С„РѕСЂРјСѓР»Р° СЃРѕР±РёСЂР°РµС‚СЃСЏ РїСЂСЏРјРѕ РЅР° РіР»Р°Р·Р°С….</p>
       </div>
       <div className="check-row">
         <span>d20</span>
         <span>+</span>
-        <span>бонус +2</span>
+        <span>Р±РѕРЅСѓСЃ +2</span>
         <span>=</span>
         <strong>{result ? result.total : '--'}</strong>
       </div>
       <div className="check-stat-line">
-        <span>Сложность сцены: DC 14</span>
-        <span>{result ? (result.success ? 'Успех' : 'Пока не вышло') : 'Ожидание'}</span>
+        <span>РЎР»РѕР¶РЅРѕСЃС‚СЊ СЃС†РµРЅС‹: DC 14</span>
+        <span>{result ? (result.success ? 'РЈСЃРїРµС…' : 'РџРѕРєР° РЅРµ РІС‹С€Р»Рѕ') : 'РћР¶РёРґР°РЅРёРµ'}</span>
       </div>
       <div className="check-button-row">
         <button
@@ -1508,11 +1707,11 @@ function SkillCheckDemo({ onResolve, soundEnabled }) {
           }}
           type="button"
         >
-          Бросить самому
+          Р‘СЂРѕСЃРёС‚СЊ СЃР°РјРѕРјСѓ
         </button>
         {result && (
           <span className={`practice-feedback ${result.success ? 'success' : 'fail'}`}>
-            d20 = {result.roll}, итог = {result.total}
+            d20 = {result.roll}, РёС‚РѕРі = {result.total}
           </span>
         )}
       </div>
@@ -1547,7 +1746,7 @@ function ClassCards({ onSelect }) {
         ))}
       </div>
       <div className="practice-outcome">
-        <strong>Тебе может подойти: {selectedClass.name}</strong>
+        <strong>РўРµР±Рµ РјРѕР¶РµС‚ РїРѕРґРѕР№С‚Рё: {selectedClass.name}</strong>
         <p>{selectedClass.recommendation}</p>
         <div className="class-strengths">
           {selectedClass.strengths.map((strength) => (
@@ -1562,13 +1761,13 @@ function ClassCards({ onSelect }) {
 const combatInitialState = {
   enemyHp: 14,
   guard: false,
-  log: ['Брось инициативу, чтобы начать бой.'],
+  log: ['Р‘СЂРѕСЃСЊ РёРЅРёС†РёР°С‚РёРІСѓ, С‡С‚РѕР±С‹ РЅР°С‡Р°С‚СЊ Р±РѕР№.'],
   playerHp: 18,
   started: false,
   turn: 'setup',
 }
 
-function CombatDemo({ onVictory, soundEnabled, title = 'Первый бой' }) {
+function CombatDemo({ onVictory, soundEnabled, title = 'РџРµСЂРІС‹Р№ Р±РѕР№' }) {
   const [state, setState] = useState(combatInitialState)
   const awardedRef = useRef(false)
 
@@ -1600,8 +1799,8 @@ function CombatDemo({ onVictory, soundEnabled, title = 'Первый бой' }) 
         guard: false,
         log: addLog(
           hit
-            ? `Гоблин попадает на ${attackRoll} и наносит ${damage} урона.`
-            : `Гоблин бьёт на ${attackRoll}, но ты выдерживаешь натиск.`,
+            ? `Р“РѕР±Р»РёРЅ РїРѕРїР°РґР°РµС‚ РЅР° ${attackRoll} Рё РЅР°РЅРѕСЃРёС‚ ${damage} СѓСЂРѕРЅР°.`
+            : `Р“РѕР±Р»РёРЅ Р±СЊС‘С‚ РЅР° ${attackRoll}, РЅРѕ С‚С‹ РІС‹РґРµСЂР¶РёРІР°РµС€СЊ РЅР°С‚РёСЃРє.`,
           previous.log,
         ),
         playerHp: Math.max(0, previous.playerHp - damage),
@@ -1618,8 +1817,8 @@ function CombatDemo({ onVictory, soundEnabled, title = 'Первый бой' }) 
     setState((previous) => ({
       ...previous,
       log: addLog(
-        `Инициатива: ты ${playerInitiative}, гоблин ${enemyInitiative}. ${
-          playerStarts ? 'Твой ход.' : 'Гоблин успевает первым.'
+        `РРЅРёС†РёР°С‚РёРІР°: С‚С‹ ${playerInitiative}, РіРѕР±Р»РёРЅ ${enemyInitiative}. ${
+          playerStarts ? 'РўРІРѕР№ С…РѕРґ.' : 'Р“РѕР±Р»РёРЅ СѓСЃРїРµРІР°РµС‚ РїРµСЂРІС‹Рј.'
         }`,
         previous.log,
       ),
@@ -1649,8 +1848,8 @@ function CombatDemo({ onVictory, soundEnabled, title = 'Первый бой' }) 
           enemyHp: Math.max(0, previous.enemyHp - damage),
           log: addLog(
             hit
-              ? `Ты попадаешь на ${attackRoll} и снимаешь ${damage} HP.`
-              : `Ты атакуешь на ${attackRoll}, но гоблин уворачивается.`,
+              ? `РўС‹ РїРѕРїР°РґР°РµС€СЊ РЅР° ${attackRoll} Рё СЃРЅРёРјР°РµС€СЊ ${damage} HP.`
+              : `РўС‹ Р°С‚Р°РєСѓРµС€СЊ РЅР° ${attackRoll}, РЅРѕ РіРѕР±Р»РёРЅ СѓРІРѕСЂР°С‡РёРІР°РµС‚СЃСЏ.`,
             previous.log,
           ),
           turn: 'enemy',
@@ -1662,7 +1861,7 @@ function CombatDemo({ onVictory, soundEnabled, title = 'Первый бой' }) 
         return {
           ...previous,
           guard: true,
-          log: addLog('Ты поднимаешь защиту и готовишься к ответному удару.', previous.log),
+          log: addLog('РўС‹ РїРѕРґРЅРёРјР°РµС€СЊ Р·Р°С‰РёС‚Сѓ Рё РіРѕС‚РѕРІРёС€СЊСЃСЏ Рє РѕС‚РІРµС‚РЅРѕРјСѓ СѓРґР°СЂСѓ.', previous.log),
           turn: 'enemy',
         }
       }
@@ -1670,7 +1869,7 @@ function CombatDemo({ onVictory, soundEnabled, title = 'Первый бой' }) 
       playArcaneCue(soundEnabled, 'roll')
       return {
         ...previous,
-        log: addLog('Ты отступаешь на шаг и выигрываешь короткую передышку.', previous.log),
+        log: addLog('РўС‹ РѕС‚СЃС‚СѓРїР°РµС€СЊ РЅР° С€Р°Рі Рё РІС‹РёРіСЂС‹РІР°РµС€СЊ РєРѕСЂРѕС‚РєСѓСЋ РїРµСЂРµРґС‹С€РєСѓ.', previous.log),
         playerHp: Math.min(18, previous.playerHp + 1),
         turn: 'enemy',
       }
@@ -1686,7 +1885,7 @@ function CombatDemo({ onVictory, soundEnabled, title = 'Первый бой' }) 
     <article className="trial-card combat-demo">
       <div className="combat-header">
         <div>
-          <span className="section-kicker">Боевая практика</span>
+          <span className="section-kicker">Р‘РѕРµРІР°СЏ РїСЂР°РєС‚РёРєР°</span>
           <h3 className="trial-title">{title}</h3>
         </div>
         <button
@@ -1697,20 +1896,20 @@ function CombatDemo({ onVictory, soundEnabled, title = 'Первый бой' }) 
           }}
           type="button"
         >
-          Сбросить
+          РЎР±СЂРѕСЃРёС‚СЊ
         </button>
       </div>
 
       <div className="combat-health">
         <div>
-          <span>Герой</span>
+          <span>Р“РµСЂРѕР№</span>
           <div className="health-track">
             <div className="health-fill player" style={{ width: playerPercent }} />
           </div>
           <small>{state.playerHp} HP</small>
         </div>
         <div>
-          <span>Гоблин</span>
+          <span>Р“РѕР±Р»РёРЅ</span>
           <div className="health-track">
             <div className="health-fill enemy" style={{ width: enemyPercent }} />
           </div>
@@ -1719,25 +1918,25 @@ function CombatDemo({ onVictory, soundEnabled, title = 'Первый бой' }) 
       </div>
 
       <div className="combat-body">
-        <div className="combat-avatar hero">Ты</div>
-        <div className="combat-avatar goblin">Гоблин</div>
+        <div className="combat-avatar hero">РўС‹</div>
+        <div className="combat-avatar goblin">Р“РѕР±Р»РёРЅ</div>
       </div>
 
       <div className="combat-actions">
         {!state.started ? (
           <button className="btn-secondary" onClick={startFight} type="button">
-            Бросить инициативу
+            Р‘СЂРѕСЃРёС‚СЊ РёРЅРёС†РёР°С‚РёРІСѓ
           </button>
         ) : (
           <>
             <button className="tiny-button" onClick={() => takeAction('attack')} type="button">
-              Атаковать
+              РђС‚Р°РєРѕРІР°С‚СЊ
             </button>
             <button className="tiny-button" onClick={() => takeAction('guard')} type="button">
-              Защититься
+              Р—Р°С‰РёС‚РёС‚СЊСЃСЏ
             </button>
             <button className="tiny-button" onClick={() => takeAction('retreat')} type="button">
-              Отойти
+              РћС‚РѕР№С‚Рё
             </button>
           </>
         )}
@@ -1788,7 +1987,7 @@ function MiniGameCard({ actions, description, onOutcome, soundEnabled, title }) 
 
   return (
     <article className="trial-card">
-      <span className="section-kicker">Мини-игра</span>
+      <span className="section-kicker">РњРёРЅРё-РёРіСЂР°</span>
       <h3 className="trial-title">{title}</h3>
       <p>{description}</p>
       <div className="trial-options">
@@ -1804,12 +2003,12 @@ function MiniGameCard({ actions, description, onOutcome, soundEnabled, title }) 
             <div className="trial-roll-line">
               <span>{result.ability}</span>
               <span>d20: {result.roll}</span>
-              <span>Итог: {result.total}</span>
+              <span>РС‚РѕРі: {result.total}</span>
             </div>
             <p>{result.message}</p>
           </>
         ) : (
-          <p>Выбери подход и посмотри, как кубик, бонус и сцена собираются в одно приключение.</p>
+          <p>Р’С‹Р±РµСЂРё РїРѕРґС…РѕРґ Рё РїРѕСЃРјРѕС‚СЂРё, РєР°Рє РєСѓР±РёРє, Р±РѕРЅСѓСЃ Рё СЃС†РµРЅР° СЃРѕР±РёСЂР°СЋС‚СЃСЏ РІ РѕРґРЅРѕ РїСЂРёРєР»СЋС‡РµРЅРёРµ.</p>
         )}
       </div>
     </article>
@@ -1826,11 +2025,15 @@ function FinalExam({ onComplete, soundEnabled }) {
   const completed = Object.keys(answers).length === FINAL_EXAM_QUESTIONS.length
   const passed = completed && score >= 2
 
-  if (passed && !completionRef.current) {
+  useEffect(() => {
+    if (!passed || completionRef.current) {
+      return
+    }
+
     completionRef.current = true
     onComplete?.(true)
     playArcaneCue(soundEnabled, 'achievement')
-  }
+  }, [onComplete, passed, soundEnabled])
 
   return (
     <div className="exam-shell">
@@ -1858,10 +2061,10 @@ function FinalExam({ onComplete, soundEnabled }) {
       ))}
       {completed && (
         <div className={`quiz-feedback ${passed ? 'success' : 'fail'}`}>
-          Результат: {score} / {FINAL_EXAM_QUESTIONS.length}.{' '}
+          Р РµР·СѓР»СЊС‚Р°С‚: {score} / {FINAL_EXAM_QUESTIONS.length}.{' '}
           {passed
-            ? 'Ты готов к первой настоящей сессии.'
-            : 'Ничего страшного: попробуй ещё раз или вернись к урокам.'}
+            ? 'РўС‹ РіРѕС‚РѕРІ Рє РїРµСЂРІРѕР№ РЅР°СЃС‚РѕСЏС‰РµР№ СЃРµСЃСЃРёРё.'
+            : 'РќРёС‡РµРіРѕ СЃС‚СЂР°С€РЅРѕРіРѕ: РїРѕРїСЂРѕР±СѓР№ РµС‰С‘ СЂР°Р· РёР»Рё РІРµСЂРЅРёСЃСЊ Рє СѓСЂРѕРєР°Рј.'}
         </div>
       )}
     </div>
@@ -1896,20 +2099,20 @@ function GlossaryDrawer({ glossary, mode, onClose, open, quickReference }) {
           <motion.aside animate={{ x: 0 }} className="drawer-panel" exit={{ x: 48 }} initial={{ x: 48 }} onClick={(event) => event.stopPropagation()} transition={{ duration: 0.3 }}>
             <div className="drawer-header">
               <div>
-                <span className="section-kicker">Под рукой</span>
-                <h3 className="section-title">Словарь и быстрый справочник</h3>
+                <span className="section-kicker">РџРѕРґ СЂСѓРєРѕР№</span>
+                <h3 className="section-title">РЎР»РѕРІР°СЂСЊ Рё Р±С‹СЃС‚СЂС‹Р№ СЃРїСЂР°РІРѕС‡РЅРёРє</h3>
               </div>
               <button className="tiny-button" onClick={onClose} type="button">
-                Закрыть
+                Р—Р°РєСЂС‹С‚СЊ
               </button>
             </div>
 
             <div className="drawer-tabs">
               <button className={`drawer-tab ${activeTab === 'glossary' ? 'is-active' : ''}`} onClick={() => setActiveTab('glossary')} type="button">
-                Словарь
+                РЎР»РѕРІР°СЂСЊ
               </button>
               <button className={`drawer-tab ${activeTab === 'reference' ? 'is-active' : ''}`} onClick={() => setActiveTab('reference')} type="button">
-                Быстрый справочник
+                Р‘С‹СЃС‚СЂС‹Р№ СЃРїСЂР°РІРѕС‡РЅРёРє
               </button>
             </div>
 
@@ -1918,7 +2121,7 @@ function GlossaryDrawer({ glossary, mode, onClose, open, quickReference }) {
                 <input
                   className="drawer-search"
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Искать термин..."
+                  placeholder="РСЃРєР°С‚СЊ С‚РµСЂРјРёРЅ..."
                   type="search"
                   value={query}
                 />
@@ -1969,7 +2172,7 @@ function AchievementPopup({ achievement, onClose }) {
         <motion.div animate={{ opacity: 1, y: 0 }} className="achievement-popup" exit={{ opacity: 0, y: 12 }} initial={{ opacity: 0, y: 18 }}>
           <div className="achievement-glyph">{achievement.glyph}</div>
           <div className="achievement-copy">
-            <span>Новое достижение</span>
+            <span>РќРѕРІРѕРµ РґРѕСЃС‚РёР¶РµРЅРёРµ</span>
             <strong>{achievement.title}</strong>
             <small>{achievement.description}</small>
           </div>
@@ -1981,16 +2184,16 @@ function AchievementPopup({ achievement, onClose }) {
 
 function OnboardingModal({ onEnter }) {
   const cards = [
-    { step: 'I', text: 'Ты никогда не играл в D&D? Это нормально.' },
-    { step: 'II', text: 'Здесь ты учишься через короткие уроки, визуальные сцены и интерактив.' },
-    { step: 'III', text: 'Начнём с самого простого — что вообще происходит в игре.' },
+    { step: 'I', text: 'РўС‹ РЅРёРєРѕРіРґР° РЅРµ РёРіСЂР°Р» РІ D&D? Р­С‚Рѕ РЅРѕСЂРјР°Р»СЊРЅРѕ.' },
+    { step: 'II', text: 'Р—РґРµСЃСЊ С‚С‹ СѓС‡РёС€СЊСЃСЏ С‡РµСЂРµР· РєРѕСЂРѕС‚РєРёРµ СѓСЂРѕРєРё, РІРёР·СѓР°Р»СЊРЅС‹Рµ СЃС†РµРЅС‹ Рё РёРЅС‚РµСЂР°РєС‚РёРІ.' },
+    { step: 'III', text: 'РќР°С‡РЅС‘Рј СЃ СЃР°РјРѕРіРѕ РїСЂРѕСЃС‚РѕРіРѕ вЂ” С‡С‚Рѕ РІРѕРѕР±С‰Рµ РїСЂРѕРёСЃС…РѕРґРёС‚ РІ РёРіСЂРµ.' },
   ]
 
   return (
     <div className="onboarding-overlay">
       <motion.div animate={{ opacity: 1, scale: 1 }} className="onboarding-panel" initial={{ opacity: 0, scale: 0.94 }}>
-        <span className="section-kicker">Первый вход</span>
-        <h3 className="section-title">Добро пожаловать в академию</h3>
+        <span className="section-kicker">РџРµСЂРІС‹Р№ РІС…РѕРґ</span>
+        <h3 className="section-title">Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ РІ Р°РєР°РґРµРјРёСЋ</h3>
         <div className="onboarding-grid">
           {cards.map((card) => (
             <article className="onboarding-card" key={card.step}>
@@ -2000,7 +2203,7 @@ function OnboardingModal({ onEnter }) {
           ))}
         </div>
         <button className="btn-primary" onClick={onEnter} type="button">
-          Войти в академию
+          Р’РѕР№С‚Рё РІ Р°РєР°РґРµРјРёСЋ
         </button>
       </motion.div>
     </div>
@@ -2014,13 +2217,13 @@ function Footer() {
         <div>
           <strong>D&amp;D Academy</strong>
           <p className="footer-note">
-            Фэнтезийный курс для новичков: короткие уроки, анимированные примеры, мягкая геймификация и первый безопасный вход в мир D&amp;D.
+            Р¤СЌРЅС‚РµР·РёР№РЅС‹Р№ РєСѓСЂСЃ РґР»СЏ РЅРѕРІРёС‡РєРѕРІ: РєРѕСЂРѕС‚РєРёРµ СѓСЂРѕРєРё, Р°РЅРёРјРёСЂРѕРІР°РЅРЅС‹Рµ РїСЂРёРјРµСЂС‹, РјСЏРіРєР°СЏ РіРµР№РјРёС„РёРєР°С†РёСЏ Рё РїРµСЂРІС‹Р№ Р±РµР·РѕРїР°СЃРЅС‹Р№ РІС…РѕРґ РІ РјРёСЂ D&amp;D.
           </p>
         </div>
         <div>
-          <strong>Что уже есть</strong>
+          <strong>Р§С‚Рѕ СѓР¶Рµ РµСЃС‚СЊ</strong>
           <p className="footer-note">
-            Hero, onboarding, карта обучения, прогресс, мини-игры, словарь, localStorage и подготовка к деплою на GitHub Pages.
+            Hero, onboarding, РєР°СЂС‚Р° РѕР±СѓС‡РµРЅРёСЏ, РїСЂРѕРіСЂРµСЃСЃ, РјРёРЅРё-РёРіСЂС‹, СЃР»РѕРІР°СЂСЊ, localStorage Рё РїРѕРґРіРѕС‚РѕРІРєР° Рє РґРµРїР»РѕСЋ РЅР° GitHub Pages.
           </p>
         </div>
       </div>
@@ -2029,3 +2232,5 @@ function Footer() {
 }
 
 export default App
+
+

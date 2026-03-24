@@ -1,6 +1,7 @@
 let audioContext
 
 const storageKey = 'dnd-academy-progress-v1'
+const lessonStepKeys = ['theory', 'example', 'practice', 'miniGame']
 
 const cueMap = {
   achievement: [
@@ -35,6 +36,23 @@ export function calculateLevel(xp) {
   return Math.floor(xp / 180) + 1
 }
 
+export function createLessonStepState(completed = false) {
+  return {
+    theory: completed,
+    example: completed,
+    practice: completed,
+    miniGame: completed,
+  }
+}
+
+export function createLessonStepStates(lessons, completedLessonIds = []) {
+  const completedSet = new Set(completedLessonIds)
+
+  return Object.fromEntries(
+    lessons.map((lesson) => [lesson.id, createLessonStepState(completedSet.has(lesson.id))]),
+  )
+}
+
 export function createDefaultProgress(lessons) {
   return {
     achievements: [],
@@ -42,6 +60,7 @@ export function createDefaultProgress(lessons) {
     currentLessonId: lessons[0]?.id ?? null,
     introSeen: false,
     lastVisit: todayStamp(),
+    lessonStepStates: createLessonStepStates(lessons),
     newbieMode: true,
     selectedLessonId: lessons[0]?.id ?? null,
     soundEnabled: false,
@@ -74,6 +93,31 @@ export function loadProgress(lessons) {
     const completedLessonIds = Array.isArray(parsed.completedLessonIds)
       ? parsed.completedLessonIds.filter((lessonId) => lessonIds.has(lessonId))
       : []
+    const parsedLessonStepStates =
+      parsed.lessonStepStates && typeof parsed.lessonStepStates === 'object'
+        ? parsed.lessonStepStates
+        : {}
+    const lessonStepStates = Object.fromEntries(
+      lessons.map((lesson) => {
+        const completed = completedLessonIds.includes(lesson.id)
+        const fallbackState = createLessonStepState(completed)
+        const parsedState =
+          parsedLessonStepStates[lesson.id] && typeof parsedLessonStepStates[lesson.id] === 'object'
+            ? parsedLessonStepStates[lesson.id]
+            : {}
+
+        return [
+          lesson.id,
+          lessonStepKeys.reduce(
+            (state, key) => ({
+              ...state,
+              [key]: completed ? true : Boolean(parsedState[key] ?? fallbackState[key]),
+            }),
+            fallbackState,
+          ),
+        ]
+      }),
+    )
 
     const today = todayStamp()
     const lastVisit = typeof parsed.lastVisit === 'string' ? parsed.lastVisit : today
@@ -93,6 +137,7 @@ export function loadProgress(lessons) {
         lessons[lessons.length - 1]?.id ??
         lessons[0]?.id,
       lastVisit: today,
+      lessonStepStates,
       selectedLessonId:
         lessonIds.has(parsed.selectedLessonId)
           ? parsed.selectedLessonId

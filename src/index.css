@@ -26,6 +26,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at top left, rgba(142, 107, 255, 0.18), transparent 28%),
     radial-gradient(circle at top right, rgba(92, 169, 255, 0.16), transparent 24%),
@@ -40,10 +41,25 @@ input {
 
 button {
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 #root {
   min-height: 100vh;
+}
+
+body,
+button,
+input,
+small,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+strong {
+  overflow-wrap: anywhere;
 }
 
 .app-shell {
@@ -103,6 +119,17 @@ button {
   max-width: 1400px;
   padding: 1.2rem 1.25rem 3rem;
   position: relative;
+}
+
+.page-shell > *,
+.topbar > *,
+.hero-grid > *,
+.academy-grid > *,
+.lesson-grid > *,
+.roll-stage > *,
+.combat-header > *,
+.drawer-header > * {
+  min-width: 0;
 }
 
 .panel {
@@ -193,6 +220,7 @@ button {
   display: inline-flex;
   gap: 0.5rem;
   justify-content: center;
+  min-height: 52px;
   padding: 0.9rem 1.35rem;
 }
 
@@ -216,6 +244,18 @@ button {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: #f7efdd;
+}
+
+.icon-button,
+.toggle-pill,
+.tiny-button,
+.choice-button,
+.answer-button,
+.spell-button,
+.flow-chip,
+.dice-chip {
+  max-width: 100%;
+  white-space: normal;
 }
 
 .ghost-button {
@@ -308,6 +348,10 @@ button {
   gap: 0.55rem;
 }
 
+.topbar-actions {
+  justify-content: flex-end;
+}
+
 .status-pill,
 .icon-button,
 .toggle-pill,
@@ -318,6 +362,7 @@ button {
   display: inline-flex;
   gap: 0.4rem;
   justify-content: center;
+  min-height: 48px;
   padding: 0.62rem 0.92rem;
 }
 
@@ -405,6 +450,7 @@ button {
   display: flex;
   justify-content: center;
   max-width: 600px;
+  min-height: 560px;
   overflow: hidden;
   padding: 1.6rem;
   position: relative;
@@ -558,6 +604,7 @@ button {
   border-radius: 18px;
   min-height: 56px;
   min-width: 94px;
+  max-width: 32%;
   padding: 0 1rem;
   position: absolute;
 }
@@ -587,7 +634,7 @@ button {
   border-radius: 22px;
   bottom: 1rem;
   left: 1rem;
-  max-width: 260px;
+  max-width: min(260px, calc(100% - 2rem));
   padding: 1rem 1.1rem;
   position: absolute;
 }
@@ -604,6 +651,7 @@ button {
 }
 
 .academy-grid {
+  align-items: start;
   display: grid;
   gap: 1.2rem;
   grid-template-columns: minmax(300px, 340px) 1fr;
@@ -836,6 +884,7 @@ button {
 }
 
 .lesson-grid {
+  align-items: start;
   display: grid;
   gap: 1.2rem;
   grid-template-columns: 1.1fr 0.9fr;
@@ -942,6 +991,7 @@ button {
   display: flex;
   justify-content: center;
   min-height: 340px;
+  min-width: 0;
   overflow: hidden;
   padding: 1rem;
   position: relative;
@@ -1004,6 +1054,7 @@ button {
   background: rgba(244, 231, 200, 0.14);
   border: 1px solid rgba(212, 175, 55, 0.2);
   border-radius: 18px;
+  max-width: calc(100% - 1.5rem);
   padding: 0.75rem 0.95rem;
   position: absolute;
   top: 18px;
@@ -1012,8 +1063,12 @@ button {
 .scene-tag {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 999px;
+  font-size: 0.84rem;
+  line-height: 1.2;
+  max-width: 112px;
   padding: 0.4rem 0.7rem;
   position: absolute;
+  text-align: center;
 }
 
 .tag-1 {
@@ -1152,6 +1207,7 @@ button {
   flex-wrap: wrap;
   gap: 0.5rem;
   justify-content: center;
+  max-width: calc(100% - 1.25rem);
   position: absolute;
 }
 
@@ -1213,6 +1269,7 @@ button {
 
 .scene-mod-labels {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.7rem;
   justify-content: center;
 }
@@ -1226,7 +1283,7 @@ button {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  min-width: 220px;
+  min-width: min(220px, 100%);
   padding: 0.85rem 1rem;
 }
 
@@ -1241,6 +1298,7 @@ button {
 }
 
 .scene-combat-strip {
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -1274,7 +1332,10 @@ button {
 .scene-combat-hud {
   bottom: 18px;
   display: flex;
+  flex-wrap: wrap;
   gap: 0.65rem;
+  justify-content: center;
+  max-width: calc(100% - 1rem);
   position: absolute;
 }
 
@@ -1329,7 +1390,9 @@ button {
 
 .scene-spell-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
+  justify-content: center;
 }
 
 .scene-spell-tabs .is-active {
@@ -1353,6 +1416,7 @@ button {
 .scene-map-board {
   flex-direction: column;
   gap: 0.85rem;
+  padding: 1rem 0;
 }
 
 .scene-map-path {
@@ -1363,7 +1427,9 @@ button {
 }
 
 .scene-map-node {
+  max-width: 112px;
   position: absolute;
+  text-align: center;
 }
 
 .scene-map-node:nth-of-type(2) {
@@ -1439,8 +1505,13 @@ button {
 .flow-chip,
 .dice-chip {
   border-radius: 18px;
+  min-height: 54px;
   padding: 0.85rem 0.95rem;
   text-align: left;
+}
+
+.dice-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .answer-button.is-correct,
@@ -1478,6 +1549,7 @@ button {
 .modifier-value {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -1509,6 +1581,7 @@ button {
   font-family: "Cinzel", serif;
   font-size: 1.4rem;
   height: 108px;
+  justify-self: center;
   justify-content: center;
   width: 108px;
 }
@@ -1527,6 +1600,13 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
+}
+
+.check-button-row {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
 }
 
 .check-row span,
@@ -1582,6 +1662,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+  min-width: 0;
 }
 
 .class-card.is-selected {
@@ -1624,6 +1705,15 @@ button {
   margin: 0;
 }
 
+.adventure-callout {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.quiz-question {
+  margin: 0;
+}
+
 .combat-header {
   align-items: center;
   display: flex;
@@ -1660,8 +1750,14 @@ button {
 .combat-body {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
   justify-content: space-around;
   min-height: 120px;
+}
+
+.combat-actions > * {
+  flex: 1 1 140px;
 }
 
 .drawer-overlay {
@@ -1683,6 +1779,7 @@ button {
   position: absolute;
   right: 0;
   top: 0;
+  overflow-y: auto;
   width: min(100%, 520px);
 }
 
@@ -1695,6 +1792,7 @@ button {
 
 .drawer-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.6rem;
   margin: 1rem 0;
 }
@@ -1704,6 +1802,7 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 999px;
   color: inherit;
+  min-height: 48px;
   padding: 0.65rem 1rem;
 }
 
@@ -1780,6 +1879,7 @@ button {
   box-shadow: var(--shadow-xl);
   display: flex;
   gap: 0.9rem;
+  max-width: min(420px, calc(100vw - 2rem));
   padding: 1rem 1.1rem;
   position: fixed;
   right: 1.4rem;
@@ -1829,36 +1929,303 @@ button {
   border-radius: 999px;
 }
 
+.lesson-checklist {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 20px;
+}
+
+.lesson-checkpoint {
+  align-items: center;
+  background:
+    linear-gradient(135deg, rgba(32, 29, 38, 0.96), rgba(22, 20, 28, 0.92)),
+    var(--panel-noise);
+  border: 1px solid rgba(212, 175, 55, 0.16);
+  border-radius: 18px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto 1fr;
+  min-width: 0;
+  padding: 14px 16px;
+}
+
+.lesson-checkpoint strong,
+.lesson-checkpoint small,
+.mini-game-slot span,
+.mini-game-target span,
+.mini-game-board span,
+.mini-game-preview-card p,
+.mini-game-log-line span,
+.mini-game-feedback {
+  overflow-wrap: anywhere;
+}
+
+.lesson-checkpoint small {
+  color: var(--text-soft);
+}
+
+.lesson-checkpoint.is-complete {
+  border-color: rgba(93, 187, 99, 0.42);
+  box-shadow: 0 18px 42px rgba(10, 12, 18, 0.26);
+}
+
+.lesson-check-icon {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  color: var(--gold-strong);
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 800;
+  justify-content: center;
+  min-height: 42px;
+  min-width: 42px;
+}
+
+.lesson-checkpoint.is-complete .lesson-check-icon {
+  background: rgba(93, 187, 99, 0.18);
+  color: #8cf5a2;
+}
+
+.lesson-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  border-radius: 22px;
+  padding: 22px;
+}
+
+.result-pill.is-success {
+  background: rgba(93, 187, 99, 0.16);
+  border-color: rgba(93, 187, 99, 0.38);
+  color: #8cf5a2;
+}
+
+.mini-game-shell {
+  display: grid;
+  gap: 18px;
+  margin-top: 22px;
+  overflow: hidden;
+}
+
+.mini-game-head {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.mini-game-status {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.mini-game-stage,
+.mini-game-board,
+.mini-game-preview-card,
+.mini-game-feedback,
+.mini-game-combat {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.mini-game-slots,
+.mini-game-option-grid,
+.mini-game-targets {
+  display: grid;
+  gap: 12px;
+}
+
+.mini-game-slots {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.mini-game-option-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.mini-game-option-grid.six-col {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mini-game-targets {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mini-game-slot,
+.mini-game-role-card,
+.mini-game-board,
+.mini-game-preview-card,
+.mini-game-target,
+.mini-game-room-counter,
+.mini-game-log-line,
+.mini-game-combat,
+.mini-game-feedback {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 175, 55, 0.14);
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+
+.mini-game-slot,
+.mini-game-target,
+.mini-game-room-counter {
+  text-align: center;
+}
+
+.mini-game-option-grid .choice-button,
+.mini-game-option-grid .spell-button,
+.mini-game-role-actions .tiny-button {
+  align-content: start;
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+  min-width: 0;
+  text-align: left;
+}
+
+.mini-game-role-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.mini-game-role-actions,
+.mini-game-dice-grid,
+.mini-game-equation,
+.mini-game-combat-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.mini-game-target.is-active,
+.mini-game-room-counter {
+  border-color: rgba(92, 169, 255, 0.32);
+  box-shadow: 0 18px 34px rgba(10, 14, 24, 0.24);
+}
+
+.mini-game-log {
+  display: grid;
+  gap: 10px;
+}
+
+.mini-game-log-line {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.mini-game-feedback.success {
+  border-color: rgba(93, 187, 99, 0.34);
+}
+
+.mini-game-feedback.fail {
+  border-color: rgba(217, 83, 79, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @media (max-width: 1120px) {
   .hero-grid,
   .lesson-grid,
-  .academy-grid,
-  .trial-grid {
+  .academy-grid {
     grid-template-columns: 1fr;
   }
 
   .hero-visual-stage {
     aspect-ratio: auto;
-    min-height: 520px;
+    min-height: 500px;
   }
 
   .class-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .trial-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lesson-checklist,
+  .mini-game-targets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  .topbar {
+    border-radius: 28px;
+  }
+
+  .brand-button,
+  .topbar-status,
+  .topbar-actions {
+    width: 100%;
+  }
+
+  .topbar-status {
+    justify-content: flex-start;
+  }
+
+  .topbar-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+  }
+
+  .topbar-actions > * {
+    width: 100%;
+  }
+
+  .progress-stat-grid,
+  .combat-health {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trial-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 760px) {
   .page-shell {
+    gap: 1rem;
     padding-inline: 0.85rem;
   }
 
   .topbar {
     border-radius: 28px;
+    padding: 0.9rem;
     top: 0.6rem;
   }
 
   .hero-title {
-    font-size: 2.45rem;
+    font-size: clamp(2.2rem, 11vw, 3.3rem);
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions > * {
+    width: 100%;
   }
 
   .hero-meta-grid,
@@ -1872,11 +2239,137 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .lesson-checklist,
+  .mini-game-slots,
+  .mini-game-option-grid,
+  .mini-game-targets {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-game-option-grid.six-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mini-game-head {
+    flex-direction: column;
+  }
+
+  .mini-game-status {
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .mini-game-status > * {
+    width: 100%;
+  }
+
   .roll-stage {
     grid-template-columns: 1fr;
   }
 
+  .topbar-status {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .topbar-actions {
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .status-pill,
+  .icon-button,
+  .toggle-pill {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-visual-stage {
+    min-height: 420px;
+    padding: 1rem;
+  }
+
+  .hero-runic-ring {
+    height: 220px;
+    top: 18%;
+    width: 220px;
+  }
+
+  .hero-table {
+    height: 62%;
+    min-width: 100%;
+  }
+
+  .hero-die {
+    height: 72px;
+    right: 12%;
+    top: 17%;
+    width: 72px;
+  }
+
+  .hero-book {
+    height: 78px;
+    left: 14%;
+    top: 23%;
+    width: 60px;
+  }
+
+  .hero-candle {
+    height: 70px;
+    width: 18px;
+  }
+
+  .hero-card {
+    font-size: 0.82rem;
+    min-height: 44px;
+    min-width: 72px;
+    padding: 0 0.65rem;
+  }
+
+  .hero-note {
+    bottom: 0.75rem;
+    left: 0.75rem;
+    max-width: calc(100% - 1.5rem);
+    padding: 0.85rem 0.95rem;
+  }
+
+  .progress-panel,
+  .learning-map-panel,
+  .lesson-stage,
+  .trial-section,
+  .practice-shell,
+  .quiz-shell,
+  .onboarding-panel,
+  .drawer-panel {
+    padding: 1rem;
+  }
+
+  .lesson-topline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .lesson-card {
+    width: 100%;
+  }
+
+  .lesson-actions {
+    flex-direction: column;
+  }
+
+  .lesson-actions > * {
+    width: 100%;
+  }
+
+  .lesson-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .lesson-card-state {
+    min-width: 0;
+    text-align: left;
     width: 100%;
   }
 
@@ -1890,12 +2383,842 @@ button {
   }
 
   .scene-frame {
-    min-height: 280px;
+    min-height: 260px;
+    padding: 0.85rem;
+  }
+
+  .scene-speech {
+    font-size: 0.82rem;
+    top: 0.5rem;
+  }
+
+  .scene-tag,
+  .scene-door-choice,
+  .scene-combat-hud span,
+  .scene-flow-node,
+  .scene-map-node,
+  .scene-spell-tabs span {
+    font-size: 0.78rem;
+  }
+
+  .scene-round-table {
+    height: 150px;
+    width: min(100%, 180px);
+  }
+
+  .scene-chair {
+    height: 26px;
+    width: 44px;
+  }
+
+  .scene-door-arch {
+    height: 190px;
+    width: 140px;
+  }
+
+  .scene-door {
+    height: 150px;
+    width: 98px;
+  }
+
+  .scene-sigil-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .scene-sigil {
+    height: 60px;
+    width: 100%;
+  }
+
+  .scene-class-card {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .scene-combat-strip {
+    flex-direction: column;
+  }
+
+  .scene-combat-hud {
+    bottom: 12px;
+  }
+
+  .scene-map-path {
+    height: 140px;
+  }
+
+  .choice-grid,
+  .quiz-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dice-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .roll-polyhedron {
+    height: 96px;
+    width: 96px;
+  }
+
+  .check-button-row {
+    flex-direction: column;
+  }
+
+  .check-button-row > * {
+    width: 100%;
+  }
+
+  .class-grid,
+  .trial-grid,
+  .footer-grid,
+  .onboarding-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trial-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .combat-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .drawer-panel {
+    border-left: 0;
+    max-width: none;
+    width: 100vw;
+  }
+
+  .drawer-header {
+    flex-direction: column;
+  }
+
+  .drawer-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .drawer-tab {
+    text-align: center;
   }
 
   .achievement-popup {
     bottom: 1rem;
     left: 1rem;
     right: 1rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .page-shell {
+    padding-inline: 0.65rem;
+  }
+
+  .topbar-status,
+  .topbar-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual-stage {
+    min-height: 360px;
+  }
+
+  .hero-light {
+    height: 110px;
+    width: 110px;
+  }
+
+  .hero-runic-ring {
+    height: 180px;
+    width: 180px;
+  }
+
+  .hero-card-3 {
+    display: none;
+  }
+
+  .scene-frame {
+    min-height: 220px;
+  }
+
+  .scene-mod-labels {
+    font-size: 0.72rem;
+    gap: 0.45rem;
+  }
+
+  .roll-polyhedron {
+    font-size: 1.2rem;
+    height: 84px;
+    width: 84px;
+  }
+
+  .trial-options {
+    grid-template-columns: 1fr;
+  }
+
+  .mini-game-option-grid.six-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wiki-fallback,
+.wiki-loading,
+.wiki-shell {
+  position: relative;
+}
+
+.wiki-shell {
+  background:
+    radial-gradient(circle at top right, rgba(255, 211, 131, 0.11), transparent 32%),
+    linear-gradient(180deg, rgba(20, 14, 24, 0.98), rgba(12, 10, 18, 0.98));
+  border: 1px solid rgba(255, 208, 122, 0.18);
+  border-radius: 32px;
+  box-shadow: 0 28px 80px rgba(5, 4, 10, 0.42);
+  margin-top: 1.5rem;
+  overflow: hidden;
+  padding: clamp(1.25rem, 2vw, 2rem);
+}
+
+.wiki-hero {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.wiki-return-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.wiki-search-wrap {
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+.wiki-search-box {
+  align-items: center;
+  background: rgba(22, 18, 29, 0.9);
+  border: 1px solid rgba(255, 214, 144, 0.14);
+  border-radius: 18px;
+  box-shadow: inset 0 0 0 1px rgba(255, 233, 195, 0.03);
+  display: flex;
+  gap: 0.85rem;
+  padding: 0.9rem 1rem;
+}
+
+.wiki-search-box svg {
+  color: rgba(255, 217, 145, 0.72);
+  flex-shrink: 0;
+}
+
+.wiki-search-box input {
+  background: transparent;
+  border: 0;
+  color: var(--text-primary);
+  flex: 1;
+  font: inherit;
+  outline: none;
+}
+
+.wiki-search-box input::placeholder {
+  color: rgba(233, 227, 219, 0.48);
+}
+
+.wiki-search-panel {
+  background: rgba(14, 12, 20, 0.98);
+  border: 1px solid rgba(255, 208, 122, 0.16);
+  border-radius: 22px;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.34);
+  left: 0;
+  margin-top: 0.75rem;
+  max-height: 420px;
+  overflow: auto;
+  padding: 1rem;
+  position: absolute;
+  right: 0;
+  z-index: 8;
+}
+
+.wiki-search-status {
+  color: rgba(245, 230, 204, 0.72);
+  display: block;
+}
+
+.wiki-search-group + .wiki-search-group {
+  border-top: 1px solid rgba(255, 214, 144, 0.08);
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+}
+
+.wiki-search-group-title {
+  color: rgba(255, 210, 132, 0.86);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+}
+
+.wiki-search-result {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  border-radius: 16px;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.45rem;
+  padding: 0.85rem 0.9rem;
+  text-align: left;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.wiki-search-result:hover,
+.wiki-search-result:focus-visible {
+  background: rgba(255, 216, 145, 0.08);
+  border-color: rgba(255, 216, 145, 0.2);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.wiki-search-result strong {
+  color: #fff3d9;
+}
+
+.wiki-search-result span {
+  color: rgba(245, 230, 204, 0.7);
+  font-size: 0.92rem;
+}
+
+.wiki-mode-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-bottom: 1.4rem;
+}
+
+.wiki-mode-card {
+  align-items: flex-start;
+  background:
+    linear-gradient(180deg, rgba(247, 223, 183, 0.14), rgba(88, 61, 35, 0.12)),
+    rgba(25, 20, 31, 0.94);
+  border: 1px solid rgba(255, 208, 122, 0.15);
+  border-radius: 24px;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-height: 150px;
+  padding: 1rem;
+  text-align: left;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.wiki-mode-card:hover,
+.wiki-mode-card:focus-visible,
+.wiki-mode-card.is-active {
+  border-color: rgba(255, 214, 144, 0.28);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.wiki-mode-icon {
+  align-items: center;
+  background: rgba(255, 214, 144, 0.12);
+  border: 1px solid rgba(255, 214, 144, 0.18);
+  border-radius: 999px;
+  color: rgba(255, 218, 146, 0.92);
+  display: inline-flex;
+  height: 2.25rem;
+  justify-content: center;
+  width: 2.25rem;
+}
+
+.wiki-mode-card strong {
+  color: #fff5e1;
+}
+
+.wiki-mode-card span:last-child {
+  color: rgba(242, 229, 208, 0.72);
+  font-size: 0.93rem;
+  line-height: 1.45;
+}
+
+.wiki-stage {
+  min-height: 580px;
+}
+
+.wiki-docs-layout,
+.wiki-two-column {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+}
+
+.wiki-sidebar,
+.wiki-detail-card,
+.wiki-docs-content,
+.wiki-card-list,
+.wiki-filter-row,
+.wiki-monster-card,
+.wiki-select-card {
+  background:
+    linear-gradient(180deg, rgba(242, 220, 180, 0.14), rgba(77, 54, 31, 0.12)),
+    rgba(22, 18, 29, 0.94);
+  border: 1px solid rgba(255, 214, 144, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 249, 233, 0.04);
+}
+
+.wiki-sidebar {
+  border-radius: 24px;
+  max-height: 820px;
+  overflow: auto;
+  padding: 0.85rem;
+}
+
+.wiki-tree-chapter + .wiki-tree-chapter {
+  margin-top: 0.85rem;
+}
+
+.wiki-tree-chapter-button,
+.wiki-tree-section,
+.wiki-anchor-button,
+.wiki-link-chip,
+.wiki-filter-pill {
+  cursor: pointer;
+  font: inherit;
+}
+
+.wiki-tree-chapter-button {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  border-radius: 14px;
+  color: #fff0d0;
+  display: block;
+  padding: 0.8rem 0.9rem;
+  text-align: left;
+  width: 100%;
+}
+
+.wiki-tree-chapter-button.is-active {
+  background: rgba(255, 214, 144, 0.09);
+  border-color: rgba(255, 214, 144, 0.2);
+}
+
+.wiki-tree-sections {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.55rem;
+  padding-left: 0.35rem;
+}
+
+.wiki-tree-section {
+  background: transparent;
+  border: 0;
+  border-left: 2px solid rgba(255, 214, 144, 0.12);
+  color: rgba(239, 228, 207, 0.72);
+  padding: 0.35rem 0.75rem;
+  text-align: left;
+}
+
+.wiki-tree-section.is-active {
+  border-left-color: rgba(255, 214, 144, 0.5);
+  color: #fff5e1;
+}
+
+.wiki-docs-content,
+.wiki-detail-card {
+  border-radius: 28px;
+  padding: 1.1rem;
+}
+
+.wiki-doc-header,
+.wiki-detail-header {
+  margin-bottom: 1rem;
+}
+
+.wiki-badge {
+  align-items: center;
+  background: rgba(255, 214, 144, 0.11);
+  border: 1px solid rgba(255, 214, 144, 0.18);
+  border-radius: 999px;
+  color: rgba(255, 214, 144, 0.92);
+  display: inline-flex;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.6rem;
+  padding: 0.35rem 0.7rem;
+  text-transform: uppercase;
+}
+
+.wiki-doc-header h3,
+.wiki-detail-header h3 {
+  color: #fff5e1;
+  margin: 0 0 0.35rem;
+}
+
+.wiki-doc-header p,
+.wiki-detail-header p,
+.wiki-detail-copy,
+.wiki-generated-block p,
+.wiki-placeholder-card p,
+.wiki-trait-item p,
+.wiki-level-band p {
+  color: rgba(242, 229, 208, 0.76);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.wiki-doc-section {
+  background: rgba(255, 255, 255, 0.018);
+  border: 1px solid rgba(255, 214, 144, 0.08);
+  border-radius: 22px;
+  margin-top: 0.9rem;
+  padding: 1rem;
+}
+
+.wiki-doc-section-header {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.wiki-doc-section-header strong {
+  color: #fff3d9;
+  font-size: 1.05rem;
+}
+
+.wiki-anchor-button {
+  background: transparent;
+  border: 1px solid rgba(255, 214, 144, 0.16);
+  border-radius: 999px;
+  color: rgba(255, 214, 144, 0.82);
+  padding: 0.32rem 0.75rem;
+}
+
+.wiki-placeholder-card {
+  background: linear-gradient(180deg, rgba(255, 243, 215, 0.12), rgba(164, 117, 47, 0.08));
+  border: 1px dashed rgba(255, 214, 144, 0.24);
+  border-radius: 18px;
+  margin-bottom: 0.85rem;
+  padding: 0.9rem 1rem;
+}
+
+.wiki-placeholder-card strong {
+  color: #fff4da;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.wiki-placeholder-card code {
+  color: rgba(255, 214, 144, 0.95);
+  display: inline-block;
+  font-size: 0.82rem;
+  margin-top: 0.55rem;
+}
+
+.wiki-generated-block {
+  background: rgba(17, 39, 58, 0.34);
+  border: 1px solid rgba(111, 186, 255, 0.12);
+  border-radius: 18px;
+  padding: 0.85rem 0.9rem;
+}
+
+.wiki-generated-label {
+  color: rgba(167, 216, 255, 0.82);
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.wiki-related-links,
+.wiki-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.wiki-link-chip,
+.wiki-tag {
+  background: rgba(255, 214, 144, 0.1);
+  border: 1px solid rgba(255, 214, 144, 0.16);
+  border-radius: 999px;
+  color: #ffe9bb;
+  padding: 0.42rem 0.75rem;
+}
+
+.wiki-link-chip {
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+
+.wiki-link-chip:hover,
+.wiki-link-chip:focus-visible {
+  background: rgba(255, 214, 144, 0.18);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.wiki-card-list {
+  border-radius: 24px;
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.85rem;
+}
+
+.wiki-card-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.wiki-select-card,
+.wiki-monster-card {
+  border-radius: 20px;
+  color: inherit;
+  padding: 0.9rem;
+  text-align: left;
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.wiki-select-card {
+  border: 1px solid rgba(255, 214, 144, 0.1);
+}
+
+.wiki-monster-card {
+  border: 1px solid rgba(255, 214, 144, 0.1);
+}
+
+.wiki-select-card.is-active,
+.wiki-monster-card.is-active,
+.wiki-select-card:hover,
+.wiki-monster-card:hover {
+  border-color: rgba(255, 214, 144, 0.24);
+  transform: translateY(-2px);
+}
+
+.wiki-select-card strong,
+.wiki-monster-card strong {
+  color: #fff3d9;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.wiki-select-card span,
+.wiki-monster-card span {
+  color: rgba(241, 229, 210, 0.72);
+  display: block;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.wiki-select-card-top,
+.wiki-monster-top {
+  align-items: baseline;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.wiki-monster-stats,
+.wiki-filter-pills,
+.wiki-filter-row,
+.wiki-stat-bar,
+.wiki-ability-grid,
+.wiki-level-bands,
+.wiki-example-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.wiki-monster-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 0.7rem;
+}
+
+.wiki-filter-row {
+  background:
+    linear-gradient(180deg, rgba(242, 220, 180, 0.14), rgba(77, 54, 31, 0.12)),
+    rgba(22, 18, 29, 0.94);
+  border-radius: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 0.85rem;
+  padding: 0.85rem;
+}
+
+.wiki-filter-row select {
+  background: rgba(10, 9, 15, 0.72);
+  border: 1px solid rgba(255, 214, 144, 0.14);
+  border-radius: 14px;
+  color: var(--text-primary);
+  font: inherit;
+  min-height: 44px;
+  padding: 0.6rem 0.8rem;
+}
+
+.wiki-filter-pills {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 0.85rem;
+}
+
+.wiki-filter-pill {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 214, 144, 0.1);
+  border-radius: 999px;
+  color: rgba(242, 229, 208, 0.75);
+  padding: 0.6rem 0.75rem;
+}
+
+.wiki-filter-pill.is-active {
+  background: rgba(255, 214, 144, 0.11);
+  border-color: rgba(255, 214, 144, 0.22);
+  color: #fff3d9;
+}
+
+.wiki-visual-callout {
+  align-items: center;
+  background: rgba(255, 214, 144, 0.09);
+  border: 1px solid rgba(255, 214, 144, 0.16);
+  border-radius: 18px;
+  color: #ffeabf;
+  display: flex;
+  gap: 0.7rem;
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+}
+
+.wiki-example-item,
+.wiki-level-band,
+.wiki-trait-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 214, 144, 0.08);
+  border-radius: 16px;
+  padding: 0.8rem 0.9rem;
+}
+
+.wiki-trait-item span,
+.wiki-level-band strong {
+  color: #fff1d0;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.wiki-stat-bar {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 1rem;
+}
+
+.wiki-stat-bar > div {
+  background: rgba(11, 10, 17, 0.6);
+  border: 1px solid rgba(255, 214, 144, 0.1);
+  border-radius: 16px;
+  padding: 0.8rem;
+}
+
+.wiki-stat-bar strong {
+  color: rgba(255, 214, 144, 0.8);
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+}
+
+.wiki-stat-bar span {
+  color: #fff4da;
+}
+
+.wiki-ability-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin-bottom: 1rem;
+}
+
+.wiki-ability-pill {
+  background: rgba(13, 12, 20, 0.7);
+  border: 1px solid rgba(255, 214, 144, 0.1);
+  border-radius: 16px;
+  padding: 0.65rem 0.4rem;
+  text-align: center;
+}
+
+.wiki-ability-pill strong {
+  color: rgba(255, 214, 144, 0.85);
+  display: block;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.18rem;
+}
+
+.wiki-ability-pill span {
+  color: #fff4da;
+  display: block;
+}
+
+.wiki-detail-section + .wiki-detail-section {
+  margin-top: 1rem;
+}
+
+.wiki-detail-section > strong {
+  color: #fff3d9;
+  display: block;
+  margin-bottom: 0.55rem;
+}
+
+@media (max-width: 1100px) {
+  .wiki-mode-grid,
+  .wiki-filter-row,
+  .wiki-two-column,
+  .wiki-docs-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .wiki-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wiki-sidebar {
+    max-height: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .wiki-shell {
+    border-radius: 24px;
+    padding: 1rem;
+  }
+
+  .wiki-hero {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .wiki-mode-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wiki-filter-pills {
+    grid-template-columns: 1fr;
+  }
+
+  .wiki-stat-bar,
+  .wiki-ability-grid,
+  .wiki-monster-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wiki-search-panel {
+    position: static;
   }
 }
